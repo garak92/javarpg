@@ -3,6 +3,7 @@ package rpg.Monsters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javafx.geometry.Rectangle2D;
@@ -22,6 +23,9 @@ public class Bringer extends BaseMonster implements EnemyIA {
   private List<Thing> things;
   private List<LevelNode> solidTiles;
   private List<LevelNode> aggroList;
+  private Random rngGenerator = new Random();
+  private boolean shouldMoveRandomly = false;
+  private int randomMovementAccumulator = 0;
 
   public Bringer(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, EnumEnemyStates currentState, List<Thing> things, List<LevelNode> solidTiles) {
@@ -113,18 +117,38 @@ public class Bringer extends BaseMonster implements EnemyIA {
         return;
       }
 
-      charPosx += (target.charPosx - charPosx) * 0.01;
-      charPosy += (target.charPosy - charPosy) * 0.01;
+      if (randomMovementAccumulator == 30) {
+        shouldMoveRandomly = rngGenerator.nextFloat() >= 0.5;
+        randomMovementAccumulator = 0;
+      } else {
+        randomMovementAccumulator++;
+      }
+
+      if (shouldMoveRandomly) {
+        charPosx -= (target.charPosx - charPosx) * 0.01;
+        charPosy -= (target.charPosy - charPosy) * 0.01;
+
+      } else {
+        charPosx += (target.charPosx - charPosx) * 0.01;
+        charPosy += (target.charPosy - charPosy) * 0.01;
+      }
+
       imageView.setLayoutX(charPosx);
       imageView.setLayoutY(charPosy);
 
       if (detectCollision(solidTiles)) {
-        charPosx -= (target.charPosx - charPosx) * 0.01;
-        charPosy -= (target.charPosy - charPosy) * 0.01;
+        if (shouldMoveRandomly) {
+          charPosx += (target.charPosx - charPosx) * 0.01;
+          charPosy += (target.charPosy - charPosy) * 0.01;
+        } else {
+          charPosx -= (target.charPosx - charPosx) * 0.01;
+          charPosy -= (target.charPosy - charPosy) * 0.01;
+        }
         imageView.setLayoutX(charPosx);
         imageView.setLayoutY(charPosy);
         return;
       }
+
     } catch (Exception e) {
       e.printStackTrace();
     }
