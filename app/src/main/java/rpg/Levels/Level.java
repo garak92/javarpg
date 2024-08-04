@@ -1,7 +1,6 @@
 package rpg.Levels;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javafx.geometry.Rectangle2D;
@@ -10,7 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
-import rpg.Monsters.BaseMonster;
+import rpg.Monsters.Bringer;
+import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
 
@@ -124,10 +124,16 @@ public class Level {
               break;
             case 2:
               QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish");
-              // things.add(questGiver);
               usables.add(questGiver);
               questGiver.spawn(pane);
               break;
+            case 3:
+              Bringer bringer = new Bringer(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
+                  EnumEnemyStates.IDLE, getThings(), getSolidTiles());
+              things.add(bringer);
+              bringer.spawn(pane);
+              break;
+
             default:
               break;
           }
@@ -196,7 +202,6 @@ public class Level {
           case MONSTER:
             thingMap.add(currentRow);
             break;
-
           default:
             break;
         }

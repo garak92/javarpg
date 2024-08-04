@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.animation.Animation;
 import javafx.scene.Node;
@@ -32,6 +33,10 @@ public abstract class BaseMonster implements Thing {
 
   public void spawn(Pane root) {
     root.getChildren().add(this.imageView);
+  }
+
+  public EnumMonsterAlignment getAlignment() {
+    return alignment;
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
@@ -73,6 +78,23 @@ public abstract class BaseMonster implements Thing {
       }
     }
     return false;
+  }
+
+  protected boolean detectCollision(BaseMonster monster) {
+    // We take 20% of the entity's dimensions for a nicer feel
+    LevelNode monsterNode = monster.getImageView();
+    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
+    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+    if (monsterNode.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+        this.imageView.getBoundsInParent().getCenterY(),
+        boundingBoxWidth, boundingBoxHeight)) {
+      return true;
+    }
+    return false;
+  }
+
+  public BaseMonster getMonster() {
+    return this;
   }
 
 }
