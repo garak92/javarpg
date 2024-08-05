@@ -12,7 +12,6 @@ import rpg.SpriteAnimation;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Levels.LevelNode;
-import rpg.Monsters.Player;
 
 public class Bringer extends BaseMonster implements EnemyIA {
   private String name;
@@ -26,6 +25,12 @@ public class Bringer extends BaseMonster implements EnemyIA {
   private Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
   private int randomMovementAccumulator = 0;
+  private int randomAttackAccumulator = 0;
+
+  private final int movementChangeFrequency = 30;
+  private final int attackCoolDown = 12;
+
+  double attackRange = 500.0;
 
   public Bringer(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, EnumEnemyStates currentState, List<Thing> things, List<LevelNode> solidTiles) {
@@ -111,14 +116,33 @@ public class Bringer extends BaseMonster implements EnemyIA {
     }
   }
 
+  public boolean checkMonsterInAttackRange(BaseMonster target) {
+    double currentMonsterDistance = Math
+        .sqrt(Math.pow(charPosx - target.charPosx, 2) + Math.pow(charPosy - target.charPosy, 3));
+    return currentMonsterDistance <= attackRange;
+
+  }
+
+  public void attack(BaseMonster target) {
+    if (!checkMonsterInAttackRange(target)) {
+      return;
+    }
+    if (randomAttackAccumulator == attackCoolDown) {
+      System.out.println("pew pew!");
+      randomAttackAccumulator = 0;
+    } else {
+      randomAttackAccumulator++;
+    }
+  }
+
   public void chase() {
     try {
       if (target == null) {
         return;
       }
 
-      if (randomMovementAccumulator == 30) {
-        shouldMoveRandomly = rngGenerator.nextFloat() >= 0.5;
+      if (randomMovementAccumulator == movementChangeFrequency) {
+        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.4;
         randomMovementAccumulator = 0;
       } else {
         randomMovementAccumulator++;
@@ -127,7 +151,6 @@ public class Bringer extends BaseMonster implements EnemyIA {
       if (shouldMoveRandomly) {
         charPosx -= (target.charPosx - charPosx) * 0.01;
         charPosy -= (target.charPosy - charPosy) * 0.01;
-
       } else {
         charPosx += (target.charPosx - charPosx) * 0.01;
         charPosy += (target.charPosy - charPosy) * 0.01;
@@ -148,6 +171,8 @@ public class Bringer extends BaseMonster implements EnemyIA {
         imageView.setLayoutY(charPosy);
         return;
       }
+
+      attack(target);
 
     } catch (Exception e) {
       e.printStackTrace();
