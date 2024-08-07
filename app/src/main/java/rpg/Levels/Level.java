@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
-import rpg.Monsters.Bringer;
+import rpg.Monsters.Bringer.Bringer;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
@@ -118,12 +118,13 @@ public class Level {
             case 1:
               System.out.println("creating player");
               Player player = new Player(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Player 1", stage,
-                  getSolidTiles(), pane);
+                  getSolidTiles(), pane, getThings());
               things.add(player);
               player.spawn(pane);
               break;
             case 2:
-              QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish");
+              QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish", getThings(),
+                  getSolidTiles());
               usables.add(questGiver);
               questGiver.spawn(pane);
               break;

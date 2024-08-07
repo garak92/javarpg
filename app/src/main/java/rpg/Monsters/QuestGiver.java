@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
+import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Levels.LevelNode;
 
@@ -14,8 +15,8 @@ public class QuestGiver extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
 
   public QuestGiver(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name) {
-    super(charPosx, charPosy, velocity, health, alignment);
+      int shield, String name, List<Thing> things, List<LevelNode> solidTiles) {
+    super(charPosx, charPosy, velocity, health, alignment, things, solidTiles);
     this.name = name;
 
     preCacheSprites(new HashMap<String, String>() {

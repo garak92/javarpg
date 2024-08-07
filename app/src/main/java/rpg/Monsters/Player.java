@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.Levels.LevelNode;
 import rpg.SpriteAnimation;
+import rpg.Common.Thing;
 import rpg.Common.Usable;
 
 public class Player extends BaseMonster {
@@ -25,8 +26,8 @@ public class Player extends BaseMonster {
   private Pane root;
 
   public Player(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, Stage primaryStage, List<LevelNode> solidTiles, Pane root) {
-    super(charPosx, charPosy, velocity, health, alignment);
+      int shield, String name, Stage primaryStage, List<LevelNode> solidTiles, Pane root, List<Thing> things) {
+    super(charPosx, charPosy, velocity, health, alignment, things, solidTiles);
     this.shield = shield;
     this.name = name;
     this.root = root;

@@ -4,12 +4,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import javafx.animation.Animation;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import rpg.Levels.LevelNode;
 import rpg.Levels.NodeTypeEnum;
@@ -21,11 +18,13 @@ public abstract class BaseMonster implements Thing {
   protected Map<String, Image> images = new HashMap<>();
   protected Animation animation;
   protected EnumMonsterAlignment alignment;
+  protected List<Thing> things;
   protected int health;
   protected double charPosx;
   protected double charPosy;
   protected double charVelx;
   protected double charVely;
+  protected List<LevelNode> solidTiles;
 
   public LevelNode getImageView() {
     return imageView;
@@ -40,13 +39,15 @@ public abstract class BaseMonster implements Thing {
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
-      EnumMonsterAlignment alignment) {
+      EnumMonsterAlignment alignment, List<Thing> things, List<LevelNode> solidTiles) {
     this.charPosx = charPosx;
     this.charPosy = charPosy;
     this.charVelx = velocity;
     this.charVely = velocity;
     this.health = health;
     this.alignment = alignment;
+    this.things = things;
+    this.solidTiles = solidTiles;
   }
 
   protected void preCacheSprites(Map<String, String> sprites) {
