@@ -8,6 +8,7 @@ import javafx.animation.Animation;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import rpg.Levels.Level;
 import rpg.Levels.LevelNode;
 import rpg.Levels.NodeTypeEnum;
 import rpg.SpriteAnimation;
@@ -18,13 +19,12 @@ public abstract class BaseMonster implements Thing {
   protected Map<String, Image> images = new HashMap<>();
   protected Animation animation;
   protected EnumMonsterAlignment alignment;
-  protected List<Thing> things;
   protected int health;
   protected double charPosx;
   protected double charPosy;
   protected double charVelx;
   protected double charVely;
-  protected List<LevelNode> solidTiles;
+  protected Level level;
 
   public LevelNode getImageView() {
     return imageView;
@@ -39,15 +39,14 @@ public abstract class BaseMonster implements Thing {
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
-      EnumMonsterAlignment alignment, List<Thing> things, List<LevelNode> solidTiles) {
+      EnumMonsterAlignment alignment, Level level) {
     this.charPosx = charPosx;
     this.charPosy = charPosy;
     this.charVelx = velocity;
     this.charVely = velocity;
     this.health = health;
     this.alignment = alignment;
-    this.things = things;
-    this.solidTiles = solidTiles;
+    this.level = level;
   }
 
   protected void preCacheSprites(Map<String, String> sprites) {
@@ -81,7 +80,7 @@ public abstract class BaseMonster implements Thing {
     return false;
   }
 
-  protected boolean detectCollision(BaseMonster monster) {
+  public boolean detectCollision(BaseMonster monster) {
     // We take 20% of the entity's dimensions for a nicer feel
     LevelNode monsterNode = monster.getImageView();
     double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
@@ -94,8 +93,26 @@ public abstract class BaseMonster implements Thing {
     return false;
   }
 
+  public void receiveDamage(int damage) {
+    if (health > 0) {
+      this.health -= damage;
+    }
+  }
+
   public BaseMonster getMonster() {
     return this;
+  }
+
+  public Level getLevel() {
+    return level;
+  }
+
+  public double getCharPosx() {
+    return charPosx;
+  }
+
+  public double getCharPosy() {
+    return charPosy;
   }
 
 }

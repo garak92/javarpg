@@ -1,6 +1,8 @@
 package rpg.Levels;
 
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 import javafx.geometry.Rectangle2D;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
+import rpg.Monsters.Bringer.BringerFireball;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
@@ -19,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,13 +33,14 @@ public class Level {
   private List<List<Integer>> tileMap = new ArrayList<List<Integer>>();
   private List<List<Integer>> thingMap = new ArrayList<List<Integer>>();
   private String title;
-  private List<LevelNode> tiles = new ArrayList<>();
-  private List<Thing> things = new ArrayList<>();
-  private List<Usable> usables = new ArrayList<>();
+  protected List<LevelNode> tiles = new ArrayList<>();
+  protected List<Thing> things = new ArrayList<>();
+  protected List<Usable> usables = new ArrayList<>();
   private String textureFile;
   private Image tileSheet;
   private Pane pane;
   private Stage stage;
+  private Queue<Thing> thingQueue = new LinkedList<>();
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
     this.title = levelName;
@@ -118,19 +124,18 @@ public class Level {
             case 1:
               System.out.println("creating player");
               Player player = new Player(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Player 1", stage,
-                  getSolidTiles(), pane, getThings());
+                  pane, this);
               things.add(player);
               player.spawn(pane);
               break;
             case 2:
-              QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish", getThings(),
-                  getSolidTiles());
+              QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish", this);
               usables.add(questGiver);
               questGiver.spawn(pane);
               break;
             case 3:
               Bringer bringer = new Bringer(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
-                  EnumEnemyStates.IDLE, getThings(), getSolidTiles());
+                  EnumEnemyStates.IDLE, this);
               things.add(bringer);
               bringer.spawn(pane);
               break;
@@ -153,7 +158,7 @@ public class Level {
     return this.tiles;
   }
 
-  private List<LevelNode> getSolidTiles() {
+  public List<LevelNode> getSolidTiles() {
     List<LevelNode> solidNodes = tiles
         .stream()
         .filter(c -> c.isSolid())
@@ -181,9 +186,19 @@ public class Level {
   }
 
   public void update() {
+    System.out.println("Queue " + thingQueue.size());
+    if (thingQueue.size() > 0) {
+      for (Thing i : thingQueue) {
+        things.add(i.getMonster());
+        i.getMonster().spawn(this.pane);
+        thingQueue.remove(i);
+      }
+    }
     for (Thing i : things) {
       i.update(usables);
     }
+    System.out.println("Actual things " + things.size());
+    System.out.println("Pane " + pane.getChildren().size());
   }
 
   private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {
@@ -214,6 +229,10 @@ public class Level {
       logger.error("There was an error caching level data");
       e.printStackTrace();
     }
+  }
+
+  public void addThing(Thing thing) {
+    thingQueue.add(thing);
   }
 
 }

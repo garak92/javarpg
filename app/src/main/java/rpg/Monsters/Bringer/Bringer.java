@@ -5,9 +5,8 @@ import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
-import rpg.Common.Thing;
 import rpg.Common.Usable;
-import rpg.Levels.LevelNode;
+import rpg.Levels.Level;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnemyAI;
 import rpg.Monsters.EnumEnemyStates;
@@ -18,9 +17,9 @@ public class Bringer extends BaseMonster {
   private final EnemyAI ai = new BringerAI(this);
 
   public Bringer(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, EnumEnemyStates currentState, List<Thing> things, List<LevelNode> solidTiles) {
+      int shield, String name, EnumEnemyStates currentState, Level level) {
 
-    super(charPosx, charPosy, velocity, health, alignment, things, solidTiles);
+    super(charPosx, charPosy, velocity, health, alignment, level);
 
     preCacheSprites(new HashMap<String, String>() {
       {

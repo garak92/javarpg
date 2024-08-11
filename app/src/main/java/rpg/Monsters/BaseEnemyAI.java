@@ -11,7 +11,7 @@ import rpg.Levels.LevelNode;
 public abstract class BaseEnemyAI extends EnemyAI {
   private List<StateTransition> transitionTable = new ArrayList<>();
   private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
-  private List<LevelNode> aggroList;
+  protected List<LevelNode> aggroList;
   private Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
   private int randomMovementAccumulator = 0;
@@ -28,7 +28,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
 
-    aggroList = monster.things.stream() // Just pass the player here if infighting won't be a mechanic, we'll see
+    aggroList = monster.getLevel().getThings().stream() // Just pass the player here if infighting won't be a mechanic
         .filter(v -> v.getMonster().getAlignment() == EnumMonsterAlignment.PLAYER).map(v -> {
           setTarget(v.getMonster());
           return v.getMonster().getImageView();
@@ -109,7 +109,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
       monster.imageView.setLayoutX(monster.charPosx);
       monster.imageView.setLayoutY(monster.charPosy);
 
-      if (monster.detectCollision(monster.solidTiles)) {
+      if (monster.detectCollision(monster.getLevel().getSolidTiles())) {
         if (shouldMoveRandomly) {
           monster.charPosx += (target.charPosx - monster.charPosx) * 0.01;
           monster.charPosy += (target.charPosy - monster.charPosy) * 0.01;
