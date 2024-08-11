@@ -15,7 +15,7 @@ public class BringerAI extends BaseEnemyAI {
   @Override
   public void attack(BaseMonster target) {
     if (randomAttackAccumulator == attackCoolDown) {
-      System.out.println("Bringer of death casts special attack FIREBALL!! ");
+      logger.info("Bringer of death casts special attack FIREBALL!! ");
       monster.getLevel()
           .addThing(new BringerFireball(monster.getCharPosx(),
               monster.getCharPosy(), monster.getLevel(), target.getCharPosx(), target.getCharPosy()));

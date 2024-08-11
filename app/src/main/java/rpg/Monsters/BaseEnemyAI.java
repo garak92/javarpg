@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import rpg.Common.Usable;
 import rpg.Levels.LevelNode;
 
@@ -18,6 +21,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   private BaseMonster target;
   private final int movementChangeFrequency = 30;
   protected double attackRange = 500.0;
+  protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);
 
   public BaseEnemyAI(BaseMonster monster) {
     super(monster);

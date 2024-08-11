@@ -43,7 +43,6 @@ public class BringerFireball extends BaseMonster {
   @Override
   public void update(List<Usable> usables) {
     // attack.dealDamage();
-    System.out.println(charPosx);
     charPosx -= 5;
 
     imageView.setLayoutX(charPosx);

@@ -193,7 +193,7 @@ public class Level {
   }
 
   public void update() {
-    System.out.println("Queue " + thingQueue.size());
+    logger.info("Thing queue size: " + thingQueue.size());
     if (thingQueue.size() > 0) {
       for (Thing i : thingQueue) {
         things.add(i.getMonster());
@@ -204,8 +204,8 @@ public class Level {
     for (Thing i : things) {
       i.update(usables);
     }
-    System.out.println("Actual things " + things.size());
-    System.out.println("Pane " + pane.getChildren().size());
+    logger.info("Thing list size: " + things.size());
+    logger.info("Number of visible things: " + pane.getChildren().size());
   }
 
   private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {

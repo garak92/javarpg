@@ -4,6 +4,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.animation.Animation;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -25,6 +29,7 @@ public abstract class BaseMonster implements Thing {
   protected double charVelx;
   protected double charVely;
   protected Level level;
+  protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
   public LevelNode getImageView() {
     return imageView;
