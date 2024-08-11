@@ -1,21 +1,17 @@
 package rpg.Levels;
 
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
-import rpg.Monsters.Bringer.BringerFireball;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
@@ -78,6 +74,7 @@ public class Level {
       // Load tiles and monsters
       loadTiles();
       loadMonsters();
+
       // Load common background
       Image commonBackgroundImage = new Image(backgroundImageFile);
       ImagePattern commonBackground = new ImagePattern(commonBackgroundImage);
