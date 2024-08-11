@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
@@ -51,6 +54,9 @@ public class Level {
 
   public Level load() {
     try (
+        // Common level background
+        InputStream backgroundImageFile = this.getClass().getResourceAsStream("/sprites/levels/common-background.jpg");
+
         // Level tiles file
         BufferedReader tileReader = new BufferedReader(
             new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles")));
@@ -72,6 +78,10 @@ public class Level {
       // Load tiles and monsters
       loadTiles();
       loadMonsters();
+      // Load common background
+      Image commonBackgroundImage = new Image(backgroundImageFile);
+      ImagePattern commonBackground = new ImagePattern(commonBackgroundImage);
+      pane.getScene().setFill(commonBackground);
     } catch (IOException e) {
       e.printStackTrace();
     }

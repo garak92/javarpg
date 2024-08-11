@@ -1,5 +1,7 @@
 package rpg;
 
+import java.io.InputStream;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,20 +17,21 @@ public class Game extends Application {
   ImageView imageView;
   ImageView worldView;
 
-  final int WIDTH = 300;
-  final int HEIGHT = 300;
+  final int WIDTH = 1920;
+  final int HEIGHT = 1080;
 
   @Override
   public void start(Stage primaryStage) {
     // Initialize JavaFx
     Pane root = new Pane();
+    Scene scene = new Scene(root, WIDTH, HEIGHT);
     primaryStage.setTitle("My RPG");
-    primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
+    primaryStage.setScene(scene);
     primaryStage.setResizable(false);
     primaryStage.setWidth(WIDTH);
     primaryStage.setHeight(HEIGHT);
     primaryStage.show();
-    root.setStyle("-fx-background-color: black;");
+    root.setStyle("-fx-background-color: transparent;");
     root.setPrefSize(WIDTH, HEIGHT);
 
     // Initialize level

@@ -9,7 +9,7 @@ public class BringerAI extends BaseEnemyAI {
 
   public BringerAI(BaseMonster monster) {
     super(monster);
-    attackRange = 600;
+    attackRange = 1000;
   }
 
   @Override
