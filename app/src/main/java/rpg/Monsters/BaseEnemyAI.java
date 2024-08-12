@@ -9,12 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import rpg.Common.Usable;
-import rpg.Levels.LevelNode;
 
 public abstract class BaseEnemyAI extends EnemyAI {
   private List<StateTransition> transitionTable = new ArrayList<>();
   private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
-  protected List<LevelNode> aggroList;
   private Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
   private int randomMovementAccumulator = 0;
@@ -23,7 +21,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   protected double attackRange = 500.0;
   protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);
 
-  public BaseEnemyAI(BaseMonster monster) {
+  public BaseEnemyAI(BaseMonster monster, BaseMonster target) {
     super(monster);
 
     // Set default transition table
@@ -32,14 +30,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
 
-    aggroList = monster.getLevel().getThings().stream() // Just pass the player here if infighting won't be a mechanic
-        .filter(v -> v.getMonster().getAlignment() == EnumMonsterAlignment.PLAYER).map(v -> {
-          setTarget(v.getMonster());
-          return v.getMonster().getImageView();
-        }).collect(Collectors.toList());
-  }
-
-  public void setTarget(BaseMonster target) {
     this.target = target;
   }
 
@@ -65,7 +55,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   @Override
   public void update(List<Usable> usables) {
-    if (monster.detectCollision(aggroList)) {
+    if (monster.detectCollision(target)) {
       transition(EnumEvents.AGGROED);
     }
     switch (this.currentState) {
@@ -93,6 +83,12 @@ public abstract class BaseEnemyAI extends EnemyAI {
     try {
       if (target == null) {
         return;
+      }
+
+      if (target.charPosx - monster.charPosx > 0) {
+        monster.imageView.setScaleX(-1);
+      } else {
+        monster.imageView.setScaleX(1);
       }
 
       if (randomMovementAccumulator == movementChangeFrequency) {

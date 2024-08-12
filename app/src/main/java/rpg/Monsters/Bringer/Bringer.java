@@ -14,7 +14,7 @@ import rpg.Monsters.EnumMonsterAlignment;
 
 public class Bringer extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
-  private final EnemyAI ai = new BringerAI(this);
+  private final EnemyAI ai = new BringerAI(this, level.getPlayer());
 
   public Bringer(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, EnumEnemyStates currentState, Level level) {
@@ -31,7 +31,7 @@ public class Bringer extends BaseMonster {
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 140, 93));
 
     setAnimation(new SpriteAnimation(imageView, new Duration(600), 7, 7,
-        0, 0, 140, 93));
+        30, 0, 140, 93));
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);

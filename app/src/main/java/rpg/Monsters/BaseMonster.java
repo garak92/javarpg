@@ -102,6 +102,7 @@ public abstract class BaseMonster implements Thing {
     if (health > 0) {
       this.health -= damage;
     }
+    logger.info("Current health: " + this.health);
   }
 
   public BaseMonster getMonster() {

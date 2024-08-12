@@ -7,8 +7,8 @@ public class BringerAI extends BaseEnemyAI {
   private int randomAttackAccumulator = 0;
   private final int attackCoolDown = 40;
 
-  public BringerAI(BaseMonster monster) {
-    super(monster);
+  public BringerAI(BaseMonster monster, BaseMonster target) {
+    super(monster, target);
     attackRange = 1000;
   }
 

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
+import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
@@ -40,6 +41,7 @@ public class Level {
   private Pane pane;
   private Stage stage;
   private Queue<Thing> thingQueue = new LinkedList<>();
+  private BaseMonster player;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
     this.title = levelName;
@@ -130,10 +132,11 @@ public class Level {
           switch (currentTileValue) {
             case 1:
               System.out.println("creating player");
-              Player player = new Player(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Player 1", stage,
+              Player player = new Player(TILE_SIZE * j, TILE_SIZE * i, 10, 100, 10, "Player 1", stage,
                   pane, this);
               things.add(player);
               player.spawn(pane);
+              this.player = player;
               break;
             case 2:
               QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish", this);
@@ -151,6 +154,10 @@ public class Level {
               break;
           }
         }
+      }
+
+      if (this.player == null) {
+        logger.error("No player start data found for this level! Aborting...");
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -240,6 +247,10 @@ public class Level {
 
   public void addThing(Thing thing) {
     thingQueue.add(thing);
+  }
+
+  public BaseMonster getPlayer() {
+    return player;
   }
 
 }
