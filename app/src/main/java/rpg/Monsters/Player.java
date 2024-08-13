@@ -25,6 +25,7 @@ public class Player extends BaseMonster {
   private boolean moveUp = false;
   private boolean moveDown = false;
   private boolean using = false;
+  private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
   private Pane root;
 
@@ -79,7 +80,7 @@ public class Player extends BaseMonster {
 
       // Attack
       if (keyCode == KeyCode.R) {
-        iceBallAttack();
+        iceBallAttack = true;
       }
     });
 
@@ -102,6 +103,7 @@ public class Player extends BaseMonster {
       // Attack
       if (keyCode == KeyCode.R) {
         iceBallAttack = false;
+        attackAccumulator = 30;
       }
     });
   }
@@ -120,12 +122,18 @@ public class Player extends BaseMonster {
   }
 
   public void iceBallAttack() {
+    if (attackAccumulator < 30) {
+      attackAccumulator++;
+      return;
+    }
     iceBallAttack = true;
     this.getLevel()
         .addThing(new PlayerIceBall(imageView.getBoundsInParent().getCenterX(),
             imageView.getBoundsInParent().getCenterY(), level, level.getEnemies(), imageView.getScaleX()));
 
     imageView.setImage(images.get("attack"));
+    iceBallAttack = true;
+    attackAccumulator = 0;
   }
 
   @Override
@@ -142,6 +150,10 @@ public class Player extends BaseMonster {
       }
       die();
       return;
+    }
+
+    if (iceBallAttack) {
+      iceBallAttack();
     }
 
     if (moveRight) {

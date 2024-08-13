@@ -10,7 +10,7 @@ import rpg.Common.Usable;
 import rpg.Levels.Level;
 
 public class PlayerIceBall extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER_ATTACK;
+  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
   private final PlayerIceBallAttack attack;
 
   public PlayerIceBall(double charPosx, double charPosy, Level level, List<BaseMonster> targetList, double direction) {

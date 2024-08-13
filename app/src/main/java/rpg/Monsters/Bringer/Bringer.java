@@ -41,6 +41,7 @@ public class Bringer extends BaseMonster {
   @Override
   public void die() {
     getImageView().setImage(images.get("die"));
+    level.removeThing(this);
   }
 
   @Override

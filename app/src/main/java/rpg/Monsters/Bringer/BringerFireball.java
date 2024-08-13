@@ -12,7 +12,7 @@ import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumMonsterAlignment;
 
 public class BringerFireball extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
+  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
   private final BringerFireballAttack attack;
 
   public BringerFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
