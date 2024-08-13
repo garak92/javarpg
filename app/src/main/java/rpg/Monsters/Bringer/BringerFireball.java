@@ -13,11 +13,9 @@ import rpg.Monsters.EnumMonsterAlignment;
 
 public class BringerFireball extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
-  private final BringerFireballAttack attack = new BringerFireballAttack(this);
-  double normalizedX = 0;
-  double normalizedY = 0;
+  private final BringerFireballAttack attack;
 
-  public BringerFireball(double charPosx, double charPosy, Level level, double targetX, double targetY) {
+  public BringerFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
     super(charPosx, charPosy, 7, 0, alignment, level);
 
     preCacheSprites(new HashMap<String, String>() {
@@ -37,22 +35,17 @@ public class BringerFireball extends BaseMonster {
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
 
-    double directionX = targetX - charPosx;
-    double directionY = targetY - charPosy;
-
-    double length = Math.sqrt(directionX * directionX + directionY * directionY);
-    normalizedX = directionX / length;
-    normalizedY = directionY / length;
+    this.attack = new BringerFireballAttack(this, target);
 
   }
 
   @Override
-  public void update(List<Usable> usables) {
-    attack.dealDamage();
-    charPosx += normalizedX * charVelx;
-    charPosy += normalizedY * charVely;
+  public void die() {
+    level.removeThing(this);
+  }
 
-    imageView.setLayoutX(charPosx);
-    imageView.setLayoutY(charPosy);
+  @Override
+  public void update(List<Usable> usables) {
+    attack.update();
   }
 }

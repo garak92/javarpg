@@ -24,6 +24,7 @@ public class Bringer extends BaseMonster {
     preCacheSprites(new HashMap<String, String>() {
       {
         put("idle", "/bringer-of-death/bringer.png");
+        put("dead", "/bringer-of-death/bringer.png");
       }
     });
 
@@ -35,6 +36,11 @@ public class Bringer extends BaseMonster {
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
+  }
+
+  @Override
+  public void die() {
+    getImageView().setImage(images.get("die"));
   }
 
   @Override

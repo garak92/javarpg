@@ -18,7 +18,7 @@ public class BringerAI extends BaseEnemyAI {
       logger.info("Bringer of death casts special attack FIREBALL!! ");
       monster.getLevel()
           .addThing(new BringerFireball(monster.getCharPosx(),
-              monster.getCharPosy(), monster.getLevel(), target.getCharPosx(), target.getCharPosy()));
+              monster.getCharPosy(), monster.getLevel(), target));
 
       randomAttackAccumulator = 0;
     } else {

@@ -3,5 +3,6 @@ package rpg.Monsters;
 public enum EnumEvents {
   DAMAGED,
   AGGROED,
-  KILLED
+  KILLED,
+  TARGET_KILLED
 }

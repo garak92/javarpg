@@ -41,6 +41,7 @@ public class Level {
   private Pane pane;
   private Stage stage;
   private Queue<Thing> thingQueue = new LinkedList<>();
+  private Queue<Thing> removeThingQueue = new LinkedList<>();
   private BaseMonster player;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
@@ -208,6 +209,13 @@ public class Level {
         thingQueue.remove(i);
       }
     }
+    if (removeThingQueue.size() > 0) {
+      for (Thing i : removeThingQueue) {
+        things.remove(i.getMonster());
+        i.getMonster().deSpawn(this.pane);
+        removeThingQueue.remove(i);
+      }
+    }
     for (Thing i : things) {
       i.update(usables);
     }
@@ -247,6 +255,10 @@ public class Level {
 
   public void addThing(Thing thing) {
     thingQueue.add(thing);
+  }
+
+  public void removeThing(Thing thing) {
+    removeThingQueue.add(thing);
   }
 
   public BaseMonster getPlayer() {

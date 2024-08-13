@@ -1,33 +1,43 @@
 package rpg.Abilities;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import rpg.Common.Thing;
-import rpg.Common.Usable;
 import rpg.Monsters.BaseMonster;
 
 public class BringerFireballAttack extends BaseEnemyAttack {
-  public BringerFireballAttack(BaseMonster monster) {
-    super(2, 0, 0, monster);
+  private double normalizedX = 0;
+  private double normalizedY = 0;
+  private BaseMonster target;
+
+  public BringerFireballAttack(BaseMonster monster, BaseMonster target) {
+    super(15, 0, 0, monster);
+    double directionX = target.getCharPosx() - monster.getCharPosx();
+    double directionY = target.getCharPosy() - monster.getCharPosy();
+
+    double length = Math.sqrt(directionX * directionX + directionY * directionY);
+    normalizedX = directionX / length;
+    normalizedY = directionY / length;
+    this.target = target;
   }
 
   @Override
-  public void dealDamage() {
-    List<Thing> things = monster.getLevel().getThings();
-    List<BaseMonster> monsters = things.stream().map(v -> v.getMonster()).collect(Collectors.toList());
-
-    for (BaseMonster i : monsters) {
-      if (monster.getMonster().detectCollision(i)) {
-        i.receiveDamage(damageDealt);
-      }
-      ;
+  protected void dealDamage() {
+    if (monster.getMonster().detectCollision(target)) {
+      target.receiveDamage(damageDealt);
+      monster.die();
     }
-    ;
   }
 
   @Override
-  public void update(List<Usable> usables) {
-    monster.update(usables);
+  public void update() {
+    dealDamage();
+    if (monster.getMonster().detectCollision(monster.getLevel().getSolidTiles())) {
+      monster.die();
+    }
+
+    monster.setCharPosx(monster.getCharPosx() + normalizedX * monster.getCharVelx());
+    monster.setCharPosy(monster.getCharPosy() + normalizedY * monster.getCharVely());
+
+    monster.getImageView().setLayoutX(monster.getCharPosx());
+    monster.getImageView().setLayoutY(monster.getCharPosy());
+
   }
 }

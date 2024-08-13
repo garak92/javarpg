@@ -1,8 +1,5 @@
 package rpg.Abilities;
 
-import java.util.List;
-
-import rpg.Common.Usable;
 import rpg.Monsters.BaseMonster;
 
 public abstract class EnemyAttack {
@@ -12,5 +9,5 @@ public abstract class EnemyAttack {
     this.monster = monster;
   }
 
-  public abstract void update(List<Usable> usables);
+  public abstract void update();
 }

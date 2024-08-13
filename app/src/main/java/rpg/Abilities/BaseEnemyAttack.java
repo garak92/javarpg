@@ -14,5 +14,5 @@ public abstract class BaseEnemyAttack extends EnemyAttack {
     this.splashDamage = splashDamage;
   }
 
-  public abstract void dealDamage();
+  protected abstract void dealDamage();
 }

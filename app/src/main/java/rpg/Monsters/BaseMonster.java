@@ -9,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import rpg.Levels.Level;
 import rpg.Levels.LevelNode;
 import rpg.Levels.NodeTypeEnum;
@@ -29,7 +32,10 @@ public abstract class BaseMonster implements Thing {
   protected double charVelx;
   protected double charVely;
   protected Level level;
+  protected boolean isDead = false;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
+
+  public abstract void die();
 
   public LevelNode getImageView() {
     return imageView;
@@ -37,6 +43,10 @@ public abstract class BaseMonster implements Thing {
 
   public void spawn(Pane root) {
     root.getChildren().add(this.imageView);
+  }
+
+  public void deSpawn(Pane root) {
+    root.getChildren().remove(this.imageView);
   }
 
   public EnumMonsterAlignment getAlignment() {
@@ -65,13 +75,17 @@ public abstract class BaseMonster implements Thing {
     }
   }
 
+  public boolean isDead() {
+    return this.isDead;
+  }
+
   protected void setAnimation(SpriteAnimation animation) {
     this.animation = animation;
     animation.setCycleCount(Animation.INDEFINITE);
     animation.play();
   }
 
-  protected boolean detectCollision(List<LevelNode> nodeList) {
+  public boolean detectCollision(List<LevelNode> nodeList) {
     // We take 20% of the entity's dimensions for a nicer feel
     double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
     double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
@@ -100,9 +114,22 @@ public abstract class BaseMonster implements Thing {
 
   public void receiveDamage(int damage) {
     if (health > 0) {
-      this.health -= damage;
+      ColorAdjust colorAdjust = new ColorAdjust();
+      double oldBrightness = colorAdjust.getBrightness();
+      colorAdjust.setBrightness(0.8);
+      imageView.setEffect(colorAdjust);
+      PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
+
+      pause.setOnFinished(event -> {
+        this.health -= damage;
+        colorAdjust.setBrightness(oldBrightness);
+        imageView.setEffect(colorAdjust);
+      });
+
+      pause.play();
     }
-    logger.info("Current health: " + this.health);
+    logger.info("Remaining health: " + this.health);
+
   }
 
   public BaseMonster getMonster() {
@@ -119,6 +146,22 @@ public abstract class BaseMonster implements Thing {
 
   public double getCharPosy() {
     return charPosy;
+  }
+
+  public void setCharPosx(double charPosx) {
+    this.charPosx = charPosx;
+  }
+
+  public void setCharPosy(double charPosy) {
+    this.charPosy = charPosy;
+  }
+
+  public double getCharVelx() {
+    return charVelx;
+  }
+
+  public double getCharVely() {
+    return charVely;
   }
 
 }

@@ -37,6 +37,7 @@ public class Player extends BaseMonster {
       {
         put("idle", "/player/Idle.png");
         put("run", "/player/Run.png");
+        put("dead", "/player/Dead.png");
       }
     });
 
@@ -103,7 +104,20 @@ public class Player extends BaseMonster {
   }
 
   @Override
+  public void die() {
+    imageView.setImage(images.get("dead"));
+    isDead = true;
+  }
+
+  @Override
   public void update(List<Usable> usables) {
+    if (health <= 0) {
+      if (isDead) {
+        return;
+      }
+      die();
+      return;
+    }
     if (moveRight) {
       imageView.setScaleX(1);
       imageView.setImage(images.get("run"));

@@ -36,7 +36,12 @@ public class QuestGiver extends BaseMonster implements Usable {
 
   @Override
   public void update(List<Usable> usables) {
+    // To do
+  }
 
+  @Override
+  public void die() {
+    // To do
   }
 
   @Override
