@@ -2,10 +2,10 @@ package rpg.Abilities;
 
 import rpg.Monsters.BaseMonster;
 
-public abstract class EnemyAttack {
+public abstract class Ability {
   protected BaseMonster monster;
 
-  public EnemyAttack(BaseMonster monster) {
+  public Ability(BaseMonster monster) {
     this.monster = monster;
   }
 

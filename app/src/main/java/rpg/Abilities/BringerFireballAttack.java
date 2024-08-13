@@ -2,7 +2,7 @@ package rpg.Abilities;
 
 import rpg.Monsters.BaseMonster;
 
-public class BringerFireballAttack extends BaseEnemyAttack {
+public class BringerFireballAttack extends BaseAbility {
   private double normalizedX = 0;
   private double normalizedY = 0;
   private BaseMonster target;
@@ -38,6 +38,5 @@ public class BringerFireballAttack extends BaseEnemyAttack {
 
     monster.getImageView().setLayoutX(monster.getCharPosx());
     monster.getImageView().setLayoutY(monster.getCharPosy());
-
   }
 }

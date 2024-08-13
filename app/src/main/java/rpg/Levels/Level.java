@@ -14,6 +14,7 @@ import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
+import rpg.Monsters.EnumMonsterAlignment;
 import rpg.Monsters.Player;
 import rpg.Monsters.QuestGiver;
 
@@ -42,6 +43,7 @@ public class Level {
   private Stage stage;
   private Queue<Thing> thingQueue = new LinkedList<>();
   private Queue<Thing> removeThingQueue = new LinkedList<>();
+  private List<BaseMonster> enemies = new LinkedList<>();
   private BaseMonster player;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
@@ -154,6 +156,11 @@ public class Level {
             default:
               break;
           }
+
+          // Get initial enemy list
+          enemies = things.stream().filter(v -> {
+            return v.getMonster().getAlignment() == EnumMonsterAlignment.ENEMY;
+          }).map(v -> v.getMonster()).collect(Collectors.toList());
         }
       }
 
@@ -263,6 +270,10 @@ public class Level {
 
   public BaseMonster getPlayer() {
     return player;
+  }
+
+  public List<BaseMonster> getEnemies() {
+    return enemies;
   }
 
 }

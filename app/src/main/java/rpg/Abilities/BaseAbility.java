@@ -2,12 +2,12 @@ package rpg.Abilities;
 
 import rpg.Monsters.BaseMonster;
 
-public abstract class BaseEnemyAttack extends EnemyAttack {
+public abstract class BaseAbility extends Ability {
   protected int damageDealt;
   protected int coolDownTime;
   protected float splashDamage;
 
-  public BaseEnemyAttack(int damageDealt, int coolDownTime, float splashDamage, BaseMonster monster) {
+  public BaseAbility(int damageDealt, int coolDownTime, float splashDamage, BaseMonster monster) {
     super(monster);
     this.damageDealt = damageDealt;
     this.coolDownTime = coolDownTime;

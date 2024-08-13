@@ -10,13 +10,16 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.Levels.Level;
 import rpg.Levels.LevelNode;
+import rpg.Monsters.PlayerIceBall;
 import rpg.SpriteAnimation;
+import rpg.Abilities.PlayerIceBallAttack;
 import rpg.Common.Usable;
 
 public class Player extends BaseMonster {
   private int shield;
   private String name;
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER;
+  private boolean iceBallAttack = false;
   private boolean moveRight = false;
   private boolean moveLeft = false;
   private boolean moveUp = false;
@@ -38,6 +41,7 @@ public class Player extends BaseMonster {
         put("idle", "/player/Idle.png");
         put("run", "/player/Run.png");
         put("dead", "/player/Dead.png");
+        put("attack", "/player/Attack_4.png");
       }
     });
 
@@ -55,6 +59,7 @@ public class Player extends BaseMonster {
 
   private void setKeyBinds(Stage primaryStage) {
     primaryStage.getScene().setOnKeyPressed(event -> {
+      // Movement
       KeyCode keyCode = event.getCode();
       if (keyCode == KeyCode.RIGHT) {
         moveRight = true;
@@ -71,10 +76,16 @@ public class Player extends BaseMonster {
       if (keyCode == KeyCode.E) {
         using = true;
       }
+
+      // Attack
+      if (keyCode == KeyCode.R) {
+        iceBallAttack();
+      }
     });
 
     primaryStage.getScene().setOnKeyReleased(event -> {
       KeyCode keyCode = event.getCode();
+      // Movement
       if (keyCode == KeyCode.RIGHT) {
         moveRight = false;
       }
@@ -86,6 +97,11 @@ public class Player extends BaseMonster {
       }
       if (keyCode == KeyCode.DOWN) {
         moveDown = false;
+      }
+
+      // Attack
+      if (keyCode == KeyCode.R) {
+        iceBallAttack = false;
       }
     });
   }
@@ -103,6 +119,15 @@ public class Player extends BaseMonster {
     }
   }
 
+  public void iceBallAttack() {
+    iceBallAttack = true;
+    this.getLevel()
+        .addThing(new PlayerIceBall(imageView.getBoundsInParent().getCenterX(),
+            imageView.getBoundsInParent().getCenterY(), level, level.getEnemies(), imageView.getScaleX()));
+
+    imageView.setImage(images.get("attack"));
+  }
+
   @Override
   public void die() {
     imageView.setImage(images.get("dead"));
@@ -118,6 +143,7 @@ public class Player extends BaseMonster {
       die();
       return;
     }
+
     if (moveRight) {
       imageView.setScaleX(1);
       imageView.setImage(images.get("run"));
@@ -157,6 +183,8 @@ public class Player extends BaseMonster {
         return;
       }
 
+    } else if (iceBallAttack) {
+      imageView.setImage(images.get("attack"));
     } else {
       imageView.setImage(images.get("idle"));
     }
@@ -165,8 +193,8 @@ public class Player extends BaseMonster {
       interact(usables);
     }
 
-    double cameraX = imageView.getLayoutX() - (double) 300 / 2;
-    double cameraY = imageView.getLayoutY() - (double) 300 / 2;
+    double cameraX = imageView.getLayoutX() - (double) root.getScene().getWidth() / 2;
+    double cameraY = imageView.getLayoutY() - (double) root.getScene().getHeight() / 2;
 
     root.setLayoutX(-cameraX);
     root.setLayoutY(-cameraY);

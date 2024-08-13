@@ -33,6 +33,7 @@ public abstract class BaseMonster implements Thing {
   protected double charVely;
   protected Level level;
   protected boolean isDead = false;
+  protected boolean isHurt = false;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
   public abstract void die();
@@ -121,6 +122,7 @@ public abstract class BaseMonster implements Thing {
       PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
 
       pause.setOnFinished(event -> {
+        this.isHurt = true;
         this.health -= damage;
         colorAdjust.setBrightness(oldBrightness);
         imageView.setEffect(colorAdjust);
@@ -163,5 +165,4 @@ public abstract class BaseMonster implements Thing {
   public double getCharVely() {
     return charVely;
   }
-
 }

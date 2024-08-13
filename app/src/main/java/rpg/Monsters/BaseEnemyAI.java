@@ -26,7 +26,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
     // Set default transition table
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.DAMAGED, EnumEnemyStates.STUN));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
@@ -63,6 +62,11 @@ public abstract class BaseEnemyAI extends EnemyAI {
     if (monster.health <= 0 && this.currentState != EnumEnemyStates.DEAD) {
       monster.die();
       transition(EnumEvents.KILLED);
+    }
+
+    if (monster.isHurt && this.currentState == EnumEnemyStates.IDLE) {
+      transition(EnumEvents.AGGROED);
+      monster.isHurt = false;
     }
 
     if (target.isDead()) {

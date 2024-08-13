@@ -17,9 +17,8 @@ public class BringerAI extends BaseEnemyAI {
     if (randomAttackAccumulator == attackCoolDown) {
       logger.info("Bringer of death casts special attack FIREBALL!! ");
       monster.getLevel()
-          .addThing(new BringerFireball(monster.getCharPosx(),
-              monster.getCharPosy(), monster.getLevel(), target));
-
+          .addThing(new BringerFireball(monster.getImageView().getBoundsInParent().getCenterX(),
+              monster.getImageView().getBoundsInParent().getCenterY(), monster.getLevel(), target));
       randomAttackAccumulator = 0;
     } else {
       randomAttackAccumulator++;
