@@ -59,6 +59,10 @@ public abstract class BaseEnemyAI extends EnemyAI {
       transition(EnumEvents.AGGROED);
     }
 
+    if (checkMonsterInAttackRange(target)) {
+      transition(EnumEvents.AGGROED);
+    }
+
     if (monster.health <= 0 && this.currentState != EnumEnemyStates.DEAD) {
       monster.die();
       transition(EnumEvents.KILLED);
