@@ -219,6 +219,7 @@ public class Level {
     if (removeThingQueue.size() > 0) {
       for (Thing i : removeThingQueue) {
         things.remove(i.getMonster());
+        enemies.remove(i.getMonster());
         i.getMonster().deSpawn(this.pane);
         removeThingQueue.remove(i);
       }

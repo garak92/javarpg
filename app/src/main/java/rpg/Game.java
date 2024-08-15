@@ -28,6 +28,7 @@ public class Game extends Application {
     primaryStage.setResizable(false);
     primaryStage.setWidth(WIDTH);
     primaryStage.setHeight(HEIGHT);
+    primaryStage.setFullScreen(true);
     primaryStage.show();
     root.setStyle("-fx-background-color: transparent;");
     root.setPrefSize(WIDTH, HEIGHT);

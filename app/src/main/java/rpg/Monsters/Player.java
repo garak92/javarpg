@@ -131,7 +131,6 @@ public class Player extends BaseMonster {
         .addThing(new PlayerIceBall(imageView.getBoundsInParent().getCenterX(),
             imageView.getBoundsInParent().getCenterY(), level, level.getEnemies(), imageView.getScaleX()));
 
-    imageView.setImage(images.get("attack"));
     iceBallAttack = true;
     attackAccumulator = 0;
   }
