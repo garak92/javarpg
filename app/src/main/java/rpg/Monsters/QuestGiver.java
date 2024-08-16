@@ -1,57 +1,28 @@
 package rpg.Monsters;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
-import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
-import rpg.SpriteAnimation;
-import rpg.Common.Usable;
-import rpg.Levels.Level;
-import rpg.Levels.LevelNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class QuestGiver extends BaseMonster implements Usable {
-  private String name;
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
+import rpg.Common.QuestDialogBox;
 
-  public QuestGiver(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, Level level) {
-    super(charPosx, charPosy, velocity, health, alignment, level);
-    this.name = name;
+public class QuestGiver {
+  private BaseMonster target;
+  private BaseMonster monster;
+  private List<Quest> questList = new ArrayList<>();
+  private QuestDialogBox dialgoBox;
+  protected static Logger logger = LoggerFactory.getLogger(QuestGiver.class);
 
-    preCacheSprites(new HashMap<String, String>() {
-      {
-        put("idle", "/npc/Idle.png");
-      }
-    });
-
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 160, 128));
-
-    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
-
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
+  public QuestGiver(BaseMonster monster, List<Quest> questList) {
+    this.monster = monster;
+    this.questList = questList;
+    this.dialgoBox = new QuestDialogBox(questList.get(0).getCurrentDialog(),
+        monster.getLevel().getPane(), monster);
   }
 
-  @Override
-  public void update(List<Usable> usables) {
-    // To do
-  }
-
-  @Override
-  public void die() {
-    // To do
-  }
-
-  @Override
   public void use(Player player) {
-    System.out.println("Hello, my name is " + this.name);
+    dialgoBox.use();
   }
-
-  @Override
-  public LevelNode getLevelNode() {
-    return getImageView();
-  }
-
 }

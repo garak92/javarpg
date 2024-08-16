@@ -19,7 +19,7 @@ public class Bringer extends BaseMonster {
   public Bringer(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, EnumEnemyStates currentState, Level level) {
 
-    super(charPosx, charPosy, velocity, health, alignment, level);
+    super(charPosx, charPosy, velocity, health, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {
@@ -30,7 +30,6 @@ public class Bringer extends BaseMonster {
 
     getImageView().setImage(images.get("idle"));
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 140, 93));
-
     setAnimation(new SpriteAnimation(imageView, new Duration(600), 7, 7,
         30, 0, 140, 93));
 

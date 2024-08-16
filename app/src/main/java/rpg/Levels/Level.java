@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
+import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.EnumMonsterAlignment;
 import rpg.Monsters.Player;
-import rpg.Monsters.QuestGiver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -142,9 +142,10 @@ public class Level {
               this.player = player;
               break;
             case 2:
-              QuestGiver questGiver = new QuestGiver(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Trish", this);
-              usables.add(questGiver);
-              questGiver.spawn(pane);
+              Igrene igrene = new Igrene(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
+                  EnumEnemyStates.IDLE, this);
+              usables.add(igrene);
+              igrene.spawn(pane);
               break;
             case 3:
               Bringer bringer = new Bringer(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
@@ -275,6 +276,10 @@ public class Level {
 
   public List<BaseMonster> getEnemies() {
     return enemies;
+  }
+
+  public Pane getPane() {
+    return pane;
   }
 
 }

@@ -34,6 +34,7 @@ public abstract class BaseMonster implements Thing {
   protected Level level;
   protected boolean isDead = false;
   protected boolean isHurt = false;
+  protected String name;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
   public abstract void die();
@@ -52,6 +53,18 @@ public abstract class BaseMonster implements Thing {
 
   public EnumMonsterAlignment getAlignment() {
     return alignment;
+  }
+
+  protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
+      EnumMonsterAlignment alignment, Level level, String name) {
+    this.charPosx = charPosx;
+    this.charPosy = charPosy;
+    this.charVelx = velocity;
+    this.charVely = velocity;
+    this.health = health;
+    this.alignment = alignment;
+    this.level = level;
+    this.name = name;
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
@@ -164,5 +177,9 @@ public abstract class BaseMonster implements Thing {
 
   public double getCharVely() {
     return charVely;
+  }
+
+  public String getName() {
+    return name;
   }
 }

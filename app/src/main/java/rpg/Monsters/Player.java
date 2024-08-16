@@ -31,7 +31,7 @@ public class Player extends BaseMonster {
 
   public Player(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
-    super(charPosx, charPosy, velocity, health, alignment, level);
+    super(charPosx, charPosy, velocity, health, alignment, level, name);
     this.shield = shield;
     this.name = name;
     this.root = root;
