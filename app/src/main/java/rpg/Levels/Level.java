@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import rpg.Common.QuestLog;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
@@ -44,7 +45,7 @@ public class Level {
   private Queue<Thing> thingQueue = new LinkedList<>();
   private Queue<Thing> removeThingQueue = new LinkedList<>();
   private List<BaseMonster> enemies = new LinkedList<>();
-  private BaseMonster player;
+  private Player player;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
     this.title = levelName;
@@ -230,6 +231,8 @@ public class Level {
     }
     logger.info("Thing list size: " + things.size());
     logger.info("Number of visible things: " + pane.getChildren().size());
+    logger.info("Current Player Exp: " + player.getExperiencePoints());
+    QuestLog.INSTANCE.displayQuests();
   }
 
   private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {
@@ -270,7 +273,7 @@ public class Level {
     removeThingQueue.add(thing);
   }
 
-  public BaseMonster getPlayer() {
+  public Player getPlayer() {
     return player;
   }
 

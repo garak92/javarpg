@@ -28,6 +28,8 @@ public class Player extends BaseMonster {
   private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
   private Pane root;
+  private int experiencePoints = 0;
+  private int playerLevel = 0;
 
   public Player(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
@@ -210,6 +212,18 @@ public class Player extends BaseMonster {
     root.setLayoutX(-cameraX);
     root.setLayoutY(-cameraY);
 
+  }
+
+  public void setPlayerLevel(int playerLevel) {
+    this.playerLevel = playerLevel;
+  }
+
+  public void addExperiencePoints(int experiencePoints) {
+    this.experiencePoints += experiencePoints;
+  }
+
+  public int getExperiencePoints() {
+    return experiencePoints;
   }
 
 }

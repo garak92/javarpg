@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import rpg.Common.QuestLoader;
 import rpg.Levels.Level;
 
 public class Game extends Application {
@@ -32,6 +33,10 @@ public class Game extends Application {
     primaryStage.show();
     root.setStyle("-fx-background-color: transparent;");
     root.setPrefSize(WIDTH, HEIGHT);
+
+    // Initialize quests
+    System.out.println("Loading quest!!!");
+    QuestLoader.loadQuests();
 
     // Initialize level
     Level level = new Level("level1", "sheet1.png", root, primaryStage).load();

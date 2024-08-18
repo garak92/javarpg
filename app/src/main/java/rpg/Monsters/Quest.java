@@ -1,25 +1,96 @@
 package rpg.Monsters;
 
+import rpg.Common.QuestLog;
+
 public class Quest {
-  String[] dialogChain = null;
-  private int currentDialogIndex = 0;
+  private String name;
+  private String description;
+  private String inProgressDialog;
+  private String completedDialog;
+  private Class<? extends BaseMonster> questEntityType = null;
+  private Class<? extends BaseMonster> questGiver = null;
+  private int entityCounter = 0;
+  private int questObjective = 0;
+  private int experiencePoints = 0;
+  private EnumQuestStatus questStatus = EnumQuestStatus.AVAILABLE;
 
-  public Quest(String[] dialogChain) {
-    this.dialogChain = dialogChain;
+  public <T extends BaseMonster> Quest(String name, String description, String inProgressDialog, String completedDialog,
+      int experiencePoints, Class<? extends BaseMonster> questEntityType,
+      int questObjective, Class<? extends BaseMonster> questGiver) {
+    this.name = name;
+    this.description = description;
+    this.inProgressDialog = inProgressDialog;
+    this.completedDialog = completedDialog;
+    this.questEntityType = questEntityType;
+    this.questObjective = questObjective;
+    this.questGiver = questGiver;
+    this.experiencePoints = experiencePoints;
   }
 
-  public String getCurrentDialog() {
-    if (dialogChain.equals(null)) {
-      return null;
+  public String getCurrentText() {
+    switch (questStatus) {
+      case AVAILABLE:
+        return description;
+      case IN_PROGRESS:
+        return inProgressDialog;
+      case COMPLETED:
+        return completedDialog;
+      default:
+        break;
     }
-    return dialogChain[currentDialogIndex];
+    return description;
   }
 
-  public void retartDialog() {
-    this.currentDialogIndex = 0;
+  public void acceptQuest() {
+    if (questStatus != EnumQuestStatus.AVAILABLE) {
+      return;
+    }
+    questStatus = EnumQuestStatus.IN_PROGRESS;
+    QuestLog.INSTANCE.addQuest(this);
   }
 
-  public void advanceToNextDialog() {
-    this.currentDialogIndex++;
+  public void deliverQuest(Player player) {
+    if (questStatus != EnumQuestStatus.COMPLETED) {
+      return;
+    }
+    questStatus = EnumQuestStatus.DELIVERED;
+    player.addExperiencePoints(this.experiencePoints);
+  }
+
+  public <T extends BaseMonster> void update(T entity) {
+    if (this.questStatus == EnumQuestStatus.COMPLETED) {
+      return;
+    }
+    if (entity.getClass().equals(this.questEntityType)) {
+      entityCounter++;
+    }
+    if (entityCounter == questObjective) {
+      this.questStatus = EnumQuestStatus.COMPLETED;
+      return;
+    }
+  }
+
+  public boolean isInProgress() {
+    return questStatus == EnumQuestStatus.IN_PROGRESS;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public EnumQuestStatus getQuestStatus() {
+    return questStatus;
+  }
+
+  public int getEntityCounter() {
+    return entityCounter;
+  }
+
+  public int getQuestObjective() {
+    return questObjective;
+  }
+
+  public Class<? extends BaseMonster> getQuestGiver() {
+    return questGiver;
   }
 }

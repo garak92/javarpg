@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
+import rpg.Common.QuestLog;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
 import rpg.Monsters.BaseMonster;
@@ -41,6 +42,7 @@ public class Bringer extends BaseMonster {
   public void die() {
     getImageView().setImage(images.get("die"));
     level.removeThing(this);
+    QuestLog.INSTANCE.updateActiveQuests(this);
   }
 
   @Override

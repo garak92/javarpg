@@ -15,13 +15,12 @@ import rpg.Monsters.QuestGiver;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.EnumMonsterAlignment;
 import rpg.Monsters.Player;
-import rpg.Monsters.Quest;
 
 public class Igrene extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
-  List<Quest> questList = new ArrayList<>();
-  String[] dialogChain = { "There is a monster in a cave!" };
-  QuestGiver questGiver;
+  private QuestGiver questGiver;
+  private final String[] defaultDialogueList = { "This level is cool, uh?", "Long live the king!",
+      "For the Allia...oh, wrong game, sorry" };
 
   public Igrene(
       double charPosx,
@@ -31,9 +30,6 @@ public class Igrene extends BaseMonster implements Usable {
       int shield, String name,
       EnumEnemyStates currentState, Level level) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
-
-    questList.add(new Quest(dialogChain));
-    this.questGiver = new QuestGiver(this, questList);
 
     preCacheSprites(new HashMap<String, String>() {
       {
@@ -47,6 +43,8 @@ public class Igrene extends BaseMonster implements Usable {
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
+
+    this.questGiver = new QuestGiver(this, defaultDialogueList);
   }
 
   @Override
@@ -56,6 +54,7 @@ public class Igrene extends BaseMonster implements Usable {
 
   @Override
   public void update(List<Usable> usables) {
+
   }
 
   @Override
