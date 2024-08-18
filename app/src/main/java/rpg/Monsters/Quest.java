@@ -13,10 +13,11 @@ public class Quest {
   private int questObjective = 0;
   private int experiencePoints = 0;
   private EnumQuestStatus questStatus = EnumQuestStatus.AVAILABLE;
+  private String entityFriendlyName;
 
   public <T extends BaseMonster> Quest(String name, String description, String inProgressDialog, String completedDialog,
       int experiencePoints, Class<? extends BaseMonster> questEntityType,
-      int questObjective, Class<? extends BaseMonster> questGiver) {
+      int questObjective, Class<? extends BaseMonster> questGiver, String entityFriendlyName) {
     this.name = name;
     this.description = description;
     this.inProgressDialog = inProgressDialog;
@@ -25,6 +26,7 @@ public class Quest {
     this.questObjective = questObjective;
     this.questGiver = questGiver;
     this.experiencePoints = experiencePoints;
+    this.entityFriendlyName = entityFriendlyName;
   }
 
   public String getCurrentText() {
@@ -46,7 +48,6 @@ public class Quest {
       return;
     }
     questStatus = EnumQuestStatus.IN_PROGRESS;
-    QuestLog.INSTANCE.addQuest(this);
   }
 
   public void deliverQuest(Player player) {
@@ -93,4 +94,17 @@ public class Quest {
   public Class<? extends BaseMonster> getQuestGiver() {
     return questGiver;
   }
+
+  public Class<? extends BaseMonster> getQuestEntityType() {
+    return questEntityType;
+  }
+
+  public int getExperiencePoints() {
+    return experiencePoints;
+  }
+
+  public String getEntityFriendlyName() {
+    return entityFriendlyName;
+  }
+
 }

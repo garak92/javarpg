@@ -3,9 +3,9 @@
         <Quest>
             <Name>Dammned creatures on my yard!</Name>
             <Description>
-      Hello, fellow traveler! My name is Igrene. Do you see those
-      Bringer of Death right there? They are on my backyard and I don't like that.
-      Please, kill four of them for me.
+              Hello, fellow traveler! My name is Igrene. Do you see those
+              Bringer of Death right there? They are on my backyard and I don't like that.
+              Please, kill four of them for me.
             </Description>
             <DialogInProgress>
                 Have you killed them yet?
@@ -20,6 +20,9 @@
             <Entity>
                 rpg.Monsters.Bringer.Bringer
             </Entity>
+            <EntityFriendlyName>
+                Bringer of Death
+            </EntityFriendlyName>
             <ObjectiveQuantity>
                 4
             </ObjectiveQuantity>

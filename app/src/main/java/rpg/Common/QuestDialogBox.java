@@ -58,6 +58,11 @@ public class QuestDialogBox {
     if (open) {
       close();
       quest.acceptQuest();
+      if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
+          && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
+        this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
+        text.setText(this.quest.getCurrentText());
+      }
     } else {
       open();
     }

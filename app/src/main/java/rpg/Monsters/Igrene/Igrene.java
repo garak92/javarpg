@@ -54,7 +54,6 @@ public class Igrene extends BaseMonster implements Usable {
 
   @Override
   public void update(List<Usable> usables) {
-
   }
 
   @Override

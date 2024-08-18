@@ -39,7 +39,7 @@ public class QuestLoader {
             Integer.valueOf(elem.getElementsByTagName("ExperiencePoints").item(0).getTextContent().trim()),
             questEntityType,
             Integer.valueOf(elem.getElementsByTagName("ObjectiveQuantity").item(0).getTextContent().trim()),
-            questGiver);
+            questGiver, elem.getElementsByTagName("EntityFriendlyName").item(0).getTextContent().trim());
 
         QuestLog.INSTANCE.addQuest(quest);
       }

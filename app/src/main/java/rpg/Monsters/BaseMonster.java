@@ -182,4 +182,8 @@ public abstract class BaseMonster implements Thing {
   public String getName() {
     return name;
   }
+
+  public int getHealth() {
+    return health;
+  }
 }

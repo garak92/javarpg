@@ -13,6 +13,7 @@ import rpg.Levels.LevelNode;
 import rpg.Monsters.PlayerIceBall;
 import rpg.SpriteAnimation;
 import rpg.Abilities.PlayerIceBallAttack;
+import rpg.Common.PlayerStatusBar;
 import rpg.Common.Usable;
 
 public class Player extends BaseMonster {
@@ -30,6 +31,7 @@ public class Player extends BaseMonster {
   private Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
+  private PlayerStatusBar statusBar;
 
   public Player(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
@@ -57,6 +59,8 @@ public class Player extends BaseMonster {
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
+
+    this.statusBar = new PlayerStatusBar(0, 0, root, this);
 
   }
 
@@ -145,6 +149,10 @@ public class Player extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
+    double cameraX = imageView.getLayoutX() - (double) root.getScene().getWidth() / 2;
+    double cameraY = imageView.getLayoutY() - (double) root.getScene().getHeight() / 2;
+    this.statusBar.update(cameraX, cameraY);
+
     if (health <= 0) {
       if (isDead) {
         return;
@@ -206,9 +214,6 @@ public class Player extends BaseMonster {
       interact(usables);
     }
 
-    double cameraX = imageView.getLayoutX() - (double) root.getScene().getWidth() / 2;
-    double cameraY = imageView.getLayoutY() - (double) root.getScene().getHeight() / 2;
-
     root.setLayoutX(-cameraX);
     root.setLayoutY(-cameraY);
 
@@ -225,5 +230,4 @@ public class Player extends BaseMonster {
   public int getExperiencePoints() {
     return experiencePoints;
   }
-
 }
