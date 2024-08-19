@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.Levels.Level;
 import rpg.Levels.LevelNode;
-import rpg.Monsters.PlayerIceBall;
 import rpg.SpriteAnimation;
-import rpg.Abilities.PlayerIceBallAttack;
 import rpg.Common.PlayerStatusBar;
 import rpg.Common.Usable;
 
@@ -32,8 +30,9 @@ public class Player extends BaseMonster {
   private int experiencePoints = 0;
   private int playerLevel = 0;
   private PlayerStatusBar statusBar;
+  private static Player instance;
 
-  public Player(double charPosx, double charPosy, double velocity, int health,
+  private Player(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
     this.shield = shield;
@@ -62,6 +61,24 @@ public class Player extends BaseMonster {
 
     this.statusBar = new PlayerStatusBar(0, 0, root, this);
 
+  }
+
+  public static Player initialize(double charPosx, double charPosy, double velocity, int health,
+      int shield, String name, Stage primaryStage, Pane root, Level level) {
+    if (instance == null) {
+      instance = new Player(charPosx, charPosy, velocity, health,
+          shield, name, primaryStage, root, level);
+    } else {
+      // Player should maintain their stats throughout a level transition
+      // but other stuff, such as the level data, must obviously change
+      instance.setCharPosx(charPosx);
+      instance.setCharPosy(charPosy);
+      instance.setLevel(level);
+      instance.setStatusBar(new PlayerStatusBar(0, 0, root, instance));
+      instance.getImageView().setLayoutX(charPosx);
+      instance.getImageView().setLayoutY(charPosy);
+    }
+    return instance;
   }
 
   private void setKeyBinds(Stage primaryStage) {
@@ -230,4 +247,14 @@ public class Player extends BaseMonster {
   public int getExperiencePoints() {
     return experiencePoints;
   }
+
+  private void setLevel(Level level) {
+    this.level = level;
+    this.solidTiles = level.getSolidTiles();
+  }
+
+  public void setStatusBar(PlayerStatusBar statusBar) {
+    this.statusBar = statusBar;
+  }
+
 }

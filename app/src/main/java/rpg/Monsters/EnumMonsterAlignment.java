@@ -5,4 +5,5 @@ public enum EnumMonsterAlignment {
   ENEMY,
   PLAYER,
   ATTACK,
+  PORTAL,
 }

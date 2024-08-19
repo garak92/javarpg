@@ -11,16 +11,39 @@ import rpg.Common.QuestLoader;
 import rpg.Levels.Level;
 
 public class Game extends Application {
+  private static Game applicationInstance;
   AnimationTimer gameLoop;
+  private Level currentLevel = null;
   Image tileSheet;
   ImageView imageView;
   ImageView worldView;
+  Stage primaryStage = null;
+  Pane pane = null;
 
   final int WIDTH = 1920;
   final int HEIGHT = 1080;
 
+  public void setCurrentLevel(Level newLevel) {
+    this.currentLevel = newLevel;
+  }
+
+  public static Game getInstance() {
+    return applicationInstance;
+  }
+
   @Override
-  public void start(Stage primaryStage) {
+  public void init() {
+    applicationInstance = this;
+  }
+
+  void cleanup() {
+    if (gameLoop != null) {
+      gameLoop.stop();
+    }
+  }
+
+  Level startGame(Stage primaryStage) throws Exception {
+    restart(primaryStage);
     // Initialize JavaFx
     Pane root = new Pane();
     Scene scene = new Scene(root, WIDTH, HEIGHT);
@@ -34,17 +57,31 @@ public class Game extends Application {
     root.setStyle("-fx-background-color: transparent;");
     root.setPrefSize(WIDTH, HEIGHT);
 
-    // Initialize quests
-    System.out.println("Loading quest!!!");
-    QuestLoader.loadQuests();
+    try {
+      // Initialize quests
+      QuestLoader.loadQuests();
 
-    // Initialize level
-    Level level = new Level("level1", "sheet1.png", root, primaryStage).load();
+      // Initialize level
+      Level currentLevel = new Level("cityhub", "sheet1.png", root, primaryStage).load();
 
+      return currentLevel;
+
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  public void restart(Stage stage) throws Exception {
+    cleanup();
+  }
+
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    currentLevel = startGame(primaryStage);
     gameLoop = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        level.update();
+        currentLevel.update();
       }
     };
 

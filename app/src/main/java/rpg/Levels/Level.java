@@ -18,6 +18,7 @@ import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.EnumMonsterAlignment;
 import rpg.Monsters.Player;
+import rpg.Monsters.Portal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,8 +33,8 @@ import org.slf4j.LoggerFactory;
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);
   private final int TILE_SIZE = 32;
-  private List<List<Integer>> tileMap = new ArrayList<List<Integer>>();
-  private List<List<Integer>> thingMap = new ArrayList<List<Integer>>();
+  private List<List<String>> tileMap = new ArrayList<List<String>>();
+  private List<List<String>> thingMap = new ArrayList<List<String>>();
   private String title;
   protected List<LevelNode> tiles = new ArrayList<>();
   protected List<Thing> things = new ArrayList<>();
@@ -70,6 +71,9 @@ public class Level {
         // Level textures file
         InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
 
+      // Cleanup
+      this.pane.getChildren().clear();
+
       // Initialize tile list and monster list
       cacheLevelData(tileReader, NodeTypeEnum.LEVEL);
       cacheLevelData(thingReader, NodeTypeEnum.MONSTER);
@@ -99,18 +103,18 @@ public class Level {
     try (InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + textureFile)) {
       for (int i = 0; i < tileMap.size(); i++) {
         for (int j = 0; j < tileMap.get(i).size(); j++) {
-          int currentTileValue = tileMap.get(i).get(j);
+          String currentTileValue = tileMap.get(i).get(j);
           switch (currentTileValue) {
-            case 0:
+            case "0":
               tiles.add(createLevelNode(j, i, 2, 1, false, NodeTypeEnum.LEVEL));
               break;
-            case 1:
+            case "1":
               tiles.add(createLevelNode(j, i, 0, 1, true, NodeTypeEnum.LEVEL));
               break;
-            case 2:
+            case "2":
               tiles.add(createLevelNode(j, i, 3, 1, true, NodeTypeEnum.LEVEL));
               break;
-            case 3:
+            case "3":
               tiles.add(createLevelNode(j, i, 1, 5, true, NodeTypeEnum.LEVEL));
               break;
             default:
@@ -132,27 +136,39 @@ public class Level {
     try {
       for (int i = 0; i < thingMap.size(); i++) {
         for (int j = 0; j < thingMap.get(i).size(); j++) {
-          int currentTileValue = thingMap.get(i).get(j);
+          String currentTileValue = thingMap.get(i).get(j).toString();
           switch (currentTileValue) {
-            case 1:
+            case "1":
               System.out.println("creating player");
-              Player player = new Player(TILE_SIZE * j, TILE_SIZE * i, 10, 100, 10, "Player 1", stage,
+              Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 100, 10, "Player 1", stage,
                   pane, this);
               things.add(player);
               player.spawn(pane);
               this.player = player;
               break;
-            case 2:
-              Igrene igrene = new Igrene(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
+            case "2":
+              Igrene igrene = Igrene.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
                   EnumEnemyStates.IDLE, this);
               usables.add(igrene);
               igrene.spawn(pane);
               break;
-            case 3:
+            case "3":
               Bringer bringer = new Bringer(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
                   EnumEnemyStates.IDLE, this);
               things.add(bringer);
               bringer.spawn(pane);
+              break;
+            case "@":
+              Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",
+                  EnumEnemyStates.IDLE, this, "cityhub", "sheet1.png");
+              usables.add(portal);
+              portal.spawn(pane);
+              break;
+            case "╡": // Extended ascii 181
+              Portal portalToLevel1 = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to level 1",
+                  EnumEnemyStates.IDLE, this, "level1", "sheet1.png");
+              usables.add(portalToLevel1);
+              portalToLevel1.spawn(pane);
               break;
 
             default:
@@ -241,9 +257,9 @@ public class Level {
       String line = reader.readLine();
 
       while (line != null) {
-        List<Integer> currentRow = new ArrayList<>();
+        List<String> currentRow = new ArrayList<>();
         for (char i : line.toCharArray()) {
-          currentRow.add(Character.getNumericValue(i));
+          currentRow.add(String.valueOf(i));
         }
         switch (type) {
           case LEVEL:
@@ -283,6 +299,10 @@ public class Level {
 
   public Pane getPane() {
     return pane;
+  }
+
+  public Stage getStage() {
+    return stage;
   }
 
 }

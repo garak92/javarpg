@@ -19,10 +19,12 @@ import rpg.Monsters.Player;
 public class Igrene extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
   private QuestGiver questGiver;
+  private static Igrene instance;
+  private Level level;
   private final String[] defaultDialogueList = { "This level is cool, uh?", "Long live the king!",
       "For the Allia...oh, wrong game, sorry" };
 
-  public Igrene(
+  private Igrene(
       double charPosx,
       double charPosy,
       double velocity,
@@ -45,6 +47,27 @@ public class Igrene extends BaseMonster implements Usable {
     getImageView().setLayoutY(charPosy);
 
     this.questGiver = new QuestGiver(this, defaultDialogueList);
+  }
+
+  public static Igrene initialize(double charPosx,
+      double charPosy,
+      double velocity,
+      int health,
+      int shield, String name,
+      EnumEnemyStates currentState, Level level) {
+    if (instance == null) {
+      instance = new Igrene(charPosx, charPosy, velocity, health,
+          shield, name, currentState, level);
+    } else {
+      // Player should maintain their stats throughout a level transition
+      // but other stuff, such as the level data, must obviously change
+      instance.setCharPosx(charPosx);
+      instance.setCharPosy(charPosy);
+      instance.level = level;
+      instance.getImageView().setLayoutX(charPosx);
+      instance.getImageView().setLayoutY(charPosy);
+    }
+    return instance;
   }
 
   @Override

@@ -1,7 +1,5 @@
 package rpg.Monsters;
 
-import rpg.Common.QuestLog;
-
 public class Quest {
   private String name;
   private String description;
