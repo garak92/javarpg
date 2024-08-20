@@ -1,7 +1,6 @@
 package rpg.Common;
 
 import java.util.List;
-import java.util.Random;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
