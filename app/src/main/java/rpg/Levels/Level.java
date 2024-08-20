@@ -14,6 +14,7 @@ import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.Bringer.Bringer;
 import rpg.Monsters.Igrene.Igrene;
+import rpg.Monsters.Villager.Villager;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.EnumMonsterAlignment;
@@ -177,7 +178,13 @@ public class Level {
               things.add(miniHealthPickup);
               miniHealthPickup.spawn(pane);
               break;
-
+            case "v":
+              Villager villager = new Villager(TILE_SIZE * j, TILE_SIZE * i, 1, 30, 10, "Villager",
+                  EnumEnemyStates.IDLE, this);
+              usables.add(villager);
+              things.add(villager);
+              villager.spawn(pane);
+              break;
             default:
               break;
           }
