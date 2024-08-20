@@ -17,6 +17,7 @@ import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumEnemyStates;
 import rpg.Monsters.EnumMonsterAlignment;
+import rpg.Monsters.MiniHealthPickup;
 import rpg.Monsters.Player;
 import rpg.Monsters.Portal;
 
@@ -169,6 +170,12 @@ public class Level {
                   EnumEnemyStates.IDLE, this, "level1", "sheet1.png");
               usables.add(portalToLevel1);
               portalToLevel1.spawn(pane);
+              break;
+            case "h":
+              MiniHealthPickup miniHealthPickup = new MiniHealthPickup(TILE_SIZE * j, TILE_SIZE * i,
+                  this);
+              things.add(miniHealthPickup);
+              miniHealthPickup.spawn(pane);
               break;
 
             default:

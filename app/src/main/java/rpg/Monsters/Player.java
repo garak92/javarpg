@@ -257,4 +257,8 @@ public class Player extends BaseMonster {
     this.statusBar = statusBar;
   }
 
+  public void heal(int healingValue) {
+    health += healingValue;
+  }
+
 }

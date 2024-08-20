@@ -6,4 +6,5 @@ public enum EnumMonsterAlignment {
   PLAYER,
   ATTACK,
   PORTAL,
+  ITEM,
 }
