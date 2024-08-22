@@ -135,4 +135,9 @@ public class Villager extends BaseMonster implements Usable {
   public LevelNode getLevelNode() {
     return this.imageView;
   }
+
+  @Override
+  public BaseMonster getBaseMonster() {
+    return this;
+  }
 }

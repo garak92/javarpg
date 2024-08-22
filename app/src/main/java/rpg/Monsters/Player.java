@@ -1,5 +1,6 @@
 package rpg.Monsters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class Player extends BaseMonster {
   private boolean using = false;
   private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
+  private List<Usable> usedEntities = new ArrayList<>();
   private Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
@@ -139,10 +141,28 @@ public class Player extends BaseMonster {
           this.imageView.getBoundsInParent().getCenterY(),
           boundingBoxWidth, boundingBoxHeight)) {
         b.use(this);
+
+        if (b.getBaseMonster().getAlignment() == EnumMonsterAlignment.FRIEND) {
+          usedEntities.add(b);
+        }
       } else {
         using = false;
       }
     }
+  }
+
+  public void stopInteraction() {
+    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
+    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+    for (Usable b : usedEntities) {
+      if (!b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+          this.imageView.getBoundsInParent().getCenterY(),
+          boundingBoxWidth, boundingBoxHeight)) {
+        b.use(this);
+        usedEntities.remove(b);
+      }
+    }
+
   }
 
   public void iceBallAttack() {
@@ -231,6 +251,8 @@ public class Player extends BaseMonster {
     if (using) {
       interact(usables);
     }
+
+    stopInteraction();
 
     root.setLayoutX(-cameraX);
     root.setLayoutY(-cameraY);
