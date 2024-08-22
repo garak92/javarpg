@@ -139,6 +139,7 @@ public class Player extends BaseMonster {
           this.imageView.getBoundsInParent().getCenterY(),
           boundingBoxWidth, boundingBoxHeight)) {
         b.use(this);
+      } else {
         using = false;
       }
     }
