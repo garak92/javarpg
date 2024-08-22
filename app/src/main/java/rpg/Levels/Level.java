@@ -120,13 +120,28 @@ public class Level {
               tiles.add(createLevelNode(j, i, 2, 1, false, NodeTypeEnum.LEVEL));
               break;
             case "1":
-              tiles.add(createLevelNode(j, i, 0, 1, true, NodeTypeEnum.LEVEL));
+              tiles.add(createLevelNode(j, i, 1, 5, false, NodeTypeEnum.LEVEL));
               break;
-            case "2":
-              tiles.add(createLevelNode(j, i, 3, 1, true, NodeTypeEnum.LEVEL));
+            case "a":
+              tiles.add(createLevelNode(j, i, 5, 1, true, NodeTypeEnum.LEVEL));
               break;
-            case "3":
-              tiles.add(createLevelNode(j, i, 1, 5, true, NodeTypeEnum.LEVEL));
+            case "b":
+              tiles.add(createLevelNode(j, i, 5, 5, true, NodeTypeEnum.LEVEL));
+              break;
+            case "c":
+              tiles.add(createLevelNode(j, i, 5, 6, true, NodeTypeEnum.LEVEL));
+              break;
+            case "d":
+              tiles.add(createLevelNode(j, i, 6, 7, true, NodeTypeEnum.LEVEL));
+              break;
+            case "e":
+              tiles.add(createLevelNode(j, i, 3, 6, true, NodeTypeEnum.LEVEL));
+              break;
+            case "f":
+              tiles.add(createLevelNode(j, i, 2, 5, true, NodeTypeEnum.LEVEL));
+              break;
+            case "g":
+              tiles.add(createLevelNode(j, i, 0, 0, true, NodeTypeEnum.LEVEL));
               break;
             default:
               break;
@@ -231,7 +246,7 @@ public class Level {
 
   private LevelNode createLevelNode(int col, int row, int offsetX, int offsetY, boolean solid, NodeTypeEnum type) {
     LevelNode levelNode = new LevelNode(type, solid, tileSheet);
-    levelNode.setViewport(new Rectangle2D(offsetX * TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE));
+    levelNode.setViewport(new Rectangle2D(offsetX * TILE_SIZE, offsetY * TILE_SIZE, TILE_SIZE, TILE_SIZE));
     levelNode.setLayoutX(col * TILE_SIZE);
     levelNode.setLayoutY(row * TILE_SIZE);
     levelNode.toBack();
