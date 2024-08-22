@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
+import javax.sound.midi.InvalidMidiDataException;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import rpg.Common.MusicSystem;
 import rpg.Common.QuestLog;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
@@ -62,6 +65,9 @@ public class Level {
         // Common level background
         InputStream backgroundImageFile = this.getClass().getResourceAsStream("/sprites/levels/common-background.jpg");
 
+        // Common level background
+        InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
+
         // Level tiles file
         BufferedReader tileReader = new BufferedReader(
             new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles")));
@@ -91,7 +97,10 @@ public class Level {
       Image commonBackgroundImage = new Image(backgroundImageFile);
       ImagePattern commonBackground = new ImagePattern(commonBackgroundImage);
       pane.getScene().setFill(commonBackground);
-    } catch (IOException e) {
+
+      // Load music
+      MusicSystem.INSTANCE.playFile(music);
+    } catch (IOException | InvalidMidiDataException e) {
       e.printStackTrace();
     }
     return this;

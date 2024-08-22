@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import rpg.Common.MusicSystem;
 import rpg.Common.QuestLoader;
 import rpg.Levels.Level;
 
@@ -87,5 +88,11 @@ public class Game extends Application {
 
     gameLoop.start();
 
+  }
+
+  @Override
+  public void stop() throws Exception {
+    super.stop();
+    MusicSystem.INSTANCE.close();
   }
 }
