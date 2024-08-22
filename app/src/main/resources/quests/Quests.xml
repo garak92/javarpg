@@ -25,7 +25,7 @@ Please, kill four Bringer of Death for me. I'll reward you with 10 experience po
                 Bringer of Death
             </EntityFriendlyName>
             <ObjectiveQuantity>
-                4
+               6 
             </ObjectiveQuantity>
             <Giver>
                 rpg.Monsters.Igrene.Igrene
