@@ -2,6 +2,7 @@ package rpg;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,6 +49,7 @@ public class Game extends Application {
     // Initialize JavaFx
     Pane root = new Pane();
     Scene scene = new Scene(root, WIDTH, HEIGHT);
+    scene.setCursor(Cursor.NONE);
     primaryStage.setTitle("My RPG");
     primaryStage.setScene(scene);
     primaryStage.setResizable(false);
