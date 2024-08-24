@@ -166,7 +166,7 @@ public class Level {
           switch (currentTileValue) {
             case "1":
               System.out.println("creating player");
-              Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 100, 10, "Player 1", stage,
+              Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 12, 100, 10, "Player 1", stage,
                   pane, this);
               things.add(player);
               player.spawn(pane);

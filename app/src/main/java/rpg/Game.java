@@ -22,6 +22,12 @@ public class Game extends Application {
   Stage primaryStage = null;
   Pane pane = null;
 
+  private static final int TARGET_FPS = 60;
+  private static final long ONE_SECOND_IN_NANOSECONDS = 1_000_000_000L;
+  private static final long TIME_BETWEEN_UPDATES = ONE_SECOND_IN_NANOSECONDS / TARGET_FPS;
+
+  private long lastUpdateTime = 0;
+
   final int WIDTH = 1920;
   final int HEIGHT = 1080;
 
@@ -84,7 +90,10 @@ public class Game extends Application {
     gameLoop = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        currentLevel.update();
+        if (now - lastUpdateTime >= TIME_BETWEEN_UPDATES) {
+          currentLevel.update();
+          lastUpdateTime = now;
+        }
       }
     };
 
