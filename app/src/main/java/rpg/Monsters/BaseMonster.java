@@ -80,7 +80,7 @@ public abstract class BaseMonster implements Thing {
 
   protected void preCacheSprites(Map<String, String> sprites) {
     for (Map.Entry<String, String> i : sprites.entrySet()) {
-      try (InputStream stream = this.getClass().getResourceAsStream("/sprites/" + i.getValue())) {
+      try (InputStream stream = this.getClass().getResourceAsStream("/sprites" + i.getValue())) {
         Image image = new Image(stream);
         images.put(i.getKey(), image);
       } catch (Exception e) {
