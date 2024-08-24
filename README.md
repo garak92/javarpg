@@ -8,3 +8,10 @@ The purpose of this project is to build an RPG with a gameplay similar to WoW: l
 
 - Clone the repo
 - Run ./gradlew run
+
+## Packaging
+
+I personally use packr-all.jar, a tool developed by the libgdx team. Example:
+- java -jar packr-all.jar --platform windows64 --jdk jdk/ --jre jre/ --useZgcIfSupportedOs --executable javarpg --classpath app/build/libs/javarpg.jar --main class rpg.App --output out-win
+
+Note that I use the Liberica jdk/jre because they already ship JavaFX

@@ -190,7 +190,7 @@ public class Level {
               usables.add(portal);
               portal.spawn(pane);
               break;
-            case "╡": // Extended ascii 181
+            case "A": // Extended ascii 181
               Portal portalToLevel1 = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to level 1",
                   EnumEnemyStates.IDLE, this, "level1", "sheet1.png");
               usables.add(portalToLevel1);
