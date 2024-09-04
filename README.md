@@ -18,4 +18,6 @@ Note that I use the Liberica jdk/jre because they already ship JavaFX
 
 ## Sample gameplay (still with the place-holder assets)
 
-https://github.com/user-attachments/assets/97f72d25-babe-4ce6-b179-34f728ad3a13
+[![](https://markdown-videos-api.jorgenkh.no/youtube/k-vtR7d79Q0)](https://youtu.be/k-vtR7d79Q0)
+
+
