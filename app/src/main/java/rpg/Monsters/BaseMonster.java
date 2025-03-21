@@ -134,8 +134,9 @@ public abstract class BaseMonster implements Thing {
       imageView.setEffect(colorAdjust);
       PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
 
+      this.isHurt = true;
       pause.setOnFinished(event -> {
-        this.isHurt = true;
+        this.isHurt = false;
         this.health -= damage;
         colorAdjust.setBrightness(oldBrightness);
         imageView.setEffect(colorAdjust);

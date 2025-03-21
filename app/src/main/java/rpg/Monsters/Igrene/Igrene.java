@@ -35,13 +35,13 @@ public class Igrene extends BaseMonster implements Usable {
 
     preCacheSprites(new HashMap<String, String>() {
       {
-        put("idle", "/npc/Idle.png");
+        put("idle", "/npc/givers/enchantress/Idle.png");
       }
     });
 
     getImageView().setImage(images.get("idle"));
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 160, 128));
-    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
+    setAnimation(new SpriteAnimation(imageView, new Duration(500), 5, 5, 0, 0, 128, 160));
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
