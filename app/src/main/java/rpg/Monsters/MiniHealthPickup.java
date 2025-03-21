@@ -18,7 +18,7 @@ public class MiniHealthPickup extends BaseMonster {
 
     preCacheSprites(new HashMap<String, String>() {
       {
-        put("idle", "/items/miniHealthPickup.png");
+        put("idle", "/items/potions/Icon24.png");
       }
     });
 

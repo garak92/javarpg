@@ -24,15 +24,17 @@ public class Bringer extends BaseMonster {
 
     preCacheSprites(new HashMap<String, String>() {
       {
-        put("idle", "/bringer-of-death/bringer.png");
-        put("dead", "/bringer-of-death/bringer.png");
+        put("idle", "/enemies/satyr/satyr_3/Idle.png");
+        put("dead", "/enemies/satyr/satyr_3/Dead.png");
+        put("walk", "/enemies/satyr/satyr_3/Walk.png");
+        put("attack", "/enemies/satyr/satyr_3/Attack.png");
       }
     });
 
     getImageView().setImage(images.get("idle"));
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 140, 93));
-    setAnimation(new SpriteAnimation(imageView, new Duration(600), 7, 7,
-        30, 0, 140, 93));
+
+    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
 
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
