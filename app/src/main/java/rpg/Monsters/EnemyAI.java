@@ -13,4 +13,5 @@ public abstract class EnemyAI {
 
   public abstract void update(List<Usable> usables);
   public abstract EnumEnemyStates currentState();
+  public abstract boolean isAttacking();
 }

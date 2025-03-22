@@ -1,15 +1,19 @@
-package rpg.Monsters.Satyrs.MaleSatyr;
+package rpg.Monsters.Werewolf;
 
 import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
+import javafx.scene.effect.ColorAdjust;
+import javafx.util.Duration;
 import rpg.Monsters.*;
+import rpg.Monsters.Satyrs.MaleSatyr.MaleSatyrFireball;
 
-public class MaleSatyrAI extends BaseEnemyAI {
+public class WerewolfAI extends BaseEnemyAI {
   private int randomAttackAccumulator = 0;
-  private final int attackCoolDown = 80;
+  private final int attackCoolDown = 20;
 
-  public MaleSatyrAI(BaseMonster monster) {
+  public WerewolfAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 300;
   }
 
   @Override
@@ -17,9 +21,6 @@ public class MaleSatyrAI extends BaseEnemyAI {
     if (randomAttackAccumulator == attackCoolDown) {
       isAttacking = true;
       attackLogic();
-      monster.getLevel()
-          .addThing(new MaleSatyrFireball(monster.getImageView().getBoundsInParent().getCenterX(),
-              monster.getImageView().getBoundsInParent().getCenterY(), monster.getLevel(), Player.getInstance()));
       randomAttackAccumulator = 0;
     } else {
       isAttacking = false;
@@ -27,7 +28,7 @@ public class MaleSatyrAI extends BaseEnemyAI {
     }
   }
 
-  public void attackLogic() {
+    public void attackLogic() {
     monster.getAnimation().stop();
     monster.getAnimation().setCycleCount(1);
     monster.getAnimation().setOnFinished(event -> {
@@ -46,4 +47,5 @@ public class MaleSatyrAI extends BaseEnemyAI {
   public EnumEnemyStates currentState() {
     return super.getCurrentState();
   }
+
 }

@@ -30,6 +30,7 @@ import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rpg.Monsters.Werewolf.Werewolf;
 
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);
@@ -175,10 +176,16 @@ public class Level {
               igrene.spawn(pane);
               break;
             case "3":
-              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
+              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Male Satyr",
                    this);
               things.add(maleSatyr);
               maleSatyr.spawn(pane);
+              break;
+            case "4":
+              Werewolf werewolf = new Werewolf(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Werewolf",
+                      this);
+              things.add(werewolf);
+              werewolf.spawn(pane);
               break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",

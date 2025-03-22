@@ -1,30 +1,31 @@
-package rpg.Monsters.Satyrs.MaleSatyr;
+package rpg.Monsters.Werewolf;
 
-import java.util.HashMap;
-import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
-import rpg.Monsters.*;
-import rpg.SpriteAnimation;
 import rpg.Common.QuestLog;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
+import rpg.Monsters.*;
+import rpg.SpriteAnimation;
 
-public class MaleSatyr extends BaseMonster {
+import java.util.HashMap;
+import java.util.List;
+
+public class Werewolf extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
-  private final EnemyAI ai = new MaleSatyrAI(this);
+  private final EnemyAI ai = new WerewolfAI(this);
 
-  public MaleSatyr(double charPosx, double charPosy, double velocity, int health,
-                   int shield, String name, Level level) {
+  public Werewolf(double charPosx, double charPosy, double velocity, int health,
+                  int shield, String name, Level level) {
 
     super(charPosx, charPosy, velocity, health, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {
-        put("idle", "/enemies/satyr/satyr_3/Idle.png");
-        put("dead", "/enemies/satyr/satyr_3/Dead.png");
-        put("walk", "/enemies/satyr/satyr_3/Walk.png");
-        put("attack", "/enemies/satyr/satyr_3/Attack.png");
+        put("idle", "/enemies/werewolf/black_werewolf/Idle.png");
+        put("dead", "/enemies/werewolf/black_werewolf/Dead.png");
+        put("walk", "/enemies/werewolf/black_werewolf/Walk.png");
+        put("attack", "/enemies/werewolf/black_werewolf/Charge.png");
       }
     });
 
@@ -39,15 +40,17 @@ public class MaleSatyr extends BaseMonster {
 
   @Override
   public void die() {
-    QuestLog.INSTANCE.updateActiveQuests(this);
     getMonster().setDead();
+
     getImageView().setImage(images.get("dead"));
+    setAnimationWithoutPlaying(new SpriteAnimation(imageView, new Duration(200), 2, 2, 0, 0, 128, 160));
     MonsterUtils.playAnimationOnlyOnce(animation);
+
+    QuestLog.INSTANCE.updateActiveQuests(this);
   }
 
   @Override
   public void update(List<Usable> usables) {
-    ai.update(usables);
     if(ai.currentState() == EnumEnemyStates.CHASE) {
       if(getImageView().getImage() != images.get("walk")) {
         getImageView().setImage(images.get("walk"));
@@ -61,6 +64,8 @@ public class MaleSatyr extends BaseMonster {
     if(ai.currentState() == EnumEnemyStates.IDLE) {
       getImageView().setImage(images.get("idle"));
     }
+
+    ai.update(usables);
   }
 
 }

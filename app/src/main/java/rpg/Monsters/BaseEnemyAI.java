@@ -15,6 +15,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
   private Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
+  protected boolean isAttacking = false;
   private int randomMovementAccumulator = 0;
   private BaseMonster target;
   private final int movementChangeFrequency = 30;
@@ -29,6 +30,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.ATTACK));
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
 
@@ -48,6 +50,12 @@ public abstract class BaseEnemyAI extends EnemyAI {
     this.currentState = transitionState.get(0).getToState();
   }
 
+
+  @Override
+  public boolean isAttacking() {
+    return isAttacking;
+  }
+
   public boolean checkMonsterInAttackRange(BaseMonster target) {
     double currentMonsterDistance = Math
         .sqrt(Math.pow(monster.charPosx - target.charPosx, 2) + Math.pow(monster.charPosy - target.charPosy, 3));
@@ -65,11 +73,17 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   @Override
   public void update(List<Usable> usables) {
-    if (monster.detectCollision(target)) {
+    if (monster.detectCollision(target) && !target.isDead()) {
       transition(EnumEvents.AGGROED);
     }
 
-    if (checkMonsterInAttackRange(target)) {
+    if (checkMonsterInAttackRange(target) && !target.isDead()) {
+      if(!isAttacking) {
+        transition(EnumEvents.CAN_ATTACK);
+      } else {
+        transition(EnumEvents.AGGROED);
+      }
+    } else if(!target.isDead()) {
       transition(EnumEvents.AGGROED);
     }
 
@@ -95,6 +109,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
         break;
       case ATTACK:
         attack();
+        chase();
       case DEAD:
         break;
       default:
@@ -151,13 +166,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
         }
         monster.imageView.setLayoutX(monster.charPosx);
         monster.imageView.setLayoutY(monster.charPosy);
-        return;
       }
-
-      if (checkMonsterInAttackRange(target)) {
-          attack();
-      }
-
     } catch (Exception e) {
       e.printStackTrace();
     }
