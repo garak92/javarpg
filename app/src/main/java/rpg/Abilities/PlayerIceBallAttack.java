@@ -18,7 +18,7 @@ public class PlayerIceBallAttack extends BaseAbility {
   @Override
   protected void dealDamage() {
     for (BaseMonster i : enemies) {
-      if (monster.getMonster().detectCollision(i)) {
+      if (monster.getMonster().detectCollision(i) && !i.isDead()) {
         i.receiveDamage(damageDealt);
         monster.die();
       }

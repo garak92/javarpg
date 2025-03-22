@@ -56,7 +56,7 @@ public abstract class BaseMonster implements Thing {
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
-      EnumMonsterAlignment alignment, Level level, String name) {
+                        EnumMonsterAlignment alignment, Level level, String name) {
     this.charPosx = charPosx;
     this.charPosy = charPosy;
     this.charVelx = velocity;
@@ -91,6 +91,10 @@ public abstract class BaseMonster implements Thing {
 
   public boolean isDead() {
     return this.isDead;
+  }
+
+  public void setDead() {
+    isDead = true;
   }
 
   protected void setAnimation(SpriteAnimation animation) {

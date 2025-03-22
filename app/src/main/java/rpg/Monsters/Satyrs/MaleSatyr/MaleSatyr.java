@@ -1,24 +1,21 @@
-package rpg.Monsters.Bringer;
+package rpg.Monsters.Satyrs.MaleSatyr;
 
 import java.util.HashMap;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
+import rpg.Monsters.*;
 import rpg.SpriteAnimation;
 import rpg.Common.QuestLog;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
-import rpg.Monsters.BaseMonster;
-import rpg.Monsters.EnemyAI;
-import rpg.Monsters.EnumEnemyStates;
-import rpg.Monsters.EnumMonsterAlignment;
 
-public class Bringer extends BaseMonster {
+public class MaleSatyr extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
-  private final EnemyAI ai = new BringerAI(this, level.getPlayer());
+  private final EnemyAI ai = new MaleSatyrAI(this);
 
-  public Bringer(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, EnumEnemyStates currentState, Level level) {
+  public MaleSatyr(double charPosx, double charPosy, double velocity, int health,
+                   int shield, String name, Level level) {
 
     super(charPosx, charPosy, velocity, health, alignment, level, name);
 
@@ -42,13 +39,29 @@ public class Bringer extends BaseMonster {
 
   @Override
   public void die() {
-    getImageView().setImage(images.get("die"));
-    level.removeThing(this);
+    getImageView().setImage(images.get("dead"));
+    MonsterUtils.playAnimationOnlyOnce(animation);
     QuestLog.INSTANCE.updateActiveQuests(this);
+    getMonster().setDead();
   }
 
   @Override
   public void update(List<Usable> usables) {
+    if(ai.currentState() == EnumEnemyStates.CHASE) {
+      if(getImageView().getImage() != images.get("walk")) {
+        getImageView().setImage(images.get("walk"));
+      }
+    }
+
+    if(ai.currentState() == EnumEnemyStates.ATTACK) {
+      getImageView().setImage(images.get("attack"));
+    }
+
+    if(ai.currentState() == EnumEnemyStates.IDLE) {
+      getImageView().setImage(images.get("idle"));
+    }
+
     ai.update(usables);
   }
+
 }

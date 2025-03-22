@@ -4,5 +4,6 @@ public enum EnumEvents {
   DAMAGED,
   AGGROED,
   KILLED,
-  TARGET_KILLED
+  TARGET_KILLED,
+  CAN_ATTACK,
 }

@@ -84,6 +84,13 @@ public class Player extends BaseMonster {
     return instance;
   }
 
+  public static Player getInstance() throws NullPointerException {
+    if(instance == null) {
+     throw new NullPointerException();
+    }
+     return instance;
+  }
+
   private void setKeyBinds(Stage primaryStage) {
     primaryStage.getScene().setOnKeyPressed(event -> {
       // Movement

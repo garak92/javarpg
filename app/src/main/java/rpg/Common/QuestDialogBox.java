@@ -77,4 +77,8 @@ public class QuestDialogBox {
     pane.getChildren().removeAll(box, text);
     open = false;
   }
+
+  public boolean isOpen() {
+    return open;
+  }
 }

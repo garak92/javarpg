@@ -15,15 +15,11 @@ import rpg.Common.MusicSystem;
 import rpg.Common.QuestLog;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
-import rpg.Monsters.Bringer.Bringer;
+import rpg.Items.ExlixirOfYouthItem;
+import rpg.Monsters.*;
+import rpg.Monsters.Satyrs.MaleSatyr.MaleSatyr;
 import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.Villager.Villager;
-import rpg.Monsters.BaseMonster;
-import rpg.Monsters.EnumEnemyStates;
-import rpg.Monsters.EnumMonsterAlignment;
-import rpg.Monsters.MiniHealthPickup;
-import rpg.Monsters.Player;
-import rpg.Monsters.Portal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -174,25 +170,25 @@ public class Level {
               break;
             case "2":
               Igrene igrene = Igrene.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
-                  EnumEnemyStates.IDLE, this);
+                   this);
               usables.add(igrene);
               igrene.spawn(pane);
               break;
             case "3":
-              Bringer bringer = new Bringer(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
-                  EnumEnemyStates.IDLE, this);
-              things.add(bringer);
-              bringer.spawn(pane);
+              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Bringer of Death",
+                   this);
+              things.add(maleSatyr);
+              maleSatyr.spawn(pane);
               break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",
-                  EnumEnemyStates.IDLE, this, "cityhub", "sheet1.png");
+                   this, "cityhub", "sheet1.png");
               usables.add(portal);
               portal.spawn(pane);
               break;
             case "A": // Extended ascii 181
               Portal portalToLevel1 = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to level 1",
-                  EnumEnemyStates.IDLE, this, "level1", "sheet1.png");
+                   this, "level1", "sheet1.png");
               usables.add(portalToLevel1);
               portalToLevel1.spawn(pane);
               break;
@@ -202,9 +198,14 @@ public class Level {
               things.add(miniHealthPickup);
               miniHealthPickup.spawn(pane);
               break;
+            case "e":
+              ElixirOfYouth elixirOfYouth = new ElixirOfYouth(TILE_SIZE * j, TILE_SIZE * i, this);
+              things.add(elixirOfYouth);
+              elixirOfYouth.spawn(pane);
+              break;
             case "v":
               Villager villager = new Villager(TILE_SIZE * j, TILE_SIZE * i, 1, 30, 10, "Villager",
-                  EnumEnemyStates.IDLE, this);
+                   this);
               usables.add(villager);
               things.add(villager);
               villager.spawn(pane);

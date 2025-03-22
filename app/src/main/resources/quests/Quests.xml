@@ -6,7 +6,7 @@
 Hello, fellow traveler! My name is Igrenne. Do you see that portal over there? 
 It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord
 and his troops.
-Please, kill six Bringer of Death for me. I'll reward you with 10 experience points.
+Please, kill six Satyr for me. I'll reward you with 10 experience points.
       </Description>
             <DialogInProgress>
                 Have you killed them yet?
@@ -19,10 +19,10 @@ Please, kill six Bringer of Death for me. I'll reward you with 10 experience poi
                 10
             </ExperiencePoints>
             <Entity>
-                rpg.Monsters.Bringer.Bringer
+                rpg.Monsters.Satyrs.MaleSatyr.MaleSatyr
             </Entity>
             <EntityFriendlyName>
-                Bringer of Death
+                Satyr
             </EntityFriendlyName>
             <ObjectiveQuantity>
                6 
@@ -31,4 +31,34 @@ Please, kill six Bringer of Death for me. I'll reward you with 10 experience poi
                 rpg.Monsters.Igrene.Igrene
             </Giver>
         </Quest>
+    <Quest>
+        <Name>Elixir of youth</Name>
+        <Description>
+           I'am not getting any younger, pal. Please, bring me
+            the elixir of youth. You'll find it deep into the satyr realms,
+            following that portal over there.
+        </Description>
+        <DialogInProgress>
+            Have you find it yet?
+        </DialogInProgress>
+        <DialogCompleted>
+            Amazing!
+            Here, take my 10 exp points and get lost.
+        </DialogCompleted>
+        <ExperiencePoints>
+            10
+        </ExperiencePoints>
+        <Entity>
+            rpg.Monsters.ElixirOfYouth
+        </Entity>
+        <EntityFriendlyName>
+            Exlixir of Youth
+        </EntityFriendlyName>
+        <ObjectiveQuantity>
+            1
+        </ObjectiveQuantity>
+        <Giver>
+            rpg.Monsters.Igrene.Igrene
+        </Giver>
+    </Quest>
 </Quests>

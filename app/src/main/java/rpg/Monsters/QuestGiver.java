@@ -23,9 +23,8 @@ public class QuestGiver {
     this.exclamation = new Text(monster.getCharPosx() + 50, monster.getCharPosy() + 30, "!");
     this.exclamation.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
     this.exclamation.setFill(Color.YELLOW);
-    this.dialogBox = new QuestDialogBox(
-        quest,
-        monster.getLevel().getPane(), monster, defaultDialogueList);
+    this.dialogBox = new QuestDialogBox(quest, monster.getLevel().getPane(), monster, defaultDialogueList);
+
     if (this.quest != null) {
       monster.getLevel().getPane().getChildren().add(exclamation);
     }
@@ -34,7 +33,11 @@ public class QuestGiver {
   public void use(Player player) {
     dialogBox.use();
     this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(monster);
-    if (this.quest == null) {
+    showExclamation();
+  }
+
+  public void showExclamation() {
+    if (this.quest == null || this.dialogBox.isOpen() || QuestLog.INSTANCE.hasQuestsInProgress(monster)) {
       monster.getLevel().getPane().getChildren().remove(exclamation);
     } else if (!monster.getLevel().getPane().getChildren().contains(this.exclamation)) {
       monster.getLevel().getPane().getChildren().add(exclamation);

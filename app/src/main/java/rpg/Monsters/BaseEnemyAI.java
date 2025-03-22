@@ -29,6 +29,8 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.ATTACK));
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
 
     this.target = target;
   }
@@ -51,6 +53,14 @@ public abstract class BaseEnemyAI extends EnemyAI {
         .sqrt(Math.pow(monster.charPosx - target.charPosx, 2) + Math.pow(monster.charPosy - target.charPosy, 3));
     return currentMonsterDistance <= attackRange;
 
+  }
+
+  protected EnumEnemyStates getCurrentState() {
+    return currentState;
+  }
+
+  protected void setCurrentState(EnumEnemyStates currentState) {
+    this.currentState = currentState;
   }
 
   @Override
@@ -83,6 +93,8 @@ public abstract class BaseEnemyAI extends EnemyAI {
       case CHASE:
         chase();
         break;
+      case ATTACK:
+        attack();
       case DEAD:
         break;
       default:
@@ -97,7 +109,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     }
   }
 
-  public abstract void attack(BaseMonster target);
+  public abstract void attack();
 
   public void chase() {
     try {
@@ -106,9 +118,9 @@ public abstract class BaseEnemyAI extends EnemyAI {
       }
 
       if (target.charPosx - monster.charPosx > 0) {
-        monster.imageView.setScaleX(-1);
-      } else {
         monster.imageView.setScaleX(1);
+      } else {
+        monster.imageView.setScaleX(-1);
       }
 
       if (randomMovementAccumulator == movementChangeFrequency) {
@@ -143,7 +155,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
       }
 
       if (checkMonsterInAttackRange(target)) {
-        attack(target);
+          attack();
       }
 
     } catch (Exception e) {

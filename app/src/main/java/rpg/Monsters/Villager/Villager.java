@@ -40,7 +40,7 @@ public class Villager extends BaseMonster implements Usable {
       double velocity,
       int health,
       int shield, String name,
-      EnumEnemyStates currentState, Level level) {
+      Level level) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {

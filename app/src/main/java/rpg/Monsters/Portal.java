@@ -22,7 +22,7 @@ public class Portal extends BaseMonster implements Usable {
       double velocity,
       int health,
       int shield, String name,
-      EnumEnemyStates currentState, Level level, String destinationLevelName, String destinationLevelSpritesheet) {
+      Level level, String destinationLevelName, String destinationLevelSpritesheet) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {

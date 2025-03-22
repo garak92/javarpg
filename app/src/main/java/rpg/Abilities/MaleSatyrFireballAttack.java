@@ -2,12 +2,12 @@ package rpg.Abilities;
 
 import rpg.Monsters.BaseMonster;
 
-public class BringerFireballAttack extends BaseAbility {
+public class MaleSatyrFireballAttack extends BaseAbility {
   private double normalizedX = 0;
   private double normalizedY = 0;
   private BaseMonster target;
 
-  public BringerFireballAttack(BaseMonster monster, BaseMonster target) {
+  public MaleSatyrFireballAttack(BaseMonster monster, BaseMonster target) {
     super(15, 0, 0, monster);
     double directionX = target.getCharPosx() - monster.getCharPosx();
     double directionY = target.getCharPosy() - monster.getCharPosy();

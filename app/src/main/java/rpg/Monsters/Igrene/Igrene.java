@@ -30,7 +30,7 @@ public class Igrene extends BaseMonster implements Usable {
       double velocity,
       int health,
       int shield, String name,
-      EnumEnemyStates currentState, Level level) {
+      Level level) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
@@ -54,10 +54,10 @@ public class Igrene extends BaseMonster implements Usable {
       double velocity,
       int health,
       int shield, String name,
-      EnumEnemyStates currentState, Level level) {
+      Level level) {
     if (instance == null) {
       instance = new Igrene(charPosx, charPosy, velocity, health,
-          shield, name, currentState, level);
+          shield, name, level);
     } else {
       // Player should maintain their stats throughout a level transition
       // but other stuff, such as the level data, must obviously change
@@ -66,6 +66,7 @@ public class Igrene extends BaseMonster implements Usable {
       instance.level = level;
       instance.getImageView().setLayoutX(charPosx);
       instance.getImageView().setLayoutY(charPosy);
+      instance.questGiver.showExclamation();
     }
     return instance;
   }

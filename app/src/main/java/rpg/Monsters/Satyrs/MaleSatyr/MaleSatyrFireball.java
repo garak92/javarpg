@@ -1,21 +1,21 @@
-package rpg.Monsters.Bringer;
+package rpg.Monsters.Satyrs.MaleSatyr;
 
 import java.util.HashMap;
 import java.util.List;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
-import rpg.Abilities.BringerFireballAttack;
+import rpg.Abilities.MaleSatyrFireballAttack;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumMonsterAlignment;
 
-public class BringerFireball extends BaseMonster {
+public class MaleSatyrFireball extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
-  private final BringerFireballAttack attack;
+  private final MaleSatyrFireballAttack attack;
 
-  public BringerFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
+  public MaleSatyrFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
     super(charPosx, charPosy, 7, 0, alignment, level);
 
     preCacheSprites(new HashMap<String, String>() {
@@ -35,7 +35,7 @@ public class BringerFireball extends BaseMonster {
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
 
-    this.attack = new BringerFireballAttack(this, target);
+    this.attack = new MaleSatyrFireballAttack(this, target);
 
   }
 

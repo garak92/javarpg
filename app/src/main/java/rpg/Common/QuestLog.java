@@ -42,6 +42,15 @@ public enum QuestLog {
     return res;
   }
 
+  public <T extends BaseMonster> boolean hasQuestsInProgress(T questGiver) {
+    List<Quest> list = quests.stream().filter(v -> {
+      return (v.getQuestStatus() == EnumQuestStatus.IN_PROGRESS || v.getQuestStatus() == EnumQuestStatus.COMPLETED)
+              && v.getQuestGiver() == questGiver.getClass();
+    }).collect(Collectors.toList());
+
+    return !list.isEmpty();
+  }
+
   public List<Quest> getQuests() {
     return new ArrayList<>(quests);
   }
@@ -54,7 +63,9 @@ public enum QuestLog {
 
   public <T extends BaseMonster> void updateActiveQuests(T questEntity) {
     for (Quest quest : quests) {
-      quest.update(questEntity);
+      if(quest.isInProgress()) {
+          quest.update(questEntity);
+      }
     }
   }
 
