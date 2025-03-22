@@ -20,7 +20,7 @@ public class MaleSatyrFireball extends BaseMonster {
 
     preCacheSprites(new HashMap<String, String>() {
       {
-        put("idle", "/bringer-of-death/fireball.png");
+        put("idle", "/enemies/satyr/satyr_3/fireball.png");
       }
     });
 
