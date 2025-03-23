@@ -271,7 +271,7 @@ public class Level {
     return usables;
   }
 
-  public void update() {
+  public void update() throws Throwable {
     logger.info("Thing queue size: " + thingQueue.size());
     if (thingQueue.size() > 0) {
       for (Thing i : thingQueue) {

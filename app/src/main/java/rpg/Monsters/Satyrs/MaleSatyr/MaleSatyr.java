@@ -2,6 +2,8 @@ package rpg.Monsters.Satyrs.MaleSatyr;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.Monsters.*;
@@ -13,6 +15,7 @@ import rpg.Levels.Level;
 public class MaleSatyr extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
   private final EnemyAI ai = new MaleSatyrAI(this);
+  private final AnimationController animationController = new AnimationController(ai, this);
 
   public MaleSatyr(double charPosx, double charPosy, double velocity, int health,
                    int shield, String name, Level level) {
@@ -28,39 +31,25 @@ public class MaleSatyr extends BaseMonster {
       }
     });
 
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 140, 93));
-
-    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
-
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
+    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+      {
+        put("idle", new SpriteAnimation(imageView, new Duration(300), 6, 6, 0, 0, 128, 160, Animation.INDEFINITE));
+        put("dead", new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160, 1));
+        put("walk", new SpriteAnimation(imageView, new Duration(800), 12, 12, 0, 0, 128, 160, Animation.INDEFINITE));
+        put("attack", new SpriteAnimation(imageView, new Duration(300),9 , 9, 0, 0, 128, 160, 1));
+      }
+    });
   }
 
   @Override
   public void die() {
     QuestLog.INSTANCE.updateActiveQuests(this);
     getMonster().setDead();
-    getImageView().setImage(images.get("dead"));
-    MonsterUtils.playAnimationOnlyOnce(animation);
   }
 
   @Override
-  public void update(List<Usable> usables) {
+  public void update(List<Usable> usables) throws Throwable {
     ai.update(usables);
-    if(ai.currentState() == EnumEnemyStates.CHASE) {
-      if(getImageView().getImage() != images.get("walk")) {
-        getImageView().setImage(images.get("walk"));
-      }
-    }
-
-    if(ai.currentState() == EnumEnemyStates.CHASE && ai.isAttacking()) {
-      getImageView().setImage(images.get("attack"));
-    }
-
-    if(ai.currentState() == EnumEnemyStates.IDLE) {
-      getImageView().setImage(images.get("idle"));
-    }
+    animationController.update();
   }
-
 }

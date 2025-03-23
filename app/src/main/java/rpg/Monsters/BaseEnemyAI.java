@@ -16,6 +16,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   private Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
   protected boolean isAttacking = false;
+  protected boolean isPerformingAction = false;
   private int randomMovementAccumulator = 0;
   private BaseMonster target;
   private final int movementChangeFrequency = 30;
@@ -31,8 +32,11 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.ATTACK));
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.TRY_ATTACK));
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.CAST_ATTACK, EnumEnemyStates.ATTACK));
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
 
     this.target = target;
   }
@@ -50,6 +54,15 @@ public abstract class BaseEnemyAI extends EnemyAI {
     this.currentState = transitionState.get(0).getToState();
   }
 
+  @Override
+  public boolean isPerformingAction() {
+    return isPerformingAction;
+  }
+
+  @Override
+  public void setIsPerformingAction(boolean isPerformingAction) {
+    this.isPerformingAction = isPerformingAction;
+  }
 
   @Override
   public boolean isAttacking() {
@@ -67,22 +80,18 @@ public abstract class BaseEnemyAI extends EnemyAI {
     return currentState;
   }
 
-  protected void setCurrentState(EnumEnemyStates currentState) {
-    this.currentState = currentState;
-  }
-
   @Override
   public void update(List<Usable> usables) {
+    logger.info("CURRENT STATE " + currentState);
+    if(isPerformingAction) {
+      return;
+    }
     if (monster.detectCollision(target) && !target.isDead()) {
       transition(EnumEvents.AGGROED);
     }
 
-    if (checkMonsterInAttackRange(target) && !target.isDead()) {
-      if(!isAttacking) {
-        transition(EnumEvents.CAN_ATTACK);
-      } else {
-        transition(EnumEvents.AGGROED);
-      }
+    if (checkMonsterInAttackRange(target) && !target.isDead() && currentState != EnumEnemyStates.TRY_ATTACK) {
+      transition(EnumEvents.CAN_ATTACK);
     } else if(!target.isDead()) {
       transition(EnumEvents.AGGROED);
     }
@@ -107,9 +116,9 @@ public abstract class BaseEnemyAI extends EnemyAI {
       case CHASE:
         chase();
         break;
-      case ATTACK:
+      case TRY_ATTACK:
         attack();
-        chase();
+        //chase();
       case DEAD:
         break;
       default:

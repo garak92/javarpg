@@ -19,33 +19,18 @@ public class WerewolfAI extends BaseEnemyAI {
   @Override
   public void attack() {
     if (randomAttackAccumulator == attackCoolDown) {
-      isAttacking = true;
-      attackLogic();
+      transition(EnumEvents.CAST_ATTACK);
       randomAttackAccumulator = 0;
     } else {
-      isAttacking = false;
+      transition(EnumEvents.FINISH_ATTACK);
       randomAttackAccumulator++;
     }
-  }
-
-    public void attackLogic() {
-    monster.getAnimation().stop();
-    monster.getAnimation().setCycleCount(1);
-    monster.getAnimation().setOnFinished(event -> {
-      isAttacking = false;
-      if(!monster.isDead()) {
-        monster.getAnimation().stop();
-        monster.getAnimation().setCycleCount(Animation.INDEFINITE);
-        monster.getAnimation().play();
-      }
-    });
-
-    monster.getAnimation().play();
   }
 
   @Override
   public EnumEnemyStates currentState() {
     return super.getCurrentState();
   }
+
 
 }

@@ -35,6 +35,24 @@ public class SpriteAnimation extends Transition {
     setInterpolator(Interpolator.LINEAR);
   }
 
+  public SpriteAnimation(
+          ImageView imageView,
+          Duration duration,
+          int count, int columns,
+          int offsetX, int offsetY,
+          int width, int height, int cycleCount) {
+    this.imageView = imageView;
+    this.count = count;
+    this.columns = columns;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+    this.width = width;
+    this.height = height;
+    setCycleDuration(duration);
+    setInterpolator(Interpolator.LINEAR);
+    setCycleCount(cycleCount);
+  }
+
   protected void interpolate(double k) {
     final int index = Math.min((int) Math.floor(k * count), count - 1);
     if (index != lastIndex) {

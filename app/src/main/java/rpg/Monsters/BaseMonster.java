@@ -25,6 +25,7 @@ public abstract class BaseMonster implements Thing {
   protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
   protected Map<String, Image> images = new HashMap<>();
   protected Animation animation;
+  protected Map<String, SpriteAnimation> animations;
   protected EnumMonsterAlignment alignment;
   protected int health;
   protected double charPosx;
@@ -44,6 +45,8 @@ public abstract class BaseMonster implements Thing {
   }
 
   public void spawn(Pane root) {
+    this.imageView.setLayoutX(charPosx);
+    this.imageView.setLayoutY(charPosy);
     root.getChildren().add(this.imageView);
   }
 
@@ -59,7 +62,11 @@ public abstract class BaseMonster implements Thing {
     return animation;
   }
 
-  public void setImage(String imageName) {
+  public Map<String, SpriteAnimation> getAnimations() {
+        return animations;
+  }
+
+    public void setImage(String imageName) {
    imageView.setImage(images.get(imageName));
  }
 
@@ -80,7 +87,6 @@ public abstract class BaseMonster implements Thing {
     }
 
 
-
     protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
                           EnumMonsterAlignment alignment, Level level, String name) {
     this.charPosx = charPosx;
@@ -91,6 +97,7 @@ public abstract class BaseMonster implements Thing {
     this.alignment = alignment;
     this.level = level;
     this.name = name;
+
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
@@ -115,6 +122,10 @@ public abstract class BaseMonster implements Thing {
     }
   }
 
+protected void preCacheAnimations(Map<String, SpriteAnimation> animations) {
+    this.animations = animations;
+}
+
   public boolean isDead() {
     return this.isDead;
   }
@@ -124,10 +135,13 @@ public abstract class BaseMonster implements Thing {
   }
 
   protected void setAnimation(SpriteAnimation animation) {
-    animation.stop();
-    this.animation = animation;
-    animation.setCycleCount(Animation.INDEFINITE);
-    animation.play();
+      this.animation = animation;
+      if(animations == null) {
+          animation.stop();
+          animation.setCycleCount(Animation.INDEFINITE);
+          animation.play();
+      }
+
   }
 
   protected void setAnimationWithoutPlaying(SpriteAnimation animation) {

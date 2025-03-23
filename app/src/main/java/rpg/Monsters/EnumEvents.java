@@ -6,4 +6,6 @@ public enum EnumEvents {
   KILLED,
   TARGET_KILLED,
   CAN_ATTACK,
+  FINISH_ATTACK,
+  CAST_ATTACK,
 }

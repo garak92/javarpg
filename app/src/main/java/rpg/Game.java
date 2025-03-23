@@ -84,7 +84,11 @@ public class Game extends Application {
     gameLoop = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        currentLevel.update();
+          try {
+              currentLevel.update();
+          } catch (Throwable e) {
+              throw new RuntimeException(e);
+          }
       }
     };
 
