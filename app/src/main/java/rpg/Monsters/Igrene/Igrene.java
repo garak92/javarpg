@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
@@ -41,10 +42,7 @@ public class Igrene extends BaseMonster implements Usable {
 
     getImageView().setImage(images.get("idle"));
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 160, 128));
-    setAnimation(new SpriteAnimation(imageView, new Duration(500), 5, 5, 0, 0, 128, 160));
-
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
+    setAnimation(SpriteAnimation.newInstance(imageView, 500, 5, Animation.INDEFINITE));
 
     this.questGiver = new QuestGiver(this, defaultDialogueList);
   }

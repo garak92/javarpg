@@ -1,5 +1,6 @@
 package rpg;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -51,6 +52,11 @@ public class SpriteAnimation extends Transition {
     setCycleDuration(duration);
     setInterpolator(Interpolator.LINEAR);
     setCycleCount(cycleCount);
+  }
+
+  public static SpriteAnimation newInstance(ImageView imageView, int duration, int framesQty, int cycleCount) {
+    return new SpriteAnimation(imageView, new Duration(duration), framesQty, framesQty, 0, 0,
+            128, 160, cycleCount);
   }
 
   protected void interpolate(double k) {

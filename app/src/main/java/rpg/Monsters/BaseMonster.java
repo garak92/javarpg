@@ -70,23 +70,6 @@ public abstract class BaseMonster implements Thing {
    imageView.setImage(images.get(imageName));
  }
 
-    public void setCharVelx(double charVelx) {
-        this.charVelx = charVelx;
-    }
-
-    public void setCharVely(double charVely) {
-        this.charVely = charVely;
-    }
-
-    public Image getImage() {
-     return imageView.getImage();
- }
-
-    public Map<String, Image> getImages() {
-        return images;
-    }
-
-
     protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
                           EnumMonsterAlignment alignment, Level level, String name) {
     this.charPosx = charPosx;
@@ -122,9 +105,10 @@ public abstract class BaseMonster implements Thing {
     }
   }
 
-protected void preCacheAnimations(Map<String, SpriteAnimation> animations) {
+  // Only used with entities with AI, with the purpose of making it easier to match the animation with their state
+  protected void preCacheAnimations(Map<String, SpriteAnimation> animations) {
     this.animations = animations;
-}
+  }
 
   public boolean isDead() {
     return this.isDead;
@@ -143,12 +127,6 @@ protected void preCacheAnimations(Map<String, SpriteAnimation> animations) {
       }
 
   }
-
-  protected void setAnimationWithoutPlaying(SpriteAnimation animation) {
-        animation.stop();
-        this.animation = animation;
-        animation.setCycleCount(Animation.INDEFINITE);
-    }
 
   public boolean detectCollision(List<LevelNode> nodeList) {
     // We take 20% of the entity's dimensions for a nicer feel

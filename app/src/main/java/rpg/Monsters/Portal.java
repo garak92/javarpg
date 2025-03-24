@@ -3,6 +3,7 @@ package rpg.Monsters;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;

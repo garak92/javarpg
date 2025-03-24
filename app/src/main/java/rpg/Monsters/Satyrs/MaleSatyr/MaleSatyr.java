@@ -33,10 +33,10 @@ public class MaleSatyr extends BaseMonster {
 
     preCacheAnimations(new HashMap<String, SpriteAnimation>() {
       {
-        put("idle", new SpriteAnimation(imageView, new Duration(300), 6, 6, 0, 0, 128, 160, Animation.INDEFINITE));
-        put("dead", new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160, 1));
-        put("walk", new SpriteAnimation(imageView, new Duration(800), 12, 12, 0, 0, 128, 160, Animation.INDEFINITE));
-        put("attack", new SpriteAnimation(imageView, new Duration(300),9 , 9, 0, 0, 128, 160, 1));
+        put("idle", SpriteAnimation.newInstance(imageView, 300, 6, Animation.INDEFINITE));
+        put("dead", SpriteAnimation.newInstance(imageView, 300, 4, 1));
+        put("walk", SpriteAnimation.newInstance(imageView, 800, 12, Animation.INDEFINITE));
+        put("attack", SpriteAnimation.newInstance(imageView, 300,9, 1));
       }
     });
   }

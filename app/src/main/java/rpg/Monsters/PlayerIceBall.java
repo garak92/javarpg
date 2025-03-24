@@ -2,6 +2,8 @@ package rpg.Monsters;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.SpriteAnimation;
@@ -27,14 +29,7 @@ public class PlayerIceBall extends BaseMonster {
     getImageView().setFitWidth(30);
     getImageView().setFitHeight(30);
 
-    setAnimation(new SpriteAnimation(imageView, new Duration(0), 1, 1,
-        0, 0, 128, 128));
-
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
-
     this.attack = new PlayerIceBallAttack(this, targetList, direction);
-
   }
 
   @Override
