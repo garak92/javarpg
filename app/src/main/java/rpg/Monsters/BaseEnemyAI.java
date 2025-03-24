@@ -19,7 +19,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   protected boolean isPerformingAction = false;
   private int randomMovementAccumulator = 0;
   private BaseMonster target;
-  private final int movementChangeFrequency = 30;
+  private final int movementChangeFrequency = 200;
   protected double attackRange = 500.0;
   protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);
 
@@ -27,16 +27,36 @@ public abstract class BaseEnemyAI extends EnemyAI {
     super(monster);
 
     // Set default transition table
-    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
-    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));
-    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.TRY_ATTACK));
-    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.CAST_ATTACK, EnumEnemyStates.ATTACK));
-    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
-    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));
+    // IDLE state transitions
+    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From IDLE to CHASE when AGGROED
+    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From IDLE to DEAD when KILLED
+    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // No state change if target killed while idle (you may want this, depending on behavior)
+    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.CAN_ATTACK, EnumEnemyStates.TRY_ATTACK));  // From IDLE to TRY_ATTACK if CAN_ATTACK
+    transitionTable.add(new StateTransition(EnumEnemyStates.IDLE, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // Aggro while in IDLE should always go to CHASE
+
+// CHASE state transitions
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From CHASE to DEAD when KILLED
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED while chasing -> IDLE
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.CAN_ATTACK, EnumEnemyStates.TRY_ATTACK));  // From CHASE to TRY_ATTACK if CAN_ATTACK
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // Stay in CHASE if already AGGROED
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Chase should stop if target killed (and switch to idle)
+    transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // If KILLED during chase -> DEAD
+
+// ATTACK state transitions
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From ATTACK to DEAD when KILLED
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in ATTACK -> back to IDLE
+
+// TRY_ATTACK state transitions
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.CAST_ATTACK, EnumEnemyStates.ATTACK));  // From TRY_ATTACK to ATTACK when CAST_ATTACK
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // Finish ATTACK -> back to CHASE
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From TRY_ATTACK to CHASE if AGGROED
+    transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in TRY_ATTACK -> IDLE
+
+// DEAD state transitions
+// No transitions out of DEAD, as the enemy is inactive or has finished its lifecycle
+
 
     this.target = target;
   }
@@ -90,18 +110,18 @@ public abstract class BaseEnemyAI extends EnemyAI {
       transition(EnumEvents.AGGROED);
     }
 
-    if (checkMonsterInAttackRange(target) && !target.isDead() && currentState != EnumEnemyStates.TRY_ATTACK) {
+    if (checkMonsterInAttackRange(target) && !target.isDead() && rngGenerator.nextFloat(0, 1) <= 0.7) {
       transition(EnumEvents.CAN_ATTACK);
     } else if(!target.isDead()) {
       transition(EnumEvents.AGGROED);
     }
 
-    if (monster.health <= 0 && this.currentState != EnumEnemyStates.DEAD) {
+    if (monster.health <= 0) {
       monster.die();
       transition(EnumEvents.KILLED);
     }
 
-    if (monster.isHurt && this.currentState == EnumEnemyStates.IDLE) {
+    if (monster.isHurt) {
       transition(EnumEvents.AGGROED);
       monster.isHurt = false;
     }
@@ -147,8 +167,8 @@ public abstract class BaseEnemyAI extends EnemyAI {
         monster.imageView.setScaleX(-1);
       }
 
-      if (randomMovementAccumulator == movementChangeFrequency) {
-        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.4;
+      if (randomMovementAccumulator >= movementChangeFrequency) {
+        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.8;
         randomMovementAccumulator = 0;
       } else {
         randomMovementAccumulator++;
@@ -175,6 +195,8 @@ public abstract class BaseEnemyAI extends EnemyAI {
         }
         monster.imageView.setLayoutX(monster.charPosx);
         monster.imageView.setLayoutY(monster.charPosy);
+        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.5;
+        randomMovementAccumulator = movementChangeFrequency - 30;
       }
     } catch (Exception e) {
       e.printStackTrace();

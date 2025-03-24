@@ -36,9 +36,29 @@ public class AnimationController {
             }
             case ATTACK -> {
                 monster.setImage("attack");
-                playAnimation(animations.get("attack"));
+                playAnimation(animations.get("attack"), EnumEvents.FINISH_ATTACK);
             }
         }
+    }
+
+    private void playAnimation(SpriteAnimation animation, EnumEvents monsterEvent) {
+        if(animation.equals(monster.getAnimation())) {
+            return;
+        }
+        if(monster.getAnimation() != null) {
+            monster.getAnimation().stop();
+        }
+        monster.setAnimation(animation);
+
+        if(monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
+            ai.setIsPerformingAction(true);
+            monster.getAnimation().setOnFinished(e -> {
+                ai.setIsPerformingAction(false);
+                ai.transition(monsterEvent); // Event to fire when animation is over
+            });
+        }
+
+        monster.getAnimation().play();
     }
 
     private void playAnimation(SpriteAnimation animation) {

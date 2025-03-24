@@ -16,4 +16,5 @@ public abstract class EnemyAI {
   public abstract boolean isAttacking();
   public abstract boolean isPerformingAction();
   public abstract void setIsPerformingAction(boolean isPerformingAction);
+  public abstract void transition(EnumEvents monsterEvent);
 }
