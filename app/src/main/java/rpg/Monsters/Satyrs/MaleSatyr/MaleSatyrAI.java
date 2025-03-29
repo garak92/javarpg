@@ -5,7 +5,7 @@ import rpg.Monsters.*;
 
 public class MaleSatyrAI extends BaseEnemyAI {
   private int randomAttackAccumulator = 0;
-  private final int attackCoolDown = 40;
+  private final int attackCoolDown = 20;
 
   public MaleSatyrAI(BaseMonster monster) {
     super(monster, Player.getInstance());

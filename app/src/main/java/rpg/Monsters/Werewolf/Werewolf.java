@@ -17,17 +17,17 @@ public class Werewolf extends BaseMonster {
   private final EnemyAI ai = new WerewolfAI(this);
   private final AnimationController animationController = new AnimationController(ai, this);
 
-  public Werewolf(double charPosx, double charPosy, double velocity, int health,
+  public Werewolf(double charPosx, double charPosy, double velocity,
                   int shield, String name, Level level) {
 
-    super(charPosx, charPosy, velocity, health, alignment, level, name);
+    super(charPosx, charPosy, velocity, 90, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {
         put("idle", "/enemies/werewolf/black_werewolf/Idle.png");
         put("dead", "/enemies/werewolf/black_werewolf/Dead.png");
-        put("walk", "/enemies/werewolf/black_werewolf/Walk.png");
-        put("attack", "/enemies/werewolf/black_werewolf/Attack_2.png");
+        put("walk", "/enemies/werewolf/black_werewolf/Run.png");
+        put("attack", "/enemies/werewolf/black_werewolf/Charge.png");
       }
     });
 
@@ -35,8 +35,8 @@ public class Werewolf extends BaseMonster {
       {
         put("idle", new SpriteAnimation(imageView, new Duration(300), 8, 8, 0, 0, 128, 160, Animation.INDEFINITE));
         put("dead", new SpriteAnimation(imageView, new Duration(300), 2, 2, 0, 0, 128, 160, 1));
-        put("walk", new SpriteAnimation(imageView, new Duration(500), 11, 11, 0, 0, 128, 160, Animation.INDEFINITE));
-        put("attack", new SpriteAnimation(imageView, new Duration(300),4 , 4, 0, 0, 128, 160, 1));
+        put("walk", new SpriteAnimation(imageView, new Duration(500), 9, 9, 0, 0, 128, 160, Animation.INDEFINITE));
+        put("attack", new SpriteAnimation(imageView, new Duration(300),7 , 7, 0, 0, 128, 160, 1));
       }
     });
   }

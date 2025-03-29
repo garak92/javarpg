@@ -17,10 +17,10 @@ public class MaleSatyr extends BaseMonster {
   private final EnemyAI ai = new MaleSatyrAI(this);
   private final AnimationController animationController = new AnimationController(ai, this);
 
-  public MaleSatyr(double charPosx, double charPosy, double velocity, int health,
+  public MaleSatyr(double charPosx, double charPosy, double velocity,
                    int shield, String name, Level level) {
 
-    super(charPosx, charPosy, velocity, health, alignment, level, name);
+    super(charPosx, charPosy, velocity, 50, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {

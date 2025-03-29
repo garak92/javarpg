@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.shape.Line;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -154,6 +155,15 @@ public abstract class BaseMonster implements Thing {
     }
     return false;
   }
+
+ public boolean isTargeInLineOfSight(List<LevelNode> nodeList, Line line) {
+    for (Node b : nodeList) {
+        if (line.intersects(b.getBoundsInParent())) {
+            return false;
+        }
+    }
+    return true;
+ }
 
   public void receiveDamage(int damage) {
     if (health > 0) {

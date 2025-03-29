@@ -176,13 +176,13 @@ public class Level {
               igrene.spawn(pane);
               break;
             case "3":
-              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Male Satyr",
+              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, 50, "Male Satyr",
                    this);
               things.add(maleSatyr);
               maleSatyr.spawn(pane);
               break;
             case "4":
-              Werewolf werewolf = new Werewolf(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Werewolf",
+              Werewolf werewolf = new Werewolf(TILE_SIZE * j, TILE_SIZE * i, 2, 50, "Werewolf",
                       this);
               things.add(werewolf);
               werewolf.spawn(pane);

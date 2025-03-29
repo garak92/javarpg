@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javafx.scene.shape.Line;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
   private boolean shouldMoveRandomly = false;
   protected boolean isAttacking = false;
   protected boolean isPerformingAction = false;
+  Line lineOfSight =  new Line();
   private int randomMovementAccumulator = 0;
   private BaseMonster target;
   private final int movementChangeFrequency = 200;
@@ -43,6 +45,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     transitionTable.add(new StateTransition(EnumEnemyStates.CHASE, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // If KILLED during chase -> DEAD
 
 // ATTACK state transitions
+    transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
     transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From ATTACK to DEAD when KILLED
@@ -102,7 +105,11 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   @Override
   public void update(List<Usable> usables) {
-    logger.info("CURRENT STATE " + currentState);
+    lineOfSight.setStartX(monster.getImageView().getBoundsInParent().getCenterX());
+    lineOfSight.setEndX(target.getImageView().getBoundsInParent().getCenterX());
+    lineOfSight.setStartY(monster.getImageView().getBoundsInParent().getCenterY());
+    lineOfSight.setEndY(target.getImageView().getBoundsInParent().getCenterY());
+
     if(isPerformingAction) {
       return;
     }
@@ -110,9 +117,12 @@ public abstract class BaseEnemyAI extends EnemyAI {
       transition(EnumEvents.AGGROED);
     }
 
-    if (checkMonsterInAttackRange(target) && !target.isDead() && rngGenerator.nextFloat(0, 1) <= 0.7) {
+    if (checkMonsterInAttackRange(target) && !target.isDead()
+            && monster.isTargeInLineOfSight(monster.getLevel().getSolidTiles(),
+            lineOfSight)) {
       transition(EnumEvents.CAN_ATTACK);
-    } else if(!target.isDead()) {
+    } else if(!target.isDead() && monster.isTargeInLineOfSight(monster.getLevel().getSolidTiles(),
+            lineOfSight)) {
       transition(EnumEvents.AGGROED);
     }
 
@@ -168,7 +178,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
       }
 
       if (randomMovementAccumulator >= movementChangeFrequency) {
-        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.8;
+        shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.2;
         randomMovementAccumulator = 0;
       } else {
         randomMovementAccumulator++;
