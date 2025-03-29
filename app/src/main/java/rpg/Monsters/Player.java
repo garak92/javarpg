@@ -199,9 +199,9 @@ public class Player extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
-    double cameraX = imageView.getLayoutX() - (double) root.getScene().getWidth() / 2;
-    double cameraY = imageView.getLayoutY() - (double) root.getScene().getHeight() / 2;
-    this.statusBar.update(cameraX, cameraY);
+    double cameraX = imageView.getLayoutX() - root.getScene().getWidth() / 2;
+    double cameraY = imageView.getLayoutY() - root.getScene().getHeight() / 2;
+    this.statusBar.update(cameraX + 10, cameraY + 10);
 
     if (health <= 0) {
       if (isDead) {
