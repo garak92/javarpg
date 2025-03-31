@@ -17,6 +17,7 @@ import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Items.ExlixirOfYouthItem;
 import rpg.Monsters.*;
+import rpg.Monsters.Minotaur.Minotaur;
 import rpg.Monsters.Satyrs.MaleSatyr.MaleSatyr;
 import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.Villager.Villager;
@@ -186,6 +187,12 @@ public class Level {
                       this);
               things.add(werewolf);
               werewolf.spawn(pane);
+              break;
+            case "5":
+              Minotaur minotaur = new Minotaur(TILE_SIZE * j, TILE_SIZE * i, 2, "Minotaur",
+                      this);
+              things.add(minotaur);
+              minotaur.spawn(pane);
               break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",

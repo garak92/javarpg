@@ -33,10 +33,10 @@ public class Werewolf extends BaseMonster {
 
     preCacheAnimations(new HashMap<String, SpriteAnimation>() {
       {
-        put("idle", new SpriteAnimation(imageView, new Duration(300), 8, 8, 0, 0, 128, 160, Animation.INDEFINITE));
-        put("dead", new SpriteAnimation(imageView, new Duration(300), 2, 2, 0, 0, 128, 160, 1));
-        put("walk", new SpriteAnimation(imageView, new Duration(500), 9, 9, 0, 0, 128, 160, Animation.INDEFINITE));
-        put("attack", new SpriteAnimation(imageView, new Duration(300),7 , 7, 0, 0, 128, 160, 1));
+        put("idle", SpriteAnimation.newInstance(imageView, 300, 8, Animation.INDEFINITE));
+        put("dead", SpriteAnimation.newInstance(imageView, 300, 2, 1));
+        put("walk", SpriteAnimation.newInstance(imageView, 500,9 , Animation.INDEFINITE));
+        put("attack", SpriteAnimation.newInstance(imageView, 300,7, 1));
       }
     });
   }
