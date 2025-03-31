@@ -105,6 +105,15 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   @Override
   public void update(List<Usable> usables) {
+    // Look towards the target
+    if (target != null && currentState != EnumEnemyStates.IDLE && currentState != EnumEnemyStates.DEAD) {
+      if (target.charPosx - monster.charPosx > 0) {
+        monster.imageView.setScaleX(1);
+      } else {
+        monster.imageView.setScaleX(-1);
+      }
+    }
+
     lineOfSight.setStartX(monster.getImageView().getBoundsInParent().getCenterX());
     lineOfSight.setEndX(target.getImageView().getBoundsInParent().getCenterX());
     lineOfSight.setStartY(monster.getImageView().getBoundsInParent().getCenterY());
@@ -169,12 +178,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
     try {
       if (target == null) {
         return;
-      }
-
-      if (target.charPosx - monster.charPosx > 0) {
-        monster.imageView.setScaleX(1);
-      } else {
-        monster.imageView.setScaleX(-1);
       }
 
       if (randomMovementAccumulator >= movementChangeFrequency) {
