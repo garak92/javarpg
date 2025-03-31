@@ -6,7 +6,7 @@ public class MinotaurAI extends BaseEnemyAI {
   double targetPosX = Player.getInstance().getCharPosx();
   double targetPosY = Player.getInstance().getCharPosy();
   private int randomAttackAccumulator = 0;
-  private final int attackCoolDown = 20;
+  private final int attackCoolDown = 8;
 
   public MinotaurAI(BaseMonster monster) {
     super(monster, Player.getInstance());
@@ -16,7 +16,7 @@ public class MinotaurAI extends BaseEnemyAI {
   @Override
   public void attack() {
     if (!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 22);
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 18);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);

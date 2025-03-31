@@ -22,7 +22,7 @@ public class Minotaur extends BaseMonster {
   public Minotaur(double charPosx, double charPosy,
                   int shield, String name, Level level) {
 
-    super(charPosx, charPosy, 0.005, 120, alignment, level, name);
+    super(charPosx, charPosy, 0.005, 130, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {
