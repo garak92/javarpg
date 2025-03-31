@@ -89,8 +89,8 @@ public class Villager extends BaseMonster implements Usable {
     }
 
     if (shouldMoveRandomly) {
-      charPosx -= shouldWalkX ? charVelx : 0;
-      charPosy -= shouldWalkY ? charVelx : 0;
+      charPosx -= shouldWalkX ? velocity : 0;
+      charPosy -= shouldWalkY ? velocity : 0;
       if (shouldWalkX) {
         getImageView().setImage(images.get(this.type + "Walk"));
         imageView.setScaleX(-1);
@@ -98,8 +98,8 @@ public class Villager extends BaseMonster implements Usable {
         getImageView().setImage(images.get(this.type + "Idle"));
       }
     } else {
-      charPosx += shouldWalkX ? charVely : 0;
-      charPosy += shouldWalkY ? charVely : 0;
+      charPosx += shouldWalkX ? velocity : 0;
+      charPosy += shouldWalkY ? velocity : 0;
       if (shouldWalkX) {
         getImageView().setImage(images.get(this.type + "Walk"));
         imageView.setScaleX(1);
@@ -113,15 +113,14 @@ public class Villager extends BaseMonster implements Usable {
 
     if (detectCollision(getLevel().getSolidTiles())) {
       if (shouldMoveRandomly) {
-        charPosx += charVelx;
-        charPosy += charVely;
+        charPosx += velocity;
+        charPosy += velocity;
       } else {
-        charPosx -= charVelx;
-        charPosy -= charVely;
+        charPosx -= velocity;
+        charPosy -= velocity;
       }
       imageView.setLayoutX(charPosx);
       imageView.setLayoutY(charPosy);
-      return;
     }
 
   }

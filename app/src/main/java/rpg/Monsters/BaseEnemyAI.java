@@ -188,11 +188,11 @@ public abstract class BaseEnemyAI extends EnemyAI {
       }
 
       if (shouldMoveRandomly) {
-        monster.charPosx -= (target.charPosx - monster.charPosx) * 0.01;
-        monster.charPosy -= (target.charPosy - monster.charPosy) * 0.01;
+        monster.charPosx -= (target.charPosx - monster.charPosx) * monster.velocity;
+        monster.charPosy -= (target.charPosy - monster.charPosy) * monster.velocity;
       } else {
-        monster.charPosx += (target.charPosx - monster.charPosx) * 0.01;
-        monster.charPosy += (target.charPosy - monster.charPosy) * 0.01;
+        monster.charPosx += (target.charPosx - monster.charPosx) * monster.velocity;
+        monster.charPosy += (target.charPosy - monster.charPosy) * monster.velocity;
       }
 
       monster.imageView.setLayoutX(monster.charPosx);
@@ -200,11 +200,11 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
       if (monster.detectCollision(monster.getLevel().getSolidTiles())) {
         if (shouldMoveRandomly) {
-          monster.charPosx += (target.charPosx - monster.charPosx) * 0.01;
-          monster.charPosy += (target.charPosy - monster.charPosy) * 0.01;
+          monster.charPosx += (target.charPosx - monster.charPosx) * monster.velocity;
+          monster.charPosy += (target.charPosy - monster.charPosy) * monster.velocity;
         } else {
-          monster.charPosx -= (target.charPosx - monster.charPosx) * 0.01;
-          monster.charPosy -= (target.charPosy - monster.charPosy) * 0.01;
+          monster.charPosx -= (target.charPosx - monster.charPosx) * monster.velocity;
+          monster.charPosy -= (target.charPosy - monster.charPosy) * monster.velocity;
         }
         monster.imageView.setLayoutX(monster.charPosx);
         monster.imageView.setLayoutY(monster.charPosy);

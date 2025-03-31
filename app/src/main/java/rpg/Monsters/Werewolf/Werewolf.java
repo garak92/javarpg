@@ -17,10 +17,10 @@ public class Werewolf extends BaseMonster {
   private final EnemyAI ai = new WerewolfAI(this);
   private final AnimationController animationController = new AnimationController(ai, this);
 
-  public Werewolf(double charPosx, double charPosy, double velocity,
+  public Werewolf(double charPosx, double charPosy,
                   int shield, String name, Level level) {
 
-    super(charPosx, charPosy, velocity, 90, alignment, level, name);
+    super(charPosx, charPosy, 0.01, 90, alignment, level, name);
 
     preCacheSprites(new HashMap<String, String>() {
       {

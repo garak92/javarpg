@@ -218,38 +218,38 @@ public class Player extends BaseMonster {
     if (moveRight) {
       imageView.setScaleX(1);
       imageView.setImage(images.get("run"));
-      charPosx += charVelx;
+      charPosx += velocity;
       imageView.setLayoutX(charPosx);
       if (detectCollision(solidTiles)) {
-        charPosx -= charVelx;
+        charPosx -= velocity;
         imageView.setLayoutX(charPosx);
         return;
       }
     } else if (moveLeft) {
       imageView.setScaleX(-1);
       imageView.setImage(images.get("run"));
-      charPosx -= charVelx;
+      charPosx -= velocity;
       imageView.setLayoutX(charPosx);
       if (detectCollision(solidTiles)) {
-        charPosx += charVelx;
+        charPosx += velocity;
         imageView.setLayoutX(charPosx);
         return;
       }
     } else if (moveUp) {
       imageView.setImage(images.get("run"));
-      charPosy -= charVely;
+      charPosy -= velocity;
       imageView.setLayoutY(charPosy);
       if (detectCollision(solidTiles)) {
-        charPosy += charVely;
+        charPosy += velocity;
         imageView.setLayoutY(charPosy);
         return;
       }
     } else if (moveDown) {
       imageView.setImage(images.get("run"));
-      charPosy += charVely;
+      charPosy += velocity;
       imageView.setLayoutY(charPosy);
       if (detectCollision(solidTiles)) {
-        charPosy -= charVely;
+        charPosy -= velocity;
         imageView.setLayoutY(charPosy);
         return;
       }

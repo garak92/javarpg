@@ -31,8 +31,7 @@ public abstract class BaseMonster implements Thing {
   protected int health;
   protected double charPosx;
   protected double charPosy;
-  protected double charVelx;
-  protected double charVely;
+  protected double velocity;
   protected Level level;
   protected boolean isDead = false;
   protected boolean isHurt = false;
@@ -75,8 +74,7 @@ public abstract class BaseMonster implements Thing {
                           EnumMonsterAlignment alignment, Level level, String name) {
     this.charPosx = charPosx;
     this.charPosy = charPosy;
-    this.charVelx = velocity;
-    this.charVely = velocity;
+    this.velocity = velocity;
     this.health = health;
     this.alignment = alignment;
     this.level = level;
@@ -88,8 +86,7 @@ public abstract class BaseMonster implements Thing {
       EnumMonsterAlignment alignment, Level level) {
     this.charPosx = charPosx;
     this.charPosy = charPosy;
-    this.charVelx = velocity;
-    this.charVely = velocity;
+    this.velocity = velocity;
     this.health = health;
     this.alignment = alignment;
     this.level = level;
@@ -211,19 +208,15 @@ public abstract class BaseMonster implements Thing {
     this.charPosy = charPosy;
   }
 
-  public double getCharVelx() {
-    return charVelx;
-  }
-
-  public double getCharVely() {
-    return charVely;
-  }
-
   public String getName() {
     return name;
   }
 
   public int getHealth() {
     return health;
+  }
+
+  public double getVelocity() {
+     return velocity;
   }
 }

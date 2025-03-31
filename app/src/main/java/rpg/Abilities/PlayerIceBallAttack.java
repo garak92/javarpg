@@ -33,9 +33,9 @@ public class PlayerIceBallAttack extends BaseAbility {
     }
 
     if (direction == -1) {
-      monster.setCharPosx(monster.getCharPosx() - monster.getCharVelx());
+      monster.setCharPosx(monster.getCharPosx() - monster.getVelocity());
     } else {
-      monster.setCharPosx(monster.getCharPosx() + monster.getCharVelx());
+      monster.setCharPosx(monster.getCharPosx() + monster.getVelocity());
     }
 
     monster.getImageView().setLayoutX(monster.getCharPosx());

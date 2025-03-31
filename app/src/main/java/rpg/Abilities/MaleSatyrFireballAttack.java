@@ -33,8 +33,8 @@ public class MaleSatyrFireballAttack extends BaseAbility {
       monster.die();
     }
 
-    monster.setCharPosx(monster.getCharPosx() + normalizedX * monster.getCharVelx());
-    monster.setCharPosy(monster.getCharPosy() + normalizedY * monster.getCharVely());
+    monster.setCharPosx(monster.getCharPosx() + normalizedX * monster.getVelocity());
+    monster.setCharPosy(monster.getCharPosy() + normalizedY * monster.getVelocity());
 
     monster.getImageView().setLayoutX(monster.getCharPosx());
     monster.getImageView().setLayoutY(monster.getCharPosy());
