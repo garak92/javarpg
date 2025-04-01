@@ -2,14 +2,18 @@ package rpg.Monsters;
 
 import javafx.animation.Animation;
 import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rpg.SpriteAnimation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import static rpg.Monsters.BaseMonster.logger;
 
 public class AnimationController {
+    private static final Logger log = LoggerFactory.getLogger(AnimationController.class);
     EnemyAI ai;
     BaseMonster monster;
 

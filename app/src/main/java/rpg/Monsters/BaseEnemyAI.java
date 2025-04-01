@@ -119,9 +119,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
     lineOfSight.setStartY(monster.getImageView().getBoundsInParent().getCenterY());
     lineOfSight.setEndY(target.getImageView().getBoundsInParent().getCenterY());
 
-    if(isPerformingAction) {
-      return;
-    }
     if (monster.detectCollision(target) && !target.isDead()) {
       transition(EnumEvents.AGGROED);
     }

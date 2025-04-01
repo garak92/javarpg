@@ -145,12 +145,9 @@ public abstract class BaseMonster implements Thing {
     LevelNode monsterNode = monster.getImageView();
     double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
     double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
-    if (monsterNode.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-        this.imageView.getBoundsInParent().getCenterY(),
-        boundingBoxWidth, boundingBoxHeight)) {
-      return true;
-    }
-    return false;
+      return monsterNode.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+              this.imageView.getBoundsInParent().getCenterY(),
+              boundingBoxWidth, boundingBoxHeight);
   }
 
  public boolean isTargeInLineOfSight(List<LevelNode> nodeList, Line line) {

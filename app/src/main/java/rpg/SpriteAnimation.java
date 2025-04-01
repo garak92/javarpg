@@ -59,6 +59,12 @@ public class SpriteAnimation extends Transition {
             128, 160, cycleCount);
   }
 
+  public static SpriteAnimation newInstance(ImageView imageView, int duration, int framesQty, int cycleCount,
+                                            int width, int height) {
+    return new SpriteAnimation(imageView, new Duration(duration), framesQty, framesQty, 0, 0,
+            width, height, cycleCount);
+  }
+
   protected void interpolate(double k) {
     final int index = Math.min((int) Math.floor(k * count), count - 1);
     if (index != lastIndex) {

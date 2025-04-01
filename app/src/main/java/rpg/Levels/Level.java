@@ -18,6 +18,7 @@ import rpg.Common.Usable;
 import rpg.Monsters.*;
 import rpg.Monsters.Enemy.Minotaur.Minotaur;
 import rpg.Monsters.Enemy.MaleSatyr.MaleSatyr;
+import rpg.Monsters.Enemy.OrcBerserk.OrcBerserk;
 import rpg.Monsters.Enemy.SkeletonArcher.SkeletonArcher;
 import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.Villager.Villager;
@@ -200,6 +201,12 @@ public class Level {
               things.add(skeletonArcher);
               skeletonArcher.spawn(pane);
               break;
+            case "7":
+              OrcBerserk orcBerserk = new OrcBerserk(TILE_SIZE * j, TILE_SIZE * i, 2,
+                      "Orc Berserk", this);
+              things.add(orcBerserk);
+              orcBerserk.spawn(pane);
+              break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",
                    this, "cityhub", "sheet1.png");
@@ -285,7 +292,6 @@ public class Level {
   }
 
   public void update() throws Throwable {
-    logger.info("Thing queue size: " + thingQueue.size());
     if (thingQueue.size() > 0) {
       for (Thing i : thingQueue) {
         things.add(i.getMonster());
@@ -304,10 +310,6 @@ public class Level {
     for (Thing i : things) {
       i.update(usables);
     }
-    logger.info("Thing list size: " + things.size());
-    logger.info("Number of visible things: " + pane.getChildren().size());
-    logger.info("Current Player Exp: " + player.getExperiencePoints());
-    QuestLog.INSTANCE.displayQuests();
   }
 
   private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {

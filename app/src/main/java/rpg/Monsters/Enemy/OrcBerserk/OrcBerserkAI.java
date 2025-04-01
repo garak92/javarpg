@@ -1,22 +1,22 @@
-package rpg.Monsters.Enemy.Werewolf;
+package rpg.Monsters.Enemy.OrcBerserk;
 
 import rpg.Monsters.*;
 
-public class WerewolfAI extends BaseEnemyAI {
+public class OrcBerserkAI extends BaseEnemyAI {
   double targetPosX = Player.getInstance().getCharPosx();
   double targetPosY = Player.getInstance().getCharPosy();
   private int randomAttackAccumulator = 0;
   private final int attackCoolDown = 20;
 
-  public WerewolfAI(BaseMonster monster) {
+  public OrcBerserkAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 700;
   }
 
   @Override
   public void attack() {
     if(!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 15);
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 6);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);
@@ -37,6 +37,4 @@ public class WerewolfAI extends BaseEnemyAI {
   public EnumEnemyStates currentState() {
     return super.getCurrentState();
   }
-
-
 }
