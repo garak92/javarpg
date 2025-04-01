@@ -19,7 +19,7 @@ Please, kill six Satyr for me. I'll reward you with 10 experience points.
                 10
             </ExperiencePoints>
             <Entity>
-                rpg.Monsters.Satyrs.MaleSatyr.MaleSatyr
+                rpg.Monsters.Enemy.MaleSatyr.MaleSatyr
             </Entity>
             <EntityFriendlyName>
                 Satyr

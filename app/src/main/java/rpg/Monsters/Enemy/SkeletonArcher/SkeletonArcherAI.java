@@ -1,15 +1,14 @@
-package rpg.Monsters.Satyrs.MaleSatyr;
+package rpg.Monsters.Enemy.SkeletonArcher;
 
-import javafx.animation.Animation;
 import rpg.Monsters.*;
 
-public class MaleSatyrAI extends BaseEnemyAI {
+public class SkeletonArcherAI extends BaseEnemyAI {
   private int randomAttackAccumulator = 0;
   private final int attackCoolDown = 20;
 
-  public MaleSatyrAI(BaseMonster monster) {
+  public SkeletonArcherAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 1800;
   }
 
   @Override
@@ -17,8 +16,8 @@ public class MaleSatyrAI extends BaseEnemyAI {
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);
       monster.getLevel()
-          .addThing(new MaleSatyrFireball(monster.getImageView().getBoundsInParent().getCenterX(),
-              monster.getImageView().getBoundsInParent().getCenterY(), monster.getLevel(), Player.getInstance()));
+              .addThing(new SkeletonArcherArrow(monster.getImageView().getBoundsInParent().getCenterX(),
+                      monster.getImageView().getBoundsInParent().getCenterY(), monster.getLevel(), Player.getInstance()));
       randomAttackAccumulator = 0;
     } else {
       transition(EnumEvents.FINISH_ATTACK);
@@ -30,4 +29,7 @@ public class MaleSatyrAI extends BaseEnemyAI {
   public EnumEnemyStates currentState() {
     return super.getCurrentState();
   }
+
+
+
 }

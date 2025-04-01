@@ -1,11 +1,9 @@
-package rpg.Monsters.Satyrs.MaleSatyr;
+package rpg.Monsters.Enemy.MaleSatyr;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javafx.animation.Animation;
-import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
 import rpg.Monsters.*;
 import rpg.SpriteAnimation;
 import rpg.Common.QuestLog;

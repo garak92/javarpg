@@ -15,10 +15,10 @@ import rpg.Common.MusicSystem;
 import rpg.Common.QuestLog;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
-import rpg.Items.ExlixirOfYouthItem;
 import rpg.Monsters.*;
-import rpg.Monsters.Minotaur.Minotaur;
-import rpg.Monsters.Satyrs.MaleSatyr.MaleSatyr;
+import rpg.Monsters.Enemy.Minotaur.Minotaur;
+import rpg.Monsters.Enemy.MaleSatyr.MaleSatyr;
+import rpg.Monsters.Enemy.SkeletonArcher.SkeletonArcher;
 import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.Villager.Villager;
 
@@ -31,7 +31,7 @@ import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rpg.Monsters.Werewolf.Werewolf;
+import rpg.Monsters.Enemy.Werewolf.Werewolf;
 
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);
@@ -193,6 +193,12 @@ public class Level {
                       this);
               things.add(minotaur);
               minotaur.spawn(pane);
+              break;
+            case "6":
+              SkeletonArcher skeletonArcher = new SkeletonArcher(TILE_SIZE * j, TILE_SIZE * i, 2,
+                      "Skeleton Archer", this);
+              things.add(skeletonArcher);
+              skeletonArcher.spawn(pane);
               break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",

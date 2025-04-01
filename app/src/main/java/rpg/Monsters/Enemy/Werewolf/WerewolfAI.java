@@ -1,30 +1,31 @@
-package rpg.Monsters.Minotaur;
+package rpg.Monsters.Enemy.Werewolf;
 
 import rpg.Monsters.*;
 
-public class MinotaurAI extends BaseEnemyAI {
+public class WerewolfAI extends BaseEnemyAI {
   double targetPosX = Player.getInstance().getCharPosx();
   double targetPosY = Player.getInstance().getCharPosy();
   private int randomAttackAccumulator = 0;
-  private final int attackCoolDown = 8;
+  private final int attackCoolDown = 10;
 
-  public MinotaurAI(BaseMonster monster) {
+  public WerewolfAI(BaseMonster monster) {
     super(monster, Player.getInstance());
     attackRange = 1000;
   }
 
   @Override
   public void attack() {
-    if (!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 18);
+    if(!monster.detectCollision(Player.getInstance())) {
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 25);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);
-      if (monster.detectCollision(Player.getInstance())) {
-        Player.getInstance().receiveDamage(10);
-      }
+    if (monster.detectCollision(Player.getInstance())) {
+            Player.getInstance().receiveDamage(10);
+    }
       randomAttackAccumulator = 0;
-    } else {
+    }
+    else {
       transition(EnumEvents.FINISH_ATTACK);
       targetPosX = Player.getInstance().getCharPosx();
       targetPosY = Player.getInstance().getCharPosy();
@@ -37,6 +38,5 @@ public class MinotaurAI extends BaseEnemyAI {
     return super.getCurrentState();
   }
 
+
 }
-
-

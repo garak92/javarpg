@@ -1,8 +1,6 @@
-package rpg.Monsters.Werewolf;
+package rpg.Monsters.Enemy.Werewolf;
 
 import javafx.animation.Animation;
-import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
 import rpg.Common.QuestLog;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
