@@ -2,6 +2,7 @@ package rpg.Levels;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -37,18 +38,18 @@ import rpg.Monsters.Enemy.Werewolf.Werewolf;
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);
   private final int TILE_SIZE = 32;
-  private List<List<String>> tileMap = new ArrayList<List<String>>();
-  private List<List<String>> thingMap = new ArrayList<List<String>>();
-  private String title;
+  private final List<List<String>> tileMap = new ArrayList<List<String>>();
+  private final List<List<String>> thingMap = new ArrayList<List<String>>();
+  private final String title;
   protected List<LevelNode> tiles = new ArrayList<>();
   protected List<Thing> things = new ArrayList<>();
   protected List<Usable> usables = new ArrayList<>();
-  private String textureFile;
+  private final String textureFile;
   private Image tileSheet;
-  private Pane pane;
-  private Stage stage;
-  private Queue<Thing> thingQueue = new LinkedList<>();
-  private Queue<Thing> removeThingQueue = new LinkedList<>();
+  private final Pane pane;
+  private final Stage stage;
+  private final CopyOnWriteArrayList<Thing> thingQueue = new CopyOnWriteArrayList<>();
+  private final CopyOnWriteArrayList<Thing> removeThingQueue = new CopyOnWriteArrayList<>();
   private List<BaseMonster> enemies = new LinkedList<>();
   private Player player;
 
@@ -292,14 +293,14 @@ public class Level {
   }
 
   public void update() throws Throwable {
-    if (thingQueue.size() > 0) {
+    if (!thingQueue.isEmpty()) {
       for (Thing i : thingQueue) {
         things.add(i.getMonster());
         i.getMonster().spawn(this.pane);
         thingQueue.remove(i);
       }
     }
-    if (removeThingQueue.size() > 0) {
+    if (!removeThingQueue.isEmpty()) {
       for (Thing i : removeThingQueue) {
         things.remove(i.getMonster());
         enemies.remove(i.getMonster());
