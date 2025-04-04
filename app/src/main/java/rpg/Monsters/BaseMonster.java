@@ -139,6 +139,21 @@ public abstract class BaseMonster implements Thing {
     }
     return false;
   }
+    // Use this function when you want to allow friendly fire among monsters
+    public BaseMonster detectCollisionWithMonsterList(List<BaseMonster> monsterList) {
+        // We take 20% of the entity's dimensions for a nicer feel
+        double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
+        double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+        for (BaseMonster b : monsterList) {
+            if (b.getImageView().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+                    this.imageView.getBoundsInParent().getCenterY(),
+                    boundingBoxWidth, boundingBoxHeight)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
 
   public boolean detectCollision(BaseMonster monster) {
     // We take 20% of the entity's dimensions for a nicer feel

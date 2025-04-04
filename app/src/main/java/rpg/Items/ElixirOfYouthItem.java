@@ -3,10 +3,10 @@ package rpg.Items;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.Player;
 
-public class ExlixirOfYouthItem extends BaseItem {
+public class ElixirOfYouthItem extends BaseItem {
   private Player target;
 
-  public ExlixirOfYouthItem(BaseMonster monster, Player target) {
+  public ElixirOfYouthItem(BaseMonster monster, Player target) {
     super(0, monster);
     this.target = target;
   }

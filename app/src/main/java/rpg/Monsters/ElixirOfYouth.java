@@ -1,19 +1,17 @@
 package rpg.Monsters;
 
 import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
 import rpg.Common.QuestLog;
 import rpg.Common.Usable;
-import rpg.Items.MiniHealthPickupItem;
+import rpg.Items.ElixirOfYouthItem;
 import rpg.Levels.Level;
-import rpg.SpriteAnimation;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class ElixirOfYouth extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;
-  private final MiniHealthPickupItem item;
+  private final ElixirOfYouthItem item;
 
   public ElixirOfYouth(double charPosx, double charPosy, Level level) {
     super(charPosx, charPosy, 0, 0, alignment, level);
@@ -24,12 +22,12 @@ public class ElixirOfYouth extends BaseMonster {
       }
     });
 
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
-    getImageView().setFitWidth(30);
-    getImageView().setFitHeight(30);
+    imageView.setImage(images.get("idle"));
+    imageView.setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
+    imageView.setFitWidth(30);
+    imageView.setFitHeight(30);
 
-    this.item = new MiniHealthPickupItem(this, this.getLevel().getPlayer());
+    this.item = new ElixirOfYouthItem(this, this.getLevel().getPlayer());
 
     logger.info("Item: " + this);
   }

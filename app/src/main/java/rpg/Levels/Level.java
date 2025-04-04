@@ -21,6 +21,8 @@ import rpg.Monsters.*;
 import rpg.Monsters.Enemy.Minotaur.Minotaur;
 import rpg.Monsters.Enemy.MaleSatyr.MaleSatyr;
 import rpg.Monsters.Enemy.OrcBerserk.OrcBerserk;
+import rpg.Monsters.Enemy.Props.Cannon.CannonOrientation;
+import rpg.Monsters.Enemy.Props.Cannon.LaserCannon;
 import rpg.Monsters.Enemy.SkeletonArcher.SkeletonArcher;
 import rpg.Monsters.Igrene.Igrene;
 import rpg.Monsters.Villager.Villager;
@@ -241,6 +243,29 @@ public class Level {
               things.add(villager);
               villager.spawn(pane);
               break;
+            case "↑":
+            case "↓":
+            case "→":
+            case "←":
+              CannonOrientation orientation = null;
+              if(currentTileValue.equals("↑")) {
+               orientation = CannonOrientation.UP;
+              }
+              if(currentTileValue.equals("↓")) {
+                orientation = CannonOrientation.DOWN;
+              }
+              if(currentTileValue.equals("→")) {
+                orientation = CannonOrientation.RIGHT;
+              }
+              if(currentTileValue.equals("←")) {
+                orientation = CannonOrientation.LEFT;
+              }
+                assert orientation != null;
+                LaserCannon laserCannon = new LaserCannon(TILE_SIZE * j, TILE_SIZE * i, 1, "Laser Cannon",
+                      this, orientation);
+              things.add(laserCannon);
+              laserCannon.spawn(pane);
+              break;
             default:
               break;
           }
@@ -360,6 +385,14 @@ public class Level {
 
   public List<BaseMonster> getEnemies() {
     return enemies;
+  }
+
+  public List<BaseMonster> getAgenticMonsters() {
+      return things.stream().map(Thing::getMonster).filter(monster -> {
+        return !monster.isDead() &&
+                (monster.getAlignment() == EnumMonsterAlignment.ENEMY
+                        || monster.getAlignment() == EnumMonsterAlignment.PLAYER);
+      }).collect(Collectors.toList());
   }
 
   public Pane getPane() {

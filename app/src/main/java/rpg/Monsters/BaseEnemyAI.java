@@ -105,6 +105,10 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   @Override
   public void update(List<Usable> usables) {
+    if(monster.isDead() && currentState() != EnumEnemyStates.DEAD) {
+      currentState = EnumEnemyStates.DEAD;
+      return;
+    }
     // Look towards the target
     if (target != null && currentState != EnumEnemyStates.IDLE && currentState != EnumEnemyStates.DEAD) {
       if (target.charPosx - monster.charPosx > 0) {
@@ -132,7 +136,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
       transition(EnumEvents.AGGROED);
     }
 
-    if (monster.health <= 0) {
+    if (monster.health <= 0 && !monster.isDead()) {
       monster.die();
       transition(EnumEvents.KILLED);
     }
