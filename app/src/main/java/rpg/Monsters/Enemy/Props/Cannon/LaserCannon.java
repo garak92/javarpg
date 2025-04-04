@@ -14,7 +14,7 @@ public class LaserCannon extends BaseMonster {
   CannonOrientation orientation = null;
   boolean infight = false;
   int attackCoolDown = 100;
-  int attackCoolDownCounter = 0;
+  int attackCoolDownCounter = (int)(Math.random() * attackCoolDown);
 
   public LaserCannon(double charPosx, double charPosy,
                 int shield, String name, Level level, CannonOrientation orientation) {
