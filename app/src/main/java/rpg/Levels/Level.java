@@ -1,5 +1,6 @@
 package rpg.Levels;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -62,22 +63,24 @@ public class Level {
 
   public Level load() {
     try (
-        // Common level background
-        InputStream backgroundImageFile = this.getClass().getResourceAsStream("/sprites/levels/common-background.jpg");
+            // Common level background
+            InputStream backgroundImageFile = this.getClass().getResourceAsStream("/sprites/levels/common-background.jpg");
 
-        // Common level background
-        InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
+            // Common level background
+            InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
 
-        // Level tiles file
-        BufferedReader tileReader = new BufferedReader(
-            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles")));
+            // Level tiles file
+            BufferedReader tileReader = new BufferedReader(
+            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles"),
+                    StandardCharsets.UTF_8));
 
-        // Level monsters file
-        BufferedReader thingReader = new BufferedReader(
-            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".monsters")));
+            // Level monsters file
+            BufferedReader thingReader = new BufferedReader(
+            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".monsters"),
+                    StandardCharsets.UTF_8));
 
-        // Level textures file
-        InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
+            // Level textures file
+            InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
 
       // Cleanup
       this.pane.getChildren().clear();
