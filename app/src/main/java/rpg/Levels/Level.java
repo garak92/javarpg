@@ -14,6 +14,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import rpg.Common.*;
+import rpg.Environment.Bush;
+import rpg.Environment.Rock;
+import rpg.Environment.Tree;
 import rpg.Monsters.*;
 import rpg.Monsters.Enemy.Gorgon.Gorgon;
 import rpg.Monsters.Enemy.Minotaur.Minotaur;
@@ -213,6 +216,21 @@ public class Level {
               ElixirOfYouth elixirOfYouth = new ElixirOfYouth(TILE_SIZE * j, TILE_SIZE * i, this);
               things.add(elixirOfYouth);
               elixirOfYouth.spawn(pane);
+              break;
+            case "T":
+              Tree tree = new Tree(TILE_SIZE * j, TILE_SIZE * i, this);
+              things.add(tree);
+              tree.spawn(pane);
+              break;
+            case "R":
+              Rock rock = new Rock(TILE_SIZE * j, TILE_SIZE * i, this);
+              things.add(rock);
+              rock.spawn(pane);
+              break;
+            case "B":
+              Bush bush = new Bush(TILE_SIZE * j, TILE_SIZE * i, this);
+              things.add(bush);
+              bush.spawn(pane);
               break;
             case "v":
               Villager villager = new Villager(TILE_SIZE * j, TILE_SIZE * i, 1, 30, 10, "Villager",
