@@ -20,7 +20,7 @@ public class Werewolf extends BaseMonster {
 
     super(charPosx, charPosy, 0.01, 90, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/enemies/werewolf/black_werewolf/Idle.png");
         put("dead", "/enemies/werewolf/black_werewolf/Dead.png");
@@ -29,7 +29,7 @@ public class Werewolf extends BaseMonster {
       }
     });
 
-    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+    preCacheAnimations(new HashMap<>() {
       {
         put("idle", SpriteAnimation.newInstance(imageView, 300, 8, Animation.INDEFINITE));
         put("dead", SpriteAnimation.newInstance(imageView, 300, 2, 1));

@@ -24,7 +24,7 @@ public class OrcBerserk extends BaseMonster {
 
     super(charPosx, charPosy, 0.01, 200, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/enemies/orc/orc_berserk/Idle.png");
         put("dead", "/enemies/orc/orc_berserk/Dead.png");
@@ -33,7 +33,7 @@ public class OrcBerserk extends BaseMonster {
       }
     });
 
-    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+    preCacheAnimations(new HashMap<>() {
       {
         put("idle", SpriteAnimation.newInstance(imageView, 300, 5, Animation.INDEFINITE, 96,
                 96));

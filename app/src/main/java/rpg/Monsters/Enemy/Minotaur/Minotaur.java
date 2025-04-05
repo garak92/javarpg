@@ -23,7 +23,7 @@ public class Minotaur extends BaseMonster {
 
     super(charPosx, charPosy, 0.005, 130, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/enemies/minotaur/Idle.png");
         put("dead", "/enemies/minotaur/Dead.png");
@@ -32,7 +32,7 @@ public class Minotaur extends BaseMonster {
       }
     });
 
-    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+    preCacheAnimations(new HashMap<>() {
       {
         put("idle", SpriteAnimation.newInstance(imageView, 500, 10, Animation.INDEFINITE));
         put("dead", SpriteAnimation.newInstance(imageView, 300, 5, 1));

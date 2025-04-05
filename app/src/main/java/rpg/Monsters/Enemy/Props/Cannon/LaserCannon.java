@@ -21,7 +21,7 @@ public class LaserCannon extends BaseMonster {
 
     super(charPosx, charPosy, 0.01, 50, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/props/MG2/MG2.png");
       }

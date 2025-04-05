@@ -24,7 +24,7 @@ public class SkeletonArcher extends BaseMonster {
 
     super(charPosx, charPosy, 0.003, 100, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/enemies/skeleton/skeleton_archer/Idle.png");
         put("dead", "/enemies/skeleton/skeleton_archer/Dead.png");
@@ -33,7 +33,7 @@ public class SkeletonArcher extends BaseMonster {
       }
     });
 
-    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+    preCacheAnimations(new HashMap<>() {
       {
         put("idle", SpriteAnimation.newInstance(imageView, 300, 7, Animation.INDEFINITE));
         put("dead", SpriteAnimation.newInstance(imageView, 300, 5, 1));

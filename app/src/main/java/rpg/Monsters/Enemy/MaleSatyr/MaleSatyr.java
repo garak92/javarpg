@@ -20,7 +20,7 @@ public class MaleSatyr extends BaseMonster {
 
     super(charPosx, charPosy, 0.01, 50, alignment, level, name);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/enemies/satyr/satyr_3/Idle.png");
         put("dead", "/enemies/satyr/satyr_3/Dead.png");
@@ -29,7 +29,7 @@ public class MaleSatyr extends BaseMonster {
       }
     });
 
-    preCacheAnimations(new HashMap<String, SpriteAnimation>() {
+    preCacheAnimations(new HashMap<>() {
       {
         put("idle", SpriteAnimation.newInstance(imageView, 300, 6, Animation.INDEFINITE));
         put("dead", SpriteAnimation.newInstance(imageView, 300, 4, 1));

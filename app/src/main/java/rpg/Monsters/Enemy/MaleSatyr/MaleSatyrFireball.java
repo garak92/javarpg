@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
+import rpg.Abilities.GorgonWaterballAttack;
 import rpg.SpriteAnimation;
 import rpg.Abilities.MaleSatyrFireballAttack;
 import rpg.Common.Usable;
@@ -16,6 +17,7 @@ import rpg.Monsters.EnumMonsterAlignment;
 public class MaleSatyrFireball extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
   private final MaleSatyrFireballAttack attack;
+  private final BaseMonster target;
 
   public MaleSatyrFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
     super(charPosx, charPosy, 7, 0, alignment, level);
@@ -31,6 +33,7 @@ public class MaleSatyrFireball extends BaseMonster {
     getImageView().setFitWidth(30);
     getImageView().setFitHeight(30);
 
+    this.target = target;
     this.attack = new MaleSatyrFireballAttack(this, target);
 
   }
@@ -42,6 +45,11 @@ public class MaleSatyrFireball extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
+    if (target.getCharPosx() - getCharPosx() > 0) {
+      getImageView().setScaleX(1);
+    } else {
+      getImageView().setScaleX(-1);
+    }
     attack.update();
   }
 }

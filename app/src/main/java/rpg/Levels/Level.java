@@ -18,6 +18,7 @@ import rpg.Common.QuestLog;
 import rpg.Common.Thing;
 import rpg.Common.Usable;
 import rpg.Monsters.*;
+import rpg.Monsters.Enemy.Gorgon.Gorgon;
 import rpg.Monsters.Enemy.Minotaur.Minotaur;
 import rpg.Monsters.Enemy.MaleSatyr.MaleSatyr;
 import rpg.Monsters.Enemy.OrcBerserk.OrcBerserk;
@@ -212,6 +213,12 @@ public class Level {
                       "Orc Berserk", this);
               things.add(orcBerserk);
               orcBerserk.spawn(pane);
+              break;
+            case "8":
+              Gorgon gorgon = new Gorgon(TILE_SIZE * j, TILE_SIZE * i, 2,
+                      "Gorgon", this);
+              things.add(gorgon);
+              gorgon.spawn(pane);
               break;
             case "@":
               Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",

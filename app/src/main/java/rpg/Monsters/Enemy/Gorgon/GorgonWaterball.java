@@ -1,8 +1,7 @@
-package rpg.Monsters.Enemy.SkeletonArcher;
+package rpg.Monsters.Enemy.Gorgon;
 
 import javafx.geometry.Rectangle2D;
 import rpg.Abilities.GorgonWaterballAttack;
-import rpg.Abilities.MaleSatyrFireballAttack;
 import rpg.Common.Usable;
 import rpg.Levels.Level;
 import rpg.Monsters.BaseMonster;
@@ -11,25 +10,28 @@ import rpg.Monsters.EnumMonsterAlignment;
 import java.util.HashMap;
 import java.util.List;
 
-public class SkeletonArcherArrow extends BaseMonster {
+public class GorgonWaterball extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
-  private final MaleSatyrFireballAttack attack;
+  private final GorgonWaterballAttack attack;
   private final BaseMonster target;
 
-  public SkeletonArcherArrow(double charPosx, double charPosy, Level level, BaseMonster target) {
-    super(charPosx, charPosy, 8, 0, alignment, level);
+  public GorgonWaterball(double charPosx, double charPosy, Level level, BaseMonster target,
+                         double targetPosX, double targetPosY) {
+    super(charPosx, charPosy, 7, 0, alignment, level);
 
-    preCacheSprites(new HashMap<String, String>() {
+    preCacheSprites(new HashMap<>() {
       {
-        put("idle", "/enemies/skeleton/skeleton_archer/Arrow.png");
+        put("idle", "/enemies/gorgon/waterball.png");
       }
     });
 
     getImageView().setImage(images.get("idle"));
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
+    getImageView().setFitWidth(60);
+    getImageView().setFitHeight(40);
 
     this.target = target;
-    this.attack = new MaleSatyrFireballAttack(this, target);
+    this.attack = new GorgonWaterballAttack(this, target, targetPosX, targetPosY);
 
   }
 
@@ -45,7 +47,6 @@ public class SkeletonArcherArrow extends BaseMonster {
     } else {
       getImageView().setScaleX(-1);
     }
-
     attack.update();
   }
 }
