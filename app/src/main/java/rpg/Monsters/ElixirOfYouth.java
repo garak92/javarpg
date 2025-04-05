@@ -24,8 +24,8 @@ public class ElixirOfYouth extends BaseMonster {
 
     imageView.setImage(images.get("idle"));
     imageView.setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
-    imageView.setFitWidth(30);
-    imageView.setFitHeight(30);
+    imageView.setFitWidth(40);
+    imageView.setFitHeight(40);
 
     this.item = new ElixirOfYouthItem(this, this.getLevel().getPlayer());
 

@@ -40,6 +40,10 @@ public class Portal extends BaseMonster implements Usable {
     getImageView().setLayoutX(charPosx);
     getImageView().setLayoutY(charPosy);
 
+    getImageView().setFitHeight(128);
+    getImageView().setFitWidth(128);
+    getImageView().setPreserveRatio(true);
+
     this.destinationLevelName = destinationLevelName;
     this.destinationLevelSpritesheet = destinationLevelSpritesheet;
 

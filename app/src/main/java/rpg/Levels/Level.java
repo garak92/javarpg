@@ -41,7 +41,7 @@ import rpg.Monsters.Enemy.Werewolf.Werewolf;
 
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);
-  private final int TILE_SIZE = 32;
+  private final int TILE_SIZE = 128;
   private final List<List<String>> tileMap = new ArrayList<List<String>>();
   private final List<List<String>> thingMap = new ArrayList<List<String>>();
   private final String title;

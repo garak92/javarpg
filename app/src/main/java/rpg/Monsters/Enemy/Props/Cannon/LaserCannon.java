@@ -10,16 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LaserCannon extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
+  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;
   CannonOrientation orientation = null;
-  boolean infight = false;
   int attackCoolDown = 100;
   int attackCoolDownCounter = (int)(Math.random() * attackCoolDown);
 
   public LaserCannon(double charPosx, double charPosy,
                 int shield, String name, Level level, CannonOrientation orientation) {
 
-    super(charPosx, charPosy, 0.01, 50, alignment, level, name);
+    super(charPosx, charPosy, 0.01, 0, alignment, level, name);
 
     preCacheSprites(new HashMap<>() {
       {
@@ -28,9 +27,8 @@ public class LaserCannon extends BaseMonster {
     });
 
     imageView.setImage(images.get("idle"));
-    imageView.setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
-    imageView.setFitWidth(30);
-    imageView.setFitHeight(30);
+    imageView.setFitWidth(60);
+    imageView.setFitHeight(60);
 
     this.orientation = orientation;
 

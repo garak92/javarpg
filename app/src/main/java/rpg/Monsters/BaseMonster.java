@@ -47,6 +47,13 @@ public abstract class BaseMonster implements Thing {
   public void spawn(Pane root) {
     this.imageView.setLayoutX(charPosx);
     this.imageView.setLayoutY(charPosy);
+
+    if(alignment == EnumMonsterAlignment.PLAYER || alignment == EnumMonsterAlignment.ENEMY) {
+        imageView.setFitHeight(170);
+        imageView.setFitWidth(170);
+        imageView.setPreserveRatio(true);
+    }
+
     root.getChildren().add(this.imageView);
   }
 
