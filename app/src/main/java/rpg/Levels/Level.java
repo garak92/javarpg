@@ -13,10 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
-import rpg.Common.MusicSystem;
-import rpg.Common.QuestLog;
-import rpg.Common.Thing;
-import rpg.Common.Usable;
+import rpg.Common.*;
 import rpg.Monsters.*;
 import rpg.Monsters.Enemy.Gorgon.Gorgon;
 import rpg.Monsters.Enemy.Minotaur.Minotaur;
@@ -121,36 +118,10 @@ public class Level {
       for (int i = 0; i < tileMap.size(); i++) {
         for (int j = 0; j < tileMap.get(i).size(); j++) {
           String currentTileValue = tileMap.get(i).get(j);
-          switch (currentTileValue) {
-            case "0":
-              tiles.add(createLevelNode(j, i, 2, 1, false, NodeTypeEnum.LEVEL));
-              break;
-            case "1":
-              tiles.add(createLevelNode(j, i, 1, 5, false, NodeTypeEnum.LEVEL));
-              break;
-            case "a":
-              tiles.add(createLevelNode(j, i, 5, 1, true, NodeTypeEnum.LEVEL));
-              break;
-            case "b":
-              tiles.add(createLevelNode(j, i, 5, 5, true, NodeTypeEnum.LEVEL));
-              break;
-            case "c":
-              tiles.add(createLevelNode(j, i, 5, 6, true, NodeTypeEnum.LEVEL));
-              break;
-            case "d":
-              tiles.add(createLevelNode(j, i, 6, 7, true, NodeTypeEnum.LEVEL));
-              break;
-            case "e":
-              tiles.add(createLevelNode(j, i, 3, 6, true, NodeTypeEnum.LEVEL));
-              break;
-            case "f":
-              tiles.add(createLevelNode(j, i, 2, 5, true, NodeTypeEnum.LEVEL));
-              break;
-            case "g":
-              tiles.add(createLevelNode(j, i, 0, 0, true, NodeTypeEnum.LEVEL));
-              break;
-            default:
-              break;
+          TileData tileData = TileMapper.getTileData(currentTileValue);
+
+          if (tileData != null) {
+            tiles.add(createLevelNode(j, i, tileData.getRow(), tileData.getColumn(), tileData.isPassable(), NodeTypeEnum.LEVEL));
           }
         }
       }
