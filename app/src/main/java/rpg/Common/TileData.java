@@ -3,12 +3,12 @@ package rpg.Common;
 public class TileData {
     private int row;
     private int column;
-    private boolean isPassable;
+    private boolean isSolid;
 
-    public TileData(int row, int column, boolean isPassable) {
+    public TileData(int row, int column, boolean isSolid) {
         this.row = row;
         this.column = column;
-        this.isPassable = isPassable;
+        this.isSolid = isSolid;
     }
 
     public int getRow() {
@@ -19,8 +19,8 @@ public class TileData {
         return column;
     }
 
-    public boolean isPassable() {
-        return isPassable;
+    public boolean isSolid() {
+        return isSolid;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class TileData {
         return "TileData{" +
                 "row=" + row +
                 ", column=" + column +
-                ", isPassable=" + isPassable +
+                ", isSolid=" + isSolid +
                 '}';
     }
 }

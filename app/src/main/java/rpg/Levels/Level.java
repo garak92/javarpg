@@ -110,7 +110,7 @@ public class Level {
   }
 
   private void loadTiles() {
-    if (tileMap.size() == 0) {
+    if (tileMap.isEmpty()) {
       logger.error("No tile data found for this level");
       return;
     }
@@ -121,7 +121,7 @@ public class Level {
           TileData tileData = TileMapper.getTileData(currentTileValue);
 
           if (tileData != null) {
-            tiles.add(createLevelNode(j, i, tileData.getRow(), tileData.getColumn(), tileData.isPassable(), NodeTypeEnum.LEVEL));
+            tiles.add(createLevelNode(j, i, tileData.getColumn(), tileData.getRow(), tileData.isSolid(), NodeTypeEnum.LEVEL));
           }
         }
       }
@@ -132,7 +132,7 @@ public class Level {
   }
 
   private void loadMonsters() {
-    if (tileMap.size() == 0) {
+    if (tileMap.isEmpty()) {
       logger.error("No monster data found for this level");
       return;
     }

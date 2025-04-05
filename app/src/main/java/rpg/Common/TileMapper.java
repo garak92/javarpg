@@ -44,7 +44,7 @@ public class TileMapper {
         tileDataMap.put("u", new TileData(3, 3, true));
         tileDataMap.put("v", new TileData(3, 4, true));
         tileDataMap.put("w", new TileData(3, 5, true));
-        tileDataMap.put("x", new TileData(3, 6, true));
+        tileDataMap.put("x", new TileData(3, 6, false));
         tileDataMap.put("y", new TileData(3, 7, true));
         tileDataMap.put("z", new TileData(3, 8, true));
         tileDataMap.put("{", new TileData(4, 0, true));
