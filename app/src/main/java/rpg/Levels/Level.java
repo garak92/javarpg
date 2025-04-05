@@ -114,7 +114,7 @@ public class Level {
       logger.error("No tile data found for this level");
       return;
     }
-    try (InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + textureFile)) {
+    try {
       for (int i = 0; i < tileMap.size(); i++) {
         for (int j = 0; j < tileMap.get(i).size(); j++) {
           String currentTileValue = tileMap.get(i).get(j);
