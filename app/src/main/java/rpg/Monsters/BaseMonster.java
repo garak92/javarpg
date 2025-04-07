@@ -137,6 +137,7 @@ public abstract class BaseMonster implements Thing {
     // We take 20% of the entity's dimensions for a nicer feel
     double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
     double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+    // Detect collision with solid tiles
     for (Node b : nodeList) {
       if (b.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
           this.imageView.getBoundsInParent().getCenterY(),
@@ -144,8 +145,18 @@ public abstract class BaseMonster implements Thing {
         return true;
       }
     }
+
+    // Detect collision with solid environmental props (trees, rocks, etc.)
+   for (BaseMonster m : level.getEnvProps()) {
+          if (m.getImageView().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+                  this.imageView.getBoundsInParent().getCenterY(),
+                  boundingBoxWidth, boundingBoxHeight)) {
+              return true;
+          }
+      }
     return false;
   }
+
     // Use this function when you want to allow friendly fire among monsters
     public BaseMonster detectCollisionWithMonsterList(List<BaseMonster> monsterList) {
         // We take 20% of the entity's dimensions for a nicer feel

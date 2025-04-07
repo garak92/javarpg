@@ -49,6 +49,7 @@ public class Level {
   protected List<Thing> things = new ArrayList<>();
   protected List<Usable> usables = new ArrayList<>();
   protected List<LevelNode> solidNodes = new ArrayList<>();
+  protected List<BaseMonster> envProps = new ArrayList<>();
   private final String textureFile;
   private Image tileSheet;
   private final Pane pane;
@@ -220,17 +221,17 @@ public class Level {
               break;
             case "T":
               Tree tree = new Tree(TILE_SIZE * j, TILE_SIZE * i, this);
-              things.add(tree);
+              envProps.add(tree);
               tree.spawn(pane);
               break;
             case "R":
               Rock rock = new Rock(TILE_SIZE * j, TILE_SIZE * i, this);
-              things.add(rock);
+              envProps.add(rock);
               rock.spawn(pane);
               break;
             case "B":
               Bush bush = new Bush(TILE_SIZE * j, TILE_SIZE * i, this);
-              things.add(bush);
+              envProps.add(bush);
               bush.spawn(pane);
               break;
             case "v":
@@ -288,6 +289,10 @@ public class Level {
 
   public List<LevelNode> getTiles() {
     return this.tiles;
+  }
+
+  public List<BaseMonster> getEnvProps() {
+    return envProps;
   }
 
   public List<LevelNode> getSolidTiles() {
