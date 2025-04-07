@@ -54,7 +54,7 @@ public class TileMapper {
         tileDataMap.put("€", new TileData(4, 4, true));
         tileDataMap.put("©", new TileData(4, 5, false));
         tileDataMap.put("°", new TileData(4, 6, true));
-        tileDataMap.put("µ", new TileData(4, 7, true));
+        tileDataMap.put("µ", new TileData(4, 7, false));
         tileDataMap.put("π", new TileData(4, 8, true));
         tileDataMap.put("Ω", new TileData(5, 0, true));
         tileDataMap.put("∞", new TileData(5, 1, true));

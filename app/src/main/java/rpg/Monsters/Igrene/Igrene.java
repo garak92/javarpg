@@ -22,7 +22,7 @@ public class Igrene extends BaseMonster implements Usable {
   private QuestGiver questGiver;
   private static Igrene instance;
   private Level level;
-  private final String[] defaultDialogueList = { "This level is cool, uh?", "Long live the king!",
+  private static final String[] defaultDialogueList = { "This level is cool, uh?", "Long live the king!",
       "For the Allia...oh, wrong game, sorry" };
 
   private Igrene(
@@ -64,6 +64,7 @@ public class Igrene extends BaseMonster implements Usable {
       instance.level = level;
       instance.getImageView().setLayoutX(charPosx);
       instance.getImageView().setLayoutY(charPosy);
+      instance.questGiver = new QuestGiver(instance, defaultDialogueList);
       instance.questGiver.showExclamation();
     }
     return instance;

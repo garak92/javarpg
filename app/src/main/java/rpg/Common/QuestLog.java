@@ -31,6 +31,11 @@ public enum QuestLog {
 
   public <T extends BaseMonster> Quest getNextQuestForThisGiver(T questGiver) {
     Quest res = null;
+     for (Quest quest : quests) {
+      if(quest.isInProgress() && quest.getQuestGiver() == questGiver.getClass()) {
+        return quest;
+      }
+    }
 
     List<Quest> list = quests.stream().filter(v -> {
       return v.getQuestStatus() == EnumQuestStatus.AVAILABLE && v.getQuestGiver() == questGiver.getClass();
