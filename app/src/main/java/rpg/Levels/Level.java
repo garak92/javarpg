@@ -48,6 +48,7 @@ public class Level {
   protected List<LevelNode> tiles = new ArrayList<>();
   protected List<Thing> things = new ArrayList<>();
   protected List<Usable> usables = new ArrayList<>();
+  protected List<LevelNode> solidNodes = new ArrayList<>();
   private final String textureFile;
   private Image tileSheet;
   private final Pane pane;
@@ -290,7 +291,10 @@ public class Level {
   }
 
   public List<LevelNode> getSolidTiles() {
-    List<LevelNode> solidNodes = tiles
+    if(!solidNodes.isEmpty()) {
+      return solidNodes;
+    }
+    solidNodes = tiles
         .stream()
         .filter(c -> c.isSolid())
         .collect(Collectors.toList());

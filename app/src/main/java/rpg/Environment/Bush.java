@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Bush extends BaseMonster {
-    private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;
+    private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;
     private final int TILE_HEIGHT = 48;
     private final int TILE_WIDTH = 48;
 
@@ -25,7 +25,8 @@ public class Bush extends BaseMonster {
 
         getImageView().setImage(images.get("idle"));
         getImageView().setViewport(new Rectangle2D(TILE_WIDTH * 1, 0, TILE_WIDTH, TILE_HEIGHT));
-
+        getImageView().setFitHeight(100);
+        getImageView().setPreserveRatio(true);
     }
 
     @Override
