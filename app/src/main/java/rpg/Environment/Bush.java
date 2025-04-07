@@ -13,6 +13,7 @@ public class Bush extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;
     private final int TILE_HEIGHT = 48;
     private final int TILE_WIDTH = 48;
+    private final int spriteOffset = (int) (Math.random() * 8);
 
     public Bush(double charPosx, double charPosy, Level level) {
         super(charPosx, charPosy, 0, 0, alignment, level);
@@ -24,7 +25,7 @@ public class Bush extends BaseMonster {
         });
 
         getImageView().setImage(images.get("idle"));
-        getImageView().setViewport(new Rectangle2D(TILE_WIDTH * 1, 0, TILE_WIDTH, TILE_HEIGHT));
+        getImageView().setViewport(new Rectangle2D(TILE_WIDTH * spriteOffset, 0, TILE_WIDTH, TILE_HEIGHT));
         getImageView().setFitHeight(100);
         getImageView().setPreserveRatio(true);
     }

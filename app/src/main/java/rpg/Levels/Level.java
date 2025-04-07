@@ -15,6 +15,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import rpg.Common.*;
 import rpg.Environment.Bush;
+import rpg.Environment.House;
 import rpg.Environment.Rock;
 import rpg.Environment.Tree;
 import rpg.Monsters.*;
@@ -233,6 +234,11 @@ public class Level {
               Bush bush = new Bush(TILE_SIZE * j, TILE_SIZE * i, this);
               envProps.add(bush);
               bush.spawn(pane);
+              break;
+            case "H":
+              House house = new House(TILE_SIZE * j, TILE_SIZE * i, this);
+              envProps.add(house);
+              house.spawn(pane);
               break;
             case "v":
               Villager villager = new Villager(TILE_SIZE * j, TILE_SIZE * i, 1, 30, 10, "Villager",
