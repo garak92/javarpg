@@ -47,7 +47,6 @@ public class PlayerStatusBar {
     sb.append("Quest log: ");
     sb.append(NEWLINE);
     for (Quest i : questLogActive) {
-      System.out.println(questLogActive.size());
       if (!i.equals(null)) {
         sb.append("===========");
         sb.append(NEWLINE);

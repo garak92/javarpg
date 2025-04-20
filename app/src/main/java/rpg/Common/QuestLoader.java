@@ -22,10 +22,8 @@ public class QuestLoader {
       Document xmldoc = docBuilder.parse(questsFile);
 
       NodeList questElementList = xmldoc.getElementsByTagName("Quest");
-      System.out.println(questElementList.getLength());
       for (int i = 0; i < questElementList.getLength(); i++) {
         Element elem = (Element) questElementList.item(i);
-        System.out.println(elem.getElementsByTagName("Entity").item(0).getTextContent().trim());
         Class<? extends BaseMonster> questEntityType = Class
             .forName(elem.getElementsByTagName("Entity").item(0).getTextContent().trim()).asSubclass(BaseMonster.class);
         Class<? extends BaseMonster> questGiver = Class
