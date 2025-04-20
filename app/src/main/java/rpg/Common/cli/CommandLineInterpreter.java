@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import rpg.Common.LevelLoader;
 import rpg.Levels.Level;
 import rpg.Monsters.MonsterUtils;
+import rpg.Monsters.Player;
 
 public class CommandLineInterpreter {
    final static Logger logger = LoggerFactory.getLogger(CommandLineInterpreter.class);
@@ -22,6 +23,13 @@ public class CommandLineInterpreter {
               LevelLoader.loadLevel(
                       new Level(cliCommand.getValue()).load());
               logger.info("Trying to load level");
+          }
+          case RESURRECT -> {
+              if(Player.getInstance().isDead()) {
+                  Player.getInstance().resurrect();
+              }
+
+              logger.info("Trying to resurrect player");
           }
       }
       }

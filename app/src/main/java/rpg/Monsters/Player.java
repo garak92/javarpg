@@ -209,6 +209,13 @@ public class Player extends BaseMonster {
     MonsterUtils.playAnimationOnlyOnce(animation);
   }
 
+  public void resurrect() {
+    isDead = false;
+    health = 100;
+    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
+    animation.play();
+  }
+
   @Override
   public void update(List<Usable> usables) {
     double cameraX = imageView.getLayoutX() - root.getScene().getWidth() / 2;

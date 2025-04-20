@@ -6,6 +6,11 @@ public enum CliOperation {
             return "VALUE: " + value;
         };
     },
+    RESURRECT("resurrect") {
+        public String apply(String value) {
+            return "VALUE: " + value;
+        };
+    },
     LOAD_LEVEL("map") {
         public String apply(String value) {
             return "VALUE: " + value;
