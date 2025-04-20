@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LaserCannon extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;
+  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.TURRET;
   CannonOrientation orientation = null;
   int attackCoolDown = 100;
   int attackCoolDownCounter = (int)(Math.random() * attackCoolDown);

@@ -7,5 +7,6 @@ public enum EnumMonsterAlignment {
   ATTACK,
   PORTAL,
   ITEM,
-  PROP
+  PROP,
+  TURRET,
 }
