@@ -78,7 +78,10 @@ public class MonsterUtils {
 
         if (baseMonster instanceof Usable) {
             level.getUsables().add((Usable) baseMonster);
-        } else {
+        } else if(baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+            level.getEnvProps().add(baseMonster);
+        }
+        else {
             level.getThings().add(baseMonster);
         }
 
