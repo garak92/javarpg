@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,10 @@ public class Game extends Application {
 
   public static Game getInstance() {
     return applicationInstance;
+  }
+
+  public Stage getPrimaryStage() {
+    return primaryStage;
   }
 
   @Override
@@ -80,6 +85,7 @@ public class Game extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
+    this.primaryStage = primaryStage;
     currentLevel = startGame(primaryStage);
     gameLoop = new AnimationTimer() {
       @Override
@@ -87,7 +93,7 @@ public class Game extends Application {
           try {
               currentLevel.update();
           } catch (Throwable e) {
-              throw new RuntimeException(e);
+            throw new RuntimeException(e);
           }
       }
     };

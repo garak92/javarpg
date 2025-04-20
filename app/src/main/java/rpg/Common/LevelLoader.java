@@ -10,7 +10,6 @@ public class LevelLoader {
 
   public static void loadLevel(Level newLevel) {
     try {
-      // Game.getGameLoop().stop();
       Game.getInstance().setCurrentLevel(newLevel);
     } catch (Exception e) {
       e.printStackTrace();

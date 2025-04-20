@@ -47,8 +47,8 @@ public class Level {
   private final List<List<String>> thingMap = new ArrayList<List<String>>();
   private final String title;
   protected List<LevelNode> tiles = new ArrayList<>();
-  protected List<Thing> things = new ArrayList<>();
-  protected List<Usable> usables = new ArrayList<>();
+  protected CopyOnWriteArrayList<Thing> things = new CopyOnWriteArrayList<>();
+  protected CopyOnWriteArrayList<Usable> usables = new CopyOnWriteArrayList<>();
   protected List<LevelNode> solidNodes = new ArrayList<>();
   protected List<BaseMonster> envProps = new ArrayList<>();
   private final String textureFile;
@@ -65,6 +65,14 @@ public class Level {
     this.textureFile = textureFile;
     this.pane = pane;
     this.stage = stage;
+  }
+
+  public Level(String levelName) {
+    Level level = Player.getInstance().getLevel();
+    this.title = levelName;
+    this.textureFile = "sheet1.png"; // Default
+    this.pane = level.pane;
+    this.stage = level.stage;
   }
 
   public Level load() {
@@ -148,132 +156,76 @@ public class Level {
           String currentTileValue = thingMap.get(i).get(j).toString();
           switch (currentTileValue) {
             case "1":
-              System.out.println("creating player");
               Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 12, 100, 10, "Player 1", stage,
-                  pane, this);
+                    pane, this);
               things.add(player);
               player.spawn(pane);
               this.player = player;
               break;
             case "2":
               Igrene igrene = Igrene.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
-                   this);
+                      this);
               usables.add(igrene);
               igrene.spawn(pane);
               break;
             case "3":
-              MaleSatyr maleSatyr = new MaleSatyr(TILE_SIZE * j, TILE_SIZE * i, 2, "Male Satyr",
-                   this);
-              things.add(maleSatyr);
-              maleSatyr.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.SATYR, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "4":
-              Werewolf werewolf = new Werewolf(TILE_SIZE * j, TILE_SIZE * i, 2, "Werewolf",
-                      this);
-              things.add(werewolf);
-              werewolf.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.WEREWOLF, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "5":
-              Minotaur minotaur = new Minotaur(TILE_SIZE * j, TILE_SIZE * i, 2, "Minotaur",
-                      this);
-              things.add(minotaur);
-              minotaur.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.MINOTAUR, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "6":
-              SkeletonArcher skeletonArcher = new SkeletonArcher(TILE_SIZE * j, TILE_SIZE * i, 2,
-                      "Skeleton Archer", this);
-              things.add(skeletonArcher);
-              skeletonArcher.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.SKELETON_ARCHER, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "7":
-              OrcBerserk orcBerserk = new OrcBerserk(TILE_SIZE * j, TILE_SIZE * i, 2,
-                      "Orc Berserk", this);
-              things.add(orcBerserk);
-              orcBerserk.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.ORC_BERSERK, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "8":
-              Gorgon gorgon = new Gorgon(TILE_SIZE * j, TILE_SIZE * i, 2,
-                      "Gorgon", this);
-              things.add(gorgon);
-              gorgon.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.GORGON, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "@":
-              Portal portal = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to City Hub",
-                   this, "cityhub", "sheet1.png");
-              usables.add(portal);
-              portal.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.PORTAL_CITY_HUB, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
-            case "A": // Extended ascii 181
-              Portal portalToLevel1 = new Portal(TILE_SIZE * j, TILE_SIZE * i, 2, 50, 10, "Portal to level 1",
-                   this, "level1", "sheet1.png");
-              usables.add(portalToLevel1);
-              portalToLevel1.spawn(pane);
+            case "A":
+              MonsterUtils.spawnMonster(EnumMonsterKind.PORTAL_LEVEL1, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "h":
-              MiniHealthPickup miniHealthPickup = new MiniHealthPickup(TILE_SIZE * j, TILE_SIZE * i,
-                  this);
-              things.add(miniHealthPickup);
-              miniHealthPickup.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.MINI_HEALTH_PICKUP, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "e":
-              ElixirOfYouth elixirOfYouth = new ElixirOfYouth(TILE_SIZE * j, TILE_SIZE * i, this);
-              things.add(elixirOfYouth);
-              elixirOfYouth.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.ELIXIR_OF_YOUTH, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "T":
-              Tree tree = new Tree(TILE_SIZE * j, TILE_SIZE * i, this);
-              envProps.add(tree);
-              tree.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.TREE, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "R":
-              Rock rock = new Rock(TILE_SIZE * j, TILE_SIZE * i, this);
-              envProps.add(rock);
-              rock.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.ROCK, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "B":
-              Bush bush = new Bush(TILE_SIZE * j, TILE_SIZE * i, this);
-              envProps.add(bush);
-              bush.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.BUSH, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "H":
-              House house = new House(TILE_SIZE * j, TILE_SIZE * i, this);
-              envProps.add(house);
-              house.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.HOUSE, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "v":
-              Villager villager = new Villager(TILE_SIZE * j, TILE_SIZE * i, 1, 30, 10, "Villager",
-                   this);
-              usables.add(villager);
-              things.add(villager);
-              villager.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.VILLAGER, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
             case "↑":
-            case "↓":
-            case "→":
-            case "←":
-              CannonOrientation orientation = null;
-              if(currentTileValue.equals("↑")) {
-               orientation = CannonOrientation.UP;
-              }
-              if(currentTileValue.equals("↓")) {
-                orientation = CannonOrientation.DOWN;
-              }
-              if(currentTileValue.equals("→")) {
-                orientation = CannonOrientation.RIGHT;
-              }
-              if(currentTileValue.equals("←")) {
-                orientation = CannonOrientation.LEFT;
-              }
-                assert orientation != null;
-                LaserCannon laserCannon = new LaserCannon(TILE_SIZE * j, TILE_SIZE * i, 1, "Laser Cannon",
-                      this, orientation);
-              things.add(laserCannon);
-              laserCannon.spawn(pane);
+              MonsterUtils.spawnMonster(EnumMonsterKind.LASER_CANNON_UP, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
-            default:
+            case "↓":
+              MonsterUtils.spawnMonster(EnumMonsterKind.LASER_CANNON_DOWN, TILE_SIZE * j, TILE_SIZE * i, this);
+              break;
+            case "→":
+              MonsterUtils.spawnMonster(EnumMonsterKind.LASER_CANNON_RIGHT, TILE_SIZE * j, TILE_SIZE * i, this);
+            break;
+            case "←":
+              MonsterUtils.spawnMonster(EnumMonsterKind.LASER_CANNON_LEFT, TILE_SIZE * j, TILE_SIZE * i, this);
               break;
           }
-
           // Get initial enemy list
           enemies = things.stream().filter(v -> {
             return v.getMonster().getAlignment() == EnumMonsterAlignment.ENEMY;
@@ -396,6 +348,12 @@ public class Level {
 
   public List<BaseMonster> getEnemies() {
     return enemies;
+  }
+
+  public void updateEnemyList() {
+    enemies = things.stream().filter(v -> {
+            return v.getMonster().getAlignment() == EnumMonsterAlignment.ENEMY;
+          }).map(v -> v.getMonster()).collect(Collectors.toList());;
   }
 
   public List<BaseMonster> getAgenticMonsters() {

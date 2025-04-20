@@ -3,12 +3,17 @@ package rpg.Monsters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import rpg.Common.cli.CommandLine;
+import rpg.Game;
 import rpg.Levels.Level;
 import rpg.Levels.LevelNode;
 import rpg.SpriteAnimation;
@@ -27,7 +32,7 @@ public class Player extends BaseMonster {
   private boolean using = false;
   private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
-  private List<Usable> usedEntities = new ArrayList<>();
+  private CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
   private Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
@@ -108,6 +113,14 @@ public class Player extends BaseMonster {
       }
       if (keyCode == KeyCode.E) {
         using = true;
+      }
+
+      if (keyCode == KeyCode.C) {
+          try {
+              CommandLine.INSTANCE.activate();
+          } catch (Throwable e) {
+            throw new RuntimeException(e);
+          }
       }
 
       // Attack
