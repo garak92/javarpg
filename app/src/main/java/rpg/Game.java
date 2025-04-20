@@ -55,16 +55,17 @@ public class Game extends Application {
     Pane root = new Pane();
     Scene scene = new Scene(root, WIDTH, HEIGHT);
     scene.setCursor(Cursor.NONE);
+    scene.setFill(null);
     primaryStage.setTitle("My RPG");
     primaryStage.setScene(scene);
     primaryStage.setResizable(false);
     primaryStage.setWidth(WIDTH);
     primaryStage.setHeight(HEIGHT);
     primaryStage.setFullScreen(true);
+    primaryStage.setAlwaysOnTop(true);
     primaryStage.show();
     root.setStyle("-fx-background-color: transparent;");
     root.setPrefSize(WIDTH, HEIGHT);
-
     try {
       // Initialize quests
       QuestLoader.loadQuests();
