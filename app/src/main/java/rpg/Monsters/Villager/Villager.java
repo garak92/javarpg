@@ -31,7 +31,7 @@ public class Villager extends BaseMonster implements Usable {
   private boolean shouldWalkX = false;
   private boolean shouldWalkY = false;
   private int randomMovementAccumulator = 0;
-  int velocity = 0;
+  int velocity = 3;
   private final int movementChangeFrequency = 30;
 
   public Villager(

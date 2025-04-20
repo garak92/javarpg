@@ -65,9 +65,12 @@ public class MonsterUtils {
 
         if (baseMonster instanceof Usable) {
             level.getUsables().add((Usable) baseMonster);
-        } else {
-            level.getThings().add(baseMonster);
+        } else if(baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+            level.getEnvProps().add(baseMonster);
         }
+
+
+        level.getThings().add(baseMonster);
 
         level.updateEnemyList();
         baseMonster.spawn(level.getPane());
@@ -81,9 +84,8 @@ public class MonsterUtils {
         } else if(baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
             level.getEnvProps().add(baseMonster);
         }
-        else {
-            level.getThings().add(baseMonster);
-        }
+
+        level.getThings().add(baseMonster);
 
         baseMonster.spawn(level.getPane());
     }
