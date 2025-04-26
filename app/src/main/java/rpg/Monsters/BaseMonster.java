@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,13 @@ public abstract class BaseMonster implements Thing {
         imageView.setFitWidth(170);
         imageView.setPreserveRatio(true);
     }
+
+      DropShadow ds1 = new DropShadow();
+      ds1.setOffsetY(4.0f);
+      ds1.setOffsetX(4.0f);
+      ds1.setColor(Color.BLACK);
+
+      imageView.setEffect(ds1);
 
     root.getChildren().add(this.imageView);
   }
