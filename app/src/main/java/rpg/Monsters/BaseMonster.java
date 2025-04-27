@@ -38,6 +38,7 @@ public abstract class BaseMonster implements Thing {
   protected boolean isDead = false;
   protected boolean isHurt = false;
   protected String name;
+  private DropShadow dropShadow;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
   public abstract void die();
@@ -56,12 +57,12 @@ public abstract class BaseMonster implements Thing {
         imageView.setPreserveRatio(true);
     }
 
-      DropShadow ds1 = new DropShadow();
-      ds1.setOffsetY(4.0f);
-      ds1.setOffsetX(4.0f);
-      ds1.setColor(Color.BLACK);
+      dropShadow = new DropShadow();
+      dropShadow.setOffsetY(4.0f);
+      dropShadow.setOffsetX(4.0f);
+      dropShadow.setColor(Color.BLACK);
 
-      imageView.setEffect(ds1);
+      imageView.setEffect(dropShadow);
 
     root.getChildren().add(this.imageView);
   }
@@ -214,13 +215,11 @@ public abstract class BaseMonster implements Thing {
         this.isHurt = false;
         this.health -= damage;
         colorAdjust.setBrightness(oldBrightness);
-        imageView.setEffect(colorAdjust);
+        imageView.setEffect(dropShadow);
       });
-
       pause.play();
     }
     logger.info("Remaining health: " + this.health);
-
   }
 
   public BaseMonster getMonster() {
