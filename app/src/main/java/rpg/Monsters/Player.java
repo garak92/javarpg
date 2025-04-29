@@ -225,6 +225,7 @@ public class Player extends BaseMonster {
   public void update(List<Usable> usables) {
     if (health <= 0) {
       if (isDead) {
+        this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
         return;
       }
       die();
@@ -287,7 +288,7 @@ public class Player extends BaseMonster {
     stopInteraction();
 
     camera.updateCamera(this);
-    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 10);
+    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
   }
 
 
