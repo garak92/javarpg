@@ -10,7 +10,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 public abstract class BaseDialogBox {
-    protected static final double TEXT_WIDTH = 800;
+    protected static final double TEXT_WIDTH = 400;
     protected Rectangle box = new Rectangle();
     protected Text text = new Text();
     protected TextFlow textFlow = new TextFlow(text);
@@ -20,7 +20,7 @@ public abstract class BaseDialogBox {
     protected BaseDialogBox(Pane pane) {
         this.pane = pane;
 
-        Font rpgFont = Font.loadFont(getClass().getResourceAsStream("/fonts/UncialAntiqua.ttf"), 16);
+        Font rpgFont = Font.loadFont(getClass().getResourceAsStream("/fonts/HomeVideo-BLG6G.ttf"), 16);
         if (rpgFont == null) {
             rpgFont = Font.font("Serif", 16); // fallback
         }
@@ -29,7 +29,12 @@ public abstract class BaseDialogBox {
         text.setFont(rpgFont);
 
         textFlow.setPrefWidth(TEXT_WIDTH);
-        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        if (text.getText().length() < 30) {
+            textFlow.setTextAlignment(TextAlignment.CENTER);
+        } else {
+            textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        }
+
         textFlow.setLineSpacing(4);
 
         box.setFill(Color.BLACK);
@@ -39,17 +44,29 @@ public abstract class BaseDialogBox {
         box.setStrokeWidth(2);
     }
 
-    protected void updateLayout(double x, double y) {
-        textFlow.setLayoutX(x);
-        textFlow.setLayoutY(y);
-        box.setX(x - 10);
-        box.setY(y - 10);
+    protected void updateLayout(double centerX, double bottomY) {
+        textFlow.setLayoutX(centerX);
+        textFlow.setLayoutY(bottomY);
 
         Platform.runLater(() -> {
             textFlow.applyCss();
             textFlow.layout();
-            box.setWidth(textFlow.getBoundsInLocal().getWidth() + 20);
-            box.setHeight(textFlow.getBoundsInLocal().getHeight() + 20);
+
+            double boxWidth = textFlow.getBoundsInLocal().getWidth() + 20;
+            double boxHeight = textFlow.getBoundsInLocal().getHeight() + 20;
+
+            box.setWidth(boxWidth);
+            box.setHeight(boxHeight);
+
+            // Now center horizontally, and move upward vertically
+            double adjustedX = centerX - (boxWidth / 2);
+            double adjustedY = bottomY - boxHeight;
+
+            box.setX(adjustedX - 10);
+            box.setY(adjustedY - 10);
+
+            textFlow.setLayoutX(adjustedX);
+            textFlow.setLayoutY(adjustedY);
         });
     }
 

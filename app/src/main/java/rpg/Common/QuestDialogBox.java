@@ -11,7 +11,6 @@ public class QuestDialogBox extends BaseDialogBox {
   private Quest quest;
   private String[] defaultDialogueList;
   private BaseMonster questGiver;
-  private double yOffset = 0;
 
   public QuestDialogBox(Quest quest, Pane pane, BaseMonster questGiver, String[] defaultDialogueList) {
     super(pane);
@@ -19,9 +18,8 @@ public class QuestDialogBox extends BaseDialogBox {
     this.questGiver = questGiver;
     this.defaultDialogueList = defaultDialogueList;
 
-    yOffset = box.getHeight() + 50;
     text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
-    updateLayout(questGiver.getCharPosx(), yOffset);
+    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
 
   }
 
@@ -34,7 +32,7 @@ public class QuestDialogBox extends BaseDialogBox {
       text.setText(defaultDialogueList[randomNumber]);
     }
 
-    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy() - (yOffset));
+    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
   }
 
   @Override

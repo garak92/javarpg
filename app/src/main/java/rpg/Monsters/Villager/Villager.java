@@ -67,7 +67,7 @@ public class Villager extends BaseMonster implements Usable {
 
     getImageView().setPreserveRatio(true);
 
-    this.dialogBox = new CyclicDialogBox(List.of(defaultDialogueList), level.getPane(), this.charPosx, this.charPosy);
+    this.dialogBox = new CyclicDialogBox(List.of(defaultDialogueList), level.getPane(), this);
   }
 
   @Override
@@ -124,7 +124,6 @@ public class Villager extends BaseMonster implements Usable {
       imageView.setLayoutX(charPosx);
       imageView.setLayoutY(charPosy);
     }
-
   }
 
   @Override
