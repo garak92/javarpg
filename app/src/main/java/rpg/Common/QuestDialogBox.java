@@ -3,82 +3,53 @@ package rpg.Common;
 import java.util.Random;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import rpg.Monsters.BaseMonster;
 import rpg.Monsters.EnumQuestStatus;
 import rpg.Monsters.Quest;
 
-public class QuestDialogBox {
-  private Rectangle box = new Rectangle();
-  private Text text = new Text();
-  private Pane pane;
-  private boolean open = false;
-  private Quest quest = null;
+public class QuestDialogBox extends BaseDialogBox {
+  private Quest quest;
   private String[] defaultDialogueList;
   private BaseMonster questGiver;
+  private double yOffset = 0;
 
   public QuestDialogBox(Quest quest, Pane pane, BaseMonster questGiver, String[] defaultDialogueList) {
-    this.pane = pane;
+    super(pane);
     this.quest = quest;
-    this.defaultDialogueList = defaultDialogueList;
     this.questGiver = questGiver;
+    this.defaultDialogueList = defaultDialogueList;
 
-    text.setFill(Color.WHITE);
-    text.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 12));
-    text.setX(questGiver.getCharPosx());
-    text.setY(questGiver.getCharPosy() + 5);
-    text.setText(this.quest.getCurrentText());
+    yOffset = box.getHeight() + 50;
+    text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
+    updateLayout(questGiver.getCharPosx(), yOffset);
 
-    box = new Rectangle(questGiver.getCharPosx() - 10, questGiver.getCharPosy() - 10,
-        text.getLayoutBounds().getWidth() + 20,
-        text.getLayoutBounds().getHeight() + 10);
-    box.setFill(Color.BLACK);
   }
 
-  public void setDialogueText() {
+  private void setDialogueText() {
     if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
-      text.setText(this.quest.getCurrentText());
+      text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
       quest.deliverQuest(questGiver.getLevel().getPlayer());
     } else {
-      int randomNumber = new Random().nextInt(0, defaultDialogueList.length);
+      int randomNumber = new Random().nextInt(defaultDialogueList.length);
       text.setText(defaultDialogueList[randomNumber]);
     }
-    box.setWidth(text.getLayoutBounds().getWidth() + 20);
-    box.setHeight(text.getLayoutBounds().getHeight() + 10);
 
+    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy() - (yOffset));
   }
 
+  @Override
   public void use() {
     setDialogueText();
     if (open) {
       close();
       quest.acceptQuest();
       if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
-          && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
+              && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
         this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
         text.setText(this.quest.getCurrentText());
       }
     } else {
       open();
     }
-  }
-
-  public void open() {
-    pane.getChildren().addAll(box, text);
-    open = true;
-  }
-
-  private void close() {
-    pane.getChildren().removeAll(box, text);
-    open = false;
-  }
-
-  public boolean isOpen() {
-    return open;
   }
 }

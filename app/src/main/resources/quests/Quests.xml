@@ -3,9 +3,8 @@
         <Quest>
             <Name>Dammned creatures on my yard!</Name>
             <Description>
-Hello, fellow traveler! My name is Igrenne. Do you see that portal over there? 
-It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord
-and his troops.
+Hello, fellow traveler! My name is Igrenne. Do you see that portal over there?
+It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord and his troops.
 Please, kill six Satyr for me. Find me on the other side of the portal, I'll reward you with 10 experience points.
       </Description>
             <DialogInProgress>
@@ -34,9 +33,8 @@ Please, kill six Satyr for me. Find me on the other side of the portal, I'll rew
     <Quest>
         <Name>Elixir of youth</Name>
         <Description>
-           I'am not getting any younger, pal. Please, bring me
-            the elixir of youth. You'll find it deep into the satyr realms,
-            following that portal over there.
+           I am not getting any younger, pal. Please, bring me the elixir of youth. You'll find it deep into the satyr realms,
+           following that portal over there.
         </Description>
         <DialogInProgress>
             Have you find it yet?

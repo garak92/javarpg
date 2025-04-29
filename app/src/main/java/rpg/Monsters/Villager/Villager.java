@@ -67,7 +67,7 @@ public class Villager extends BaseMonster implements Usable {
 
     getImageView().setPreserveRatio(true);
 
-    this.dialogBox = new CyclicDialogBox(level.getPane(), this, defaultDialogueList);
+    this.dialogBox = new CyclicDialogBox(List.of(defaultDialogueList), level.getPane(), this.charPosx, this.charPosy);
   }
 
   @Override
@@ -77,7 +77,7 @@ public class Villager extends BaseMonster implements Usable {
 
   @Override
   public void update(List<Usable> usables) {
-    if (dialogBox.getState()) { // Don't walk and talk at the same time
+    if (dialogBox.isOpen()) { // Don't walk and talk at the same time
       getImageView().setImage(images.get(this.type + "Idle"));
       return;
     }

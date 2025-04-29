@@ -31,9 +31,9 @@ public class QuestLoader {
 
         Quest quest = new Quest(
             elem.getElementsByTagName("Name").item(0).getTextContent().trim(),
-            elem.getElementsByTagName("Description").item(0).getTextContent().trim(),
-            elem.getElementsByTagName("DialogInProgress").item(0).getTextContent().trim(),
-            elem.getElementsByTagName("DialogCompleted").item(0).getTextContent().trim(),
+            elem.getElementsByTagName("Description").item(0).getTextContent().trim().replace("\n", ""),
+            elem.getElementsByTagName("DialogInProgress").item(0).getTextContent().trim().replace("\n", ""),
+            elem.getElementsByTagName("DialogCompleted").item(0).getTextContent().trim().replace("\n", ""),
             Integer.valueOf(elem.getElementsByTagName("ExperiencePoints").item(0).getTextContent().trim()),
             questEntityType,
             Integer.valueOf(elem.getElementsByTagName("ObjectiveQuantity").item(0).getTextContent().trim()),

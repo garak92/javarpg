@@ -163,7 +163,7 @@ public class Level {
               this.player = player;
               break;
             case "2":
-              Igrene igrene = Igrene.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrene",
+              Igrene igrene = Igrene.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrenne",
                       this);
               usables.add(igrene);
               igrene.spawn(pane);
