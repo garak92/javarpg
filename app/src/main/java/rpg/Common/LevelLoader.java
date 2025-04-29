@@ -11,6 +11,7 @@ public class LevelLoader {
   public static void loadLevel(Level newLevel) {
     try {
       Game.getInstance().setCurrentLevel(newLevel);
+      Game.getInstance().restart();
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -9,19 +9,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rpg.Common.MusicSystem;
 import rpg.Common.QuestLoader;
 import rpg.Levels.Level;
 
+import java.util.function.Consumer;
+
 public class Game extends Application {
+  private static final Logger log = LoggerFactory.getLogger(Game.class);
   private static Game applicationInstance;
-  AnimationTimer gameLoop;
+  GameLoop gameLoop = null;
   private Level currentLevel = null;
-  Image tileSheet;
-  ImageView imageView;
-  ImageView worldView;
   Stage primaryStage = null;
-  Pane pane = null;
+  Consumer<Integer> fpsReporter = fps -> log.info("FPS: {}", fps);
 
   final int WIDTH = 1920;
   final int HEIGHT = 1080;
@@ -49,9 +51,10 @@ public class Game extends Application {
     }
   }
 
-  Level startGame(Stage primaryStage) throws Exception {
-    restart(primaryStage);
+  @Override
+  public void start(Stage stage) throws Exception {
     // Initialize JavaFx
+    primaryStage = new Stage();
     Pane root = new Pane();
     Scene scene = new Scene(root, WIDTH, HEIGHT);
     scene.setCursor(Cursor.NONE);
@@ -70,37 +73,23 @@ public class Game extends Application {
       // Initialize quests
       QuestLoader.loadQuests();
 
-      // Initialize level
+      // Initialize first level
       Level currentLevel = new Level("cityhub", "sheet1.png", root, primaryStage).load();
 
-      return currentLevel;
-
+      // Initialize game loop
+      gameLoop = new GameLoop(currentLevel, fpsReporter);
+      gameLoop.setMaximumStep(60);
+      gameLoop.start();
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
   }
 
-  public void restart(Stage stage) throws Exception {
+  public void restart() {
     cleanup();
-  }
-
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    this.primaryStage = primaryStage;
-    currentLevel = startGame(primaryStage);
-    gameLoop = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-          try {
-              currentLevel.update();
-          } catch (Throwable e) {
-            throw new RuntimeException(e);
-          }
-      }
-    };
-
+    gameLoop.stop();
+    gameLoop = new GameLoop(currentLevel, fpsReporter);
     gameLoop.start();
-
   }
 
   @Override

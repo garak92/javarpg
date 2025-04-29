@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import rpg.Common.Camera;
 import rpg.Common.cli.CommandLine;
 import rpg.Game;
 import rpg.Levels.Level;
@@ -38,6 +41,8 @@ public class Player extends BaseMonster {
   private int playerLevel = 0;
   private PlayerStatusBar statusBar;
   private static Player instance;
+  private final Camera camera = new Camera();
+
 
   private Player(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
@@ -218,10 +223,6 @@ public class Player extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
-    double cameraX = imageView.getLayoutX() - root.getScene().getWidth() / 2;
-    double cameraY = imageView.getLayoutY() - root.getScene().getHeight() / 2;
-    this.statusBar.update(cameraX + 10, cameraY + 10);
-
     if (health <= 0) {
       if (isDead) {
         return;
@@ -285,10 +286,11 @@ public class Player extends BaseMonster {
 
     stopInteraction();
 
-    root.setLayoutX(-cameraX);
-    root.setLayoutY(-cameraY);
-
+    camera.updateCamera(this);
+    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 10);
   }
+
+
 
   public void setPlayerLevel(int playerLevel) {
     this.playerLevel = playerLevel;
