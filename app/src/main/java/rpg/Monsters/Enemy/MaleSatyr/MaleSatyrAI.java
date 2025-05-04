@@ -8,7 +8,7 @@ public class MaleSatyrAI extends BaseEnemyAI {
 
   public MaleSatyrAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 500;
   }
 
   @Override

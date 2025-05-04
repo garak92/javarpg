@@ -10,13 +10,13 @@ public class WerewolfAI extends BaseEnemyAI {
 
   public WerewolfAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 450;
   }
 
   @Override
   public void attack() {
     if(!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 15);
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 0.08);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);

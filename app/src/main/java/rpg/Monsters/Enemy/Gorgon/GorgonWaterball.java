@@ -17,7 +17,7 @@ public class GorgonWaterball extends BaseMonster {
 
   public GorgonWaterball(double charPosx, double charPosy, Level level, BaseMonster target,
                          double targetPosX, double targetPosY) {
-    super(charPosx, charPosy, 7, 0, alignment, level);
+    super(charPosx, charPosy, 8, 0, alignment, level);
 
     preCacheSprites(new HashMap<>() {
       {

@@ -94,7 +94,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
   public boolean checkMonsterInAttackRange(BaseMonster target) {
     double currentMonsterDistance = Math
-        .sqrt(Math.pow(monster.charPosx - target.charPosx, 2) + Math.pow(monster.charPosy - target.charPosy, 3));
+        .sqrt(Math.pow(monster.charPosx - target.charPosx, 2) + Math.pow(monster.charPosy - target.charPosy, 2));
     return currentMonsterDistance <= attackRange;
 
   }

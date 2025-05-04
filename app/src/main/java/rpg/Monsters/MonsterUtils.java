@@ -31,20 +31,35 @@ public class MonsterUtils {
         monster.imageView.setLayoutY(monster.charPosy);
     }
 
-    public static void jumpToDirection(BaseMonster monster, double targetPosX, double targetPosY,
-                                       double speedBoost) {
-        double directionX = targetPosX - monster.getCharPosx();
-        double directionY = targetPosY - monster.getCharPosy();
-        double length = Math.sqrt(directionX * directionX + directionY * directionY);
-        double normalizedX = directionX / length;
-        double normalizedY = directionY / length;
-        monster.setCharPosx(monster.getCharPosx() + normalizedX * speedBoost);
-        monster.setCharPosy(monster.getCharPosy() + normalizedY * speedBoost);
+    public static void jumpToDirection(BaseMonster monster, double targetPosX, double targetPosY, double lerpFactor) {
 
-        monster.getImageView().setLayoutX(monster.getCharPosx());
-        monster.getImageView().setLayoutY(monster.getCharPosy());
+        lerpFactor = Math.max(0, Math.min(1, lerpFactor));
 
+        double currentX = monster.getCharPosx();
+        double currentY = monster.getCharPosy();
+
+        if(monster.detectCollision(monster.getLevel().getSolidTiles())) {
+            double newX = currentX - (targetPosX - currentX) * lerpFactor;
+            double newY = currentY - (targetPosY - currentY) * lerpFactor;
+
+            monster.setCharPosx(newX);
+            monster.setCharPosy(newY);
+
+            monster.getImageView().setLayoutX(newX);
+            monster.getImageView().setLayoutY(newY);
+            return;
+        }
+
+        double newX = currentX + (targetPosX - currentX) * lerpFactor;
+        double newY = currentY + (targetPosY - currentY) * lerpFactor;
+
+        monster.setCharPosx(newX);
+        monster.setCharPosy(newY);
+
+        monster.getImageView().setLayoutX(newX);
+        monster.getImageView().setLayoutY(newY);
     }
+
 
     public static void spawnMonster(String monsterClassName) {
         EnumMonsterKind selectedMonsterKind = null;

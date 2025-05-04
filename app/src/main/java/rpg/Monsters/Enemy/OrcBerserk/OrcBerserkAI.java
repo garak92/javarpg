@@ -10,13 +10,13 @@ public class OrcBerserkAI extends BaseEnemyAI {
 
   public OrcBerserkAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 700;
+    attackRange = 370;
   }
 
   @Override
   public void attack() {
     if(!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 6);
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 0.05);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);

@@ -10,13 +10,13 @@ public class MinotaurAI extends BaseEnemyAI {
 
   public MinotaurAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 500;
   }
 
   @Override
   public void attack() {
     if (!monster.detectCollision(Player.getInstance())) {
-      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 18);
+      MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 0.05);
     }
     if (randomAttackAccumulator == attackCoolDown) {
       transition(EnumEvents.CAST_ATTACK);

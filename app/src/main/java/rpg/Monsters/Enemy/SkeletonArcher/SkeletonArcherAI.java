@@ -8,7 +8,7 @@ public class SkeletonArcherAI extends BaseEnemyAI {
 
   public SkeletonArcherAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1800;
+    attackRange = 400;
   }
 
   @Override

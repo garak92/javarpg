@@ -4,12 +4,12 @@ import rpg.Monsters.*;
 
 public class GorgonAI extends BaseEnemyAI {
   private int randomAttackAccumulator = 0;
-  private final int attackCoolDown = 40;
+  private final int attackCoolDown = 30;
   private final int attackPositionOffset = 70;
 
   public GorgonAI(BaseMonster monster) {
     super(monster, Player.getInstance());
-    attackRange = 1000;
+    attackRange = 500;
   }
 
   @Override

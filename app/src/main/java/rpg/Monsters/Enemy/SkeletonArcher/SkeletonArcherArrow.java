@@ -17,7 +17,7 @@ public class SkeletonArcherArrow extends BaseMonster {
   private final BaseMonster target;
 
   public SkeletonArcherArrow(double charPosx, double charPosy, Level level, BaseMonster target) {
-    super(charPosx, charPosy, 8, 0, alignment, level);
+    super(charPosx, charPosy, 10, 0, alignment, level);
 
     preCacheSprites(new HashMap<String, String>() {
       {
