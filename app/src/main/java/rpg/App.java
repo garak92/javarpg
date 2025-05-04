@@ -3,6 +3,8 @@
  */
 package rpg;
 
+import rpg.engine.common.Game;
+
 import static javafx.application.Application.launch;
 
 public class App {

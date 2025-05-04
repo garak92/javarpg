@@ -18,7 +18,7 @@ Please, kill six Satyr for me. Find me on the other side of the portal, I'll rew
                 10
             </ExperiencePoints>
             <Entity>
-                rpg.Monsters.Enemy.MaleSatyr.MaleSatyr
+                rpg.game.entities.enemy.malesatyr.MaleSatyr
             </Entity>
             <EntityFriendlyName>
                 Satyr
@@ -27,7 +27,7 @@ Please, kill six Satyr for me. Find me on the other side of the portal, I'll rew
                6 
             </ObjectiveQuantity>
             <Giver>
-                rpg.Monsters.Igrene.Igrene
+                rpg.game.entities.igrenne.Igrenne
             </Giver>
         </Quest>
     <Quest>
@@ -47,7 +47,7 @@ Please, kill six Satyr for me. Find me on the other side of the portal, I'll rew
             10
         </ExperiencePoints>
         <Entity>
-            rpg.Monsters.ElixirOfYouth
+            rpg.game.entities.item.ElixirOfYouth
         </Entity>
         <EntityFriendlyName>
             Exlixir of Youth
@@ -56,7 +56,7 @@ Please, kill six Satyr for me. Find me on the other side of the portal, I'll rew
             1
         </ObjectiveQuantity>
         <Giver>
-            rpg.Monsters.Igrene.Igrene
+            rpg.game.entities.igrenne.Igrenne
         </Giver>
     </Quest>
 </Quests>
