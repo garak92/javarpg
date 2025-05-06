@@ -2,7 +2,7 @@ package rpg.engine.monster;
 
 public enum EnumMonsterKind {
     PLAYER,
-    IGRENE,
+    IGRENNE,
     SATYR,
     WEREWOLF,
     MINOTAUR,

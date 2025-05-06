@@ -29,7 +29,8 @@ public class PlayerIceBallAttack extends BaseAbility {
   @Override
   public void update() {
     dealDamage();
-    if (monster.getMonster().detectCollision(monster.getLevel().getSolidTiles())) {
+    if (monster.getMonster().detectCollision(monster.getLevel().getSolidTiles(), monster.getCharPosx(),
+            monster.getCharPosy())) {
       monster.die();
     }
 
@@ -38,8 +39,5 @@ public class PlayerIceBallAttack extends BaseAbility {
     } else {
       monster.setCharPosx(monster.getCharPosx() + monster.getVelocity());
     }
-
-    monster.getImageView().setLayoutX(monster.getCharPosx());
-    monster.getImageView().setLayoutY(monster.getCharPosy());
   }
 }

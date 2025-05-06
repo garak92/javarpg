@@ -3,7 +3,7 @@ package rpg.engine.levels;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileMapper {
+class TileMapper {
 
     private static final Map<String, TileData> tileDataMap = new HashMap<>();
 

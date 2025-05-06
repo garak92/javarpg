@@ -1,6 +1,6 @@
 package rpg.engine.levels;
 
-public class TileData {
+class TileData {
     private int row;
     private int column;
     private boolean isSolid;

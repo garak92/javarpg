@@ -7,7 +7,7 @@ import rpg.engine.levels.Level;
 import rpg.engine.monster.MonsterUtils;
 import rpg.game.entities.player.Player;
 
-public class CommandLineInterpreter {
+class CommandLineInterpreter {
    final static Logger logger = LoggerFactory.getLogger(CommandLineInterpreter.class);
 
    private CommandLineInterpreter() {

@@ -1,6 +1,6 @@
 package rpg.engine.cli;
 
-public class CliCommand {
+class CliCommand {
     private final CliOperation cliOperation;
     private final String value;
 

@@ -4,7 +4,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.StageStyle;
 import rpg.engine.common.Game;
 
-public class CommandLineUI {
+class CommandLineUI {
     private TextInputDialog textInputDialog;
 
     protected CommandLineUI() {

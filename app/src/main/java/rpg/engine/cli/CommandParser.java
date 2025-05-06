@@ -1,6 +1,6 @@
 package rpg.engine.cli;
 
-public class CommandParser {
+class CommandParser {
     private CommandParser() {
     }
 

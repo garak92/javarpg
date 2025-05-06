@@ -59,8 +59,6 @@ public class Villager extends BaseMonster implements Usable {
     getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 48, 48));
     setAnimation(new SpriteAnimation(imageView, new Duration(800), 4, 4, -2, 0, 48, 48));
 
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
     getImageView().setFitWidth(100);
     getImageView().setFitHeight(100);
 
@@ -109,10 +107,7 @@ public class Villager extends BaseMonster implements Usable {
       }
     }
 
-    imageView.setLayoutX(charPosx);
-    imageView.setLayoutY(charPosy);
-
-    if (detectCollision(getLevel().getSolidTiles())) {
+    if (detectCollision(getLevel().getSolidTiles(), charPosx, charPosy)) {
       if (shouldMoveRandomly) {
         charPosx += velocity;
         charPosy += velocity;
@@ -120,8 +115,6 @@ public class Villager extends BaseMonster implements Usable {
         charPosx -= velocity;
         charPosy -= velocity;
       }
-      imageView.setLayoutX(charPosx);
-      imageView.setLayoutY(charPosy);
     }
   }
 

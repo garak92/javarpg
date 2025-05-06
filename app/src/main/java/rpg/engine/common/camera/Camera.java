@@ -9,14 +9,16 @@ public class Camera {
     private static final double CAMERA_LERP_SPEED = 0.1;
 
     public void updateCamera(BaseMonster monster) {
-        double targetX = monster.getImageView().getLayoutX() - monster.getLevel().getPane().getScene().getWidth() / 2;
-        double targetY = monster.getImageView().getLayoutY() - monster.getLevel().getPane().getScene().getHeight() / 2;
+        double targetX = (monster.getImageView().getLayoutX() + monster.getImageView().getTranslateX())
+                - monster.getLevel().getPane().getScene().getWidth() / 2;
+        double targetY = (monster.getImageView().getLayoutY() + monster.getImageView().getTranslateY()) -
+                monster.getLevel().getPane().getScene().getHeight() / 2;
 
         cameraX += (targetX - cameraX) * CAMERA_LERP_SPEED;
         cameraY += (targetY - cameraY) * CAMERA_LERP_SPEED;
 
-        monster.getLevel().getPane().setLayoutX(-cameraX);
-        monster.getLevel().getPane().setLayoutY(-cameraY);
+        monster.getLevel().getPane().setTranslateX(-cameraX);
+        monster.getLevel().getPane().setTranslateY(-cameraY);
     }
 
     public double getCameraX() {

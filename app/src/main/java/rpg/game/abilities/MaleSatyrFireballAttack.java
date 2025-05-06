@@ -30,14 +30,12 @@ public class MaleSatyrFireballAttack extends BaseAbility {
   @Override
   public void update() {
     dealDamage();
-    if (monster.getMonster().detectCollision(monster.getLevel().getSolidTiles())) {
+    if (monster.getMonster().detectCollision(monster.getLevel().getSolidTiles(), monster.getCharPosx(),
+            monster.getCharPosy())) {
       monster.die();
     }
 
     monster.setCharPosx(monster.getCharPosx() + normalizedX * monster.getVelocity());
     monster.setCharPosy(monster.getCharPosy() + normalizedY * monster.getVelocity());
-
-    monster.getImageView().setLayoutX(monster.getCharPosx());
-    monster.getImageView().setLayoutY(monster.getCharPosy());
   }
 }

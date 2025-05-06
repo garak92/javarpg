@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import rpg.engine.animation.SpriteAnimation;
+import rpg.engine.common.Thing;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.levels.LevelNode;
@@ -59,8 +60,6 @@ public class Igrenne extends BaseMonster implements Usable {
       instance.setCharPosx(charPosx);
       instance.setCharPosy(charPosy);
       instance.level = level;
-      instance.getImageView().setLayoutX(charPosx);
-      instance.getImageView().setLayoutY(charPosy);
       instance.questGiver = new QuestGiver(instance, defaultDialogueList);
       instance.questGiver.showExclamation();
     }
@@ -90,4 +89,5 @@ public class Igrenne extends BaseMonster implements Usable {
   public BaseMonster getBaseMonster() {
     return this;
   }
+
 }

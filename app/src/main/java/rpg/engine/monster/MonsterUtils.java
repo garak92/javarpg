@@ -1,6 +1,10 @@
 package rpg.engine.monster;
 
 import javafx.animation.Animation;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpg.engine.common.Usable;
@@ -25,26 +29,17 @@ public class MonsterUtils {
         double currentX = monster.getCharPosx();
         double currentY = monster.getCharPosy();
 
-        if(monster.detectCollision(monster.getLevel().getSolidTiles())) {
-            double newX = currentX - (targetPosX - currentX) * lerpFactor;
-            double newY = currentY - (targetPosY - currentY) * lerpFactor;
-
-            monster.setCharPosx(newX);
-            monster.setCharPosy(newY);
-
-            monster.getImageView().setLayoutX(newX);
-            monster.getImageView().setLayoutY(newY);
-            return;
-        }
 
         double newX = currentX + (targetPosX - currentX) * lerpFactor;
         double newY = currentY + (targetPosY - currentY) * lerpFactor;
+        if(monster.detectCollision(monster.getLevel().getSolidTiles(), newX, newY))  {
+            return;
+        }
+            monster.setCharPosx(newX);
+            monster.setCharPosy(newY);
 
         monster.setCharPosx(newX);
         monster.setCharPosy(newY);
-
-        monster.getImageView().setLayoutX(newX);
-        monster.getImageView().setLayoutY(newY);
     }
 
 
@@ -90,5 +85,34 @@ public class MonsterUtils {
         level.getThings().add(baseMonster);
 
         baseMonster.spawn(level.getPane());
+    }
+
+    public static Rectangle2D calculateOpaqueBounds(Image image) {
+        PixelReader reader = image.getPixelReader();
+        if (reader == null) return new Rectangle2D(0, 0, image.getWidth(), image.getHeight());
+
+        int minX = (int) image.getWidth();
+        int minY = (int) image.getHeight();
+        int maxX = 0;
+        int maxY = 0;
+
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                Color color = reader.getColor(x, y);
+                if (color.getOpacity() > 0.01) {
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+
+        if (minX > maxX || minY > maxY) {
+            // Image is fully transparent
+            return new Rectangle2D(0, 0, 0, 0);
+        }
+
+        return new Rectangle2D(minX, minY, maxX - minX + 1, maxY - minY + 1);
     }
 }

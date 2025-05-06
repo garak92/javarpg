@@ -65,9 +65,6 @@ public class Player extends BaseMonster {
 
     setKeyBinds(primaryStage);
 
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
-
     this.statusBar = new PlayerStatusBar(0, 0, root, this);
 
   }
@@ -84,8 +81,6 @@ public class Player extends BaseMonster {
       instance.setCharPosy(charPosy);
       instance.setLevel(level);
       instance.setStatusBar(new PlayerStatusBar(0, 0, root, instance));
-      instance.getImageView().setLayoutX(charPosx);
-      instance.getImageView().setLayoutY(charPosy);
     }
     return instance;
   }
@@ -220,6 +215,9 @@ public class Player extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
+    double projectedX = 0;
+    double projectedY = 0;
+
     if (health <= 0) {
       if (isDead) {
         this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
@@ -236,42 +234,33 @@ public class Player extends BaseMonster {
     if (moveRight) {
       imageView.setScaleX(1);
       imageView.setImage(images.get("run"));
-      charPosx += velocity;
-      imageView.setLayoutX(charPosx);
-      if (detectCollision(solidTiles)) {
-        charPosx -= velocity;
-        imageView.setLayoutX(charPosx);
+      projectedX = charPosx + velocity;
+      if (detectCollision(solidTiles, projectedX, charPosy)) {
         return;
       }
+      charPosx = projectedX;
     } else if (moveLeft) {
       imageView.setScaleX(-1);
       imageView.setImage(images.get("run"));
-      charPosx -= velocity;
-      imageView.setLayoutX(charPosx);
-      if (detectCollision(solidTiles)) {
-        charPosx += velocity;
-        imageView.setLayoutX(charPosx);
+      projectedX = charPosx - velocity;
+      if (detectCollision(solidTiles, projectedX, charPosy)) {
         return;
       }
+      charPosx = projectedX;
     } else if (moveUp) {
       imageView.setImage(images.get("run"));
-      charPosy -= velocity;
-      imageView.setLayoutY(charPosy);
-      if (detectCollision(solidTiles)) {
-        charPosy += velocity;
-        imageView.setLayoutY(charPosy);
+      projectedY = charPosy - velocity;
+      if (detectCollision(solidTiles, charPosx, projectedY)) {
         return;
       }
+      charPosy = projectedY;
     } else if (moveDown) {
       imageView.setImage(images.get("run"));
-      charPosy += velocity;
-      imageView.setLayoutY(charPosy);
-      if (detectCollision(solidTiles)) {
-        charPosy -= velocity;
-        imageView.setLayoutY(charPosy);
+      projectedY = charPosy + velocity;
+      if (detectCollision(solidTiles, charPosx, projectedY)) {
         return;
       }
-
+      charPosy = projectedY;
     } else if (iceBallAttack) {
       imageView.setImage(images.get("attack"));
     } else {

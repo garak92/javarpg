@@ -79,18 +79,8 @@ public abstract class BaseEnemyAI extends EnemyAI {
   }
 
   @Override
-  public boolean isPerformingAction() {
-    return isPerformingAction;
-  }
-
-  @Override
   public void setIsPerformingAction(boolean isPerformingAction) {
     this.isPerformingAction = isPerformingAction;
-  }
-
-  @Override
-  public boolean isAttacking() {
-    return isAttacking;
   }
 
   public boolean checkMonsterInAttackRange(BaseMonster target) {
@@ -197,10 +187,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
         monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
       }
 
-      monster.getImageView().setLayoutX(monster.getCharPosx());
-      monster.getImageView().setLayoutY(monster.getCharPosy());
-
-      if (monster.detectCollision(monster.getLevel().getSolidTiles())) {
+      if (monster.detectCollision(monster.getLevel().getSolidTiles(), monster.getCharPosx(), monster.getCharPosy())) {
         if (shouldMoveRandomly) {
           monster.setCharPosx(monster.getCharPosx() + (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
           monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
@@ -208,8 +195,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
           monster.setCharPosx(monster.getCharPosx()  -  (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
           monster.setCharPosy(monster.getCharPosy()  -  (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
         }
-        monster.getImageView().setLayoutX(monster.getCharPosx());
-        monster.getImageView().setLayoutY(monster.getCharPosy());
         shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.5;
         randomMovementAccumulator = movementChangeFrequency - 30;
       }

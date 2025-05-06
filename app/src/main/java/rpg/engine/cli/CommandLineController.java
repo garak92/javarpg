@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-public class CommandLineController {
+class CommandLineController {
     protected static Logger logger = LoggerFactory.getLogger(CommandLineController.class);
     TextInputDialog textInputDialog;
 

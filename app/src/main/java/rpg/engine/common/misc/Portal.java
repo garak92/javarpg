@@ -39,13 +39,6 @@ public class Portal extends BaseMonster implements Usable {
     setAnimation(new SpriteAnimation(imageView, new Duration(600), 8, 8, 0, 0,
         64, 64));
 
-    getImageView().setLayoutX(charPosx);
-    getImageView().setLayoutY(charPosy);
-
-    getImageView().setFitHeight(128);
-    getImageView().setFitWidth(128);
-    getImageView().setPreserveRatio(true);
-
     this.destinationLevelName = destinationLevelName;
     this.destinationLevelSpritesheet = destinationLevelSpritesheet;
 

@@ -33,7 +33,7 @@ public enum MusicSystem {
     sequencer.start();
   }
 
-  private void stop() {
+  public void stop() {
     if (sequencer.isRunning()) {
       sequencer.stop();
     }

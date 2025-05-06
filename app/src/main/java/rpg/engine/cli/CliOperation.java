@@ -1,6 +1,6 @@
 package rpg.engine.cli;
 
-public enum CliOperation {
+enum CliOperation {
     SPAWN_ENTITY("spawn") {
         public String apply(String value) {
             return "VALUE: " + value;

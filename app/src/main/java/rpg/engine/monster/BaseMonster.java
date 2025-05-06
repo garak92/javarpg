@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -23,6 +26,8 @@ import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Thing;
+import rpg.engine.render.IRenderer;
+import rpg.engine.render.Renderer;
 
 public abstract class BaseMonster implements Thing {
   protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
@@ -30,6 +35,7 @@ public abstract class BaseMonster implements Thing {
   protected Animation animation;
   protected Map<String, SpriteAnimation> animations;
   protected EnumMonsterAlignment alignment;
+  protected  IRenderer renderer;
   protected int health;
   protected double charPosx;
   protected double charPosy;
@@ -38,6 +44,8 @@ public abstract class BaseMonster implements Thing {
   protected boolean isDead = false;
   protected boolean isHurt = false;
   protected String name;
+  protected  Bounds virtualBounds;
+  Point2D visiblePosition = imageView.localToParent(0, 0);
   private DropShadow dropShadow;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
@@ -48,9 +56,6 @@ public abstract class BaseMonster implements Thing {
   }
 
   public void spawn(Pane root) {
-    this.imageView.setLayoutX(charPosx);
-    this.imageView.setLayoutY(charPosy);
-
     if(alignment == EnumMonsterAlignment.PLAYER || alignment == EnumMonsterAlignment.ENEMY) {
         imageView.setFitHeight(170);
         imageView.setFitWidth(170);
@@ -63,7 +68,6 @@ public abstract class BaseMonster implements Thing {
       dropShadow.setColor(Color.BLACK);
 
       imageView.setEffect(dropShadow);
-
     root.getChildren().add(this.imageView);
   }
 
@@ -96,7 +100,8 @@ public abstract class BaseMonster implements Thing {
     this.alignment = alignment;
     this.level = level;
     this.name = name;
-
+    this.renderer = new Renderer(this.imageView);
+    this.virtualBounds = new BoundingBox(0,0,0,0);
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
@@ -107,6 +112,7 @@ public abstract class BaseMonster implements Thing {
     this.health = health;
     this.alignment = alignment;
     this.level = level;
+    this.renderer = new Renderer(this.imageView);
   }
 
   protected void preCacheSprites(Map<String, String> sprites) {
@@ -143,24 +149,24 @@ public abstract class BaseMonster implements Thing {
 
   }
 
-  public boolean detectCollision(List<LevelNode> nodeList) {
+  public boolean detectCollision(List<LevelNode> nodeList, double targetX, double targetY) {
     // We take 20% of the entity's dimensions for a nicer feel
-    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
-    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+   virtualBounds = new BoundingBox(
+              targetX,
+              targetY,
+              this.imageView.getBoundsInParent().getHeight() * 20 / 100,
+           this.imageView.getBoundsInParent().getWidth() * 20 / 100
+      );
     // Detect collision with solid tiles
     for (Node b : nodeList) {
-      if (b.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-          this.imageView.getBoundsInParent().getCenterY(),
-          boundingBoxWidth, boundingBoxHeight)) {
+      if (b.getBoundsInParent().intersects(virtualBounds)) {
         return true;
       }
     }
 
     // Detect collision with solid environmental props (trees, rocks, etc.)
    for (BaseMonster m : level.getEnvProps()) {
-          if (m.getImageView().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-                  this.imageView.getBoundsInParent().getCenterY(),
-                  boundingBoxWidth, boundingBoxHeight)) {
+          if (m.getImageView().getBoundsInParent().intersects(virtualBounds)) {
               return true;
           }
       }
@@ -264,5 +270,10 @@ public abstract class BaseMonster implements Thing {
 
     public void setHurt(boolean hurt) {
         isHurt = hurt;
+    }
+
+    @Override
+    public void render() throws Throwable {
+      this.renderer.updatePosition(charPosx, charPosy);
     }
 }

@@ -157,6 +157,7 @@ public class Level {
               Igrenne igrene = Igrenne.initialize(TILE_SIZE * j, TILE_SIZE * i, 10, 30, 10, "Igrenne",
                       this);
               usables.add(igrene);
+              things.add(igrene);
               igrene.spawn(pane);
               break;
             case "3":
@@ -295,7 +296,14 @@ public class Level {
     }
   }
 
-  private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {
+  public void render() throws Throwable {
+    for (Thing i : things) {
+      i.render();
+    }
+  }
+
+
+    private void cacheLevelData(BufferedReader reader, NodeTypeEnum type) {
     try {
 
       String line = reader.readLine();

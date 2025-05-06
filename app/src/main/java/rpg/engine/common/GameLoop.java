@@ -44,7 +44,11 @@ public class GameLoop extends BaseGameLoop
             }
             accumulatedTime -= timeStep;
         }
-        // renderer.run();
+        try {
+            level.render();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
 
         secondsElapsedSinceLastFpsUpdate += secondsElapsed;
         framesSinceLastFpsUpdate++;
