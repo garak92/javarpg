@@ -1,10 +1,10 @@
 package rpg.game.abilities;
 
+import rpg.engine.common.ability.BaseAbility;
+import rpg.engine.monster.BaseMonster;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import rpg.engine.monster.BaseMonster;
-import rpg.engine.common.ability.BaseAbility;
 
 public class PlayerIceBallAttack extends BaseAbility {
   private List<BaseMonster> enemies = new ArrayList<>();

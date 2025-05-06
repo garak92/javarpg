@@ -6,9 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import rpg.game.entities.player.Player;
 import rpg.engine.quest.Quest;
 import rpg.engine.quest.QuestLog;
+import rpg.game.entities.player.Player;
 
 import java.util.List;
 import java.util.Objects;

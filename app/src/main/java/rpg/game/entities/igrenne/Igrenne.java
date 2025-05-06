@@ -1,19 +1,18 @@
 package rpg.game.entities.igrenne;
 
-import java.util.HashMap;
-import java.util.List;
-
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import rpg.engine.animation.SpriteAnimation;
-import rpg.engine.common.Thing;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.levels.LevelNode;
 import rpg.engine.monster.BaseMonster;
-import rpg.engine.quest.QuestGiver;
 import rpg.engine.monster.EnumMonsterAlignment;
+import rpg.engine.quest.QuestGiver;
 import rpg.game.entities.player.Player;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class Igrenne extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;

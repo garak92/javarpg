@@ -1,13 +1,14 @@
 package rpg.game.entities.item;
 
-import java.util.HashMap;
-import java.util.List;
 import javafx.geometry.Rectangle2D;
 import rpg.engine.common.Usable;
+import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.game.items.MiniHealthPickupItem;
-import rpg.engine.levels.Level;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class MiniHealthPickup extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;

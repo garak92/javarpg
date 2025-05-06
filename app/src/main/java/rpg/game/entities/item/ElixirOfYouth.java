@@ -1,12 +1,12 @@
 package rpg.game.entities.item;
 
 import javafx.geometry.Rectangle2D;
+import rpg.engine.common.Usable;
+import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.quest.QuestLog;
-import rpg.engine.common.Usable;
 import rpg.game.items.ElixirOfYouthItem;
-import rpg.engine.levels.Level;
 
 import java.util.HashMap;
 import java.util.List;

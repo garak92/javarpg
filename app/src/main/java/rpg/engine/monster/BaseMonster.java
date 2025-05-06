@@ -1,33 +1,31 @@
 package rpg.engine.monster;
 
+import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rpg.engine.animation.SpriteAnimation;
+import rpg.engine.common.Thing;
+import rpg.engine.levels.Level;
+import rpg.engine.levels.LevelNode;
+import rpg.engine.levels.NodeTypeEnum;
+import rpg.engine.render.IRenderer;
+import rpg.engine.render.Renderer;
+
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javafx.animation.Animation;
-import javafx.animation.PauseTransition;
-import javafx.scene.Node;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-import rpg.engine.levels.Level;
-import rpg.engine.levels.LevelNode;
-import rpg.engine.levels.NodeTypeEnum;
-import rpg.engine.animation.SpriteAnimation;
-import rpg.engine.common.Thing;
-import rpg.engine.render.IRenderer;
-import rpg.engine.render.Renderer;
 
 public abstract class BaseMonster implements Thing {
   protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
@@ -35,7 +33,7 @@ public abstract class BaseMonster implements Thing {
   protected Animation animation;
   protected Map<String, SpriteAnimation> animations;
   protected EnumMonsterAlignment alignment;
-  protected  IRenderer renderer;
+  protected IRenderer renderer;
   protected int health;
   protected double charPosx;
   protected double charPosy;
@@ -45,7 +43,6 @@ public abstract class BaseMonster implements Thing {
   protected boolean isHurt = false;
   protected String name;
   protected  Bounds virtualBounds;
-  Point2D visiblePosition = imageView.localToParent(0, 0);
   private DropShadow dropShadow;
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 

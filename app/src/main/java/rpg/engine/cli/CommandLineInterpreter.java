@@ -2,8 +2,8 @@ package rpg.engine.cli;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rpg.engine.levels.LevelLoader;
 import rpg.engine.levels.Level;
+import rpg.engine.levels.LevelLoader;
 import rpg.engine.monster.MonsterUtils;
 import rpg.game.entities.player.Player;
 

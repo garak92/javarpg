@@ -1,35 +1,33 @@
 package rpg.engine.levels;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
-
-import javax.sound.midi.InvalidMidiDataException;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rpg.engine.common.Thing;
+import rpg.engine.common.Usable;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.monster.EnumMonsterKind;
 import rpg.engine.monster.MonsterUtils;
+import rpg.engine.music.MusicSystem;
 import rpg.game.entities.igrenne.Igrenne;
+import rpg.game.entities.player.Player;
 
+import javax.sound.midi.InvalidMidiDataException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import rpg.engine.common.*;
-import rpg.engine.music.MusicSystem;
-import rpg.game.entities.player.Player;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 public class Level {
   final static Logger logger = LoggerFactory.getLogger(Level.class);

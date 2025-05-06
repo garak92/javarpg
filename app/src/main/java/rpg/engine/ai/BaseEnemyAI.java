@@ -1,16 +1,15 @@
 package rpg.engine.ai;
 
+import javafx.scene.shape.Line;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rpg.engine.common.Usable;
+import rpg.engine.monster.BaseMonster;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import javafx.scene.shape.Line;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import rpg.engine.common.Usable;
-import rpg.engine.monster.BaseMonster;
 
 public abstract class BaseEnemyAI extends EnemyAI {
   private List<StateTransition> transitionTable = new ArrayList<>();

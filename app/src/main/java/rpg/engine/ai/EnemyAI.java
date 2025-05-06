@@ -1,9 +1,9 @@
 package rpg.engine.ai;
 
-import java.util.List;
-
 import rpg.engine.common.Usable;
 import rpg.engine.monster.BaseMonster;
+
+import java.util.List;
 
 public abstract class EnemyAI {
   protected BaseMonster monster;

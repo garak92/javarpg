@@ -1,11 +1,11 @@
 package rpg.game.entities.enemy.cannon;
 
 import javafx.geometry.Rectangle2D;
-import rpg.game.abilities.LaserCannonAttack;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
+import rpg.game.abilities.LaserCannonAttack;
 
 import java.util.HashMap;
 import java.util.List;

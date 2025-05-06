@@ -1,14 +1,14 @@
 package rpg.game.entities.enemy.malesatyr;
 
-import java.util.HashMap;
-import java.util.List;
-
 import javafx.geometry.Rectangle2D;
-import rpg.game.abilities.MaleSatyrFireballAttack;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
+import rpg.game.abilities.MaleSatyrFireballAttack;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class MaleSatyrFireball extends BaseMonster {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;

@@ -1,17 +1,13 @@
 package rpg.engine.monster;
 
 import rpg.engine.common.misc.Portal;
-import rpg.game.environment.Bush;
-import rpg.game.environment.House;
-import rpg.game.environment.Rock;
-import rpg.game.environment.Tree;
 import rpg.engine.levels.Level;
+import rpg.game.entities.enemy.cannon.CannonOrientation;
+import rpg.game.entities.enemy.cannon.LaserCannon;
 import rpg.game.entities.enemy.gorgon.Gorgon;
 import rpg.game.entities.enemy.malesatyr.MaleSatyr;
 import rpg.game.entities.enemy.minotaur.Minotaur;
 import rpg.game.entities.enemy.orcberserk.OrcBerserk;
-import rpg.game.entities.enemy.cannon.CannonOrientation;
-import rpg.game.entities.enemy.cannon.LaserCannon;
 import rpg.game.entities.enemy.skeletonarcher.SkeletonArcher;
 import rpg.game.entities.enemy.werewolf.Werewolf;
 import rpg.game.entities.igrenne.Igrenne;
@@ -19,6 +15,10 @@ import rpg.game.entities.item.ElixirOfYouth;
 import rpg.game.entities.item.MiniHealthPickup;
 import rpg.game.entities.player.Player;
 import rpg.game.entities.villager.Villager;
+import rpg.game.environment.Bush;
+import rpg.game.environment.House;
+import rpg.game.environment.Rock;
+import rpg.game.environment.Tree;
 
 public class MonsterFactory {
     public static BaseMonster getMonster(EnumMonsterKind kind, int x, int y, Level level) {

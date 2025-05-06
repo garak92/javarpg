@@ -1,12 +1,12 @@
 package rpg.engine.dialog;
 
-import java.util.Random;
-
 import javafx.scene.layout.Pane;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.quest.EnumQuestStatus;
 import rpg.engine.quest.Quest;
 import rpg.engine.quest.QuestLog;
+
+import java.util.Random;
 
 public class QuestDialogBox extends BaseDialogBox {
   private Quest quest;

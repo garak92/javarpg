@@ -7,9 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rpg.engine.levels.Level;
 import rpg.engine.music.MusicSystem;
 import rpg.engine.quest.QuestLoader;
-import rpg.engine.levels.Level;
 
 import java.util.function.Consumer;
 

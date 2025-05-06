@@ -1,7 +1,7 @@
 package rpg.game.abilities;
 
-import rpg.engine.monster.BaseMonster;
 import rpg.engine.common.ability.BaseAbility;
+import rpg.engine.monster.BaseMonster;
 
 public class MaleSatyrFireballAttack extends BaseAbility {
   private double normalizedX = 0;

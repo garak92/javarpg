@@ -1,13 +1,12 @@
 package rpg.engine.quest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rpg.engine.monster.BaseMonster;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import rpg.engine.monster.BaseMonster;
 
 public enum QuestLog {
   INSTANCE;

@@ -1,14 +1,14 @@
 package rpg.game.entities.enemy.skeletonarcher;
 
 import javafx.animation.Animation;
-import rpg.engine.quest.QuestLog;
+import rpg.engine.ai.EnemyAI;
+import rpg.engine.animation.AnimationController;
+import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
-import rpg.engine.animation.AnimationController;
 import rpg.engine.monster.BaseMonster;
-import rpg.engine.ai.EnemyAI;
 import rpg.engine.monster.EnumMonsterAlignment;
-import rpg.engine.animation.SpriteAnimation;
+import rpg.engine.quest.QuestLog;
 
 import java.util.HashMap;
 import java.util.List;

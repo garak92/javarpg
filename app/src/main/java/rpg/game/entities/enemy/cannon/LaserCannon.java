@@ -1,10 +1,10 @@
 package rpg.game.entities.enemy.cannon;
 
-import rpg.engine.quest.QuestLog;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
+import rpg.engine.quest.QuestLog;
 
 import java.util.HashMap;
 import java.util.List;

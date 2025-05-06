@@ -1,24 +1,24 @@
 package rpg.game.entities.player;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import rpg.engine.common.camera.Camera;
+import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.cli.CommandLine;
+import rpg.engine.common.Usable;
+import rpg.engine.common.camera.Camera;
+import rpg.engine.common.misc.PlayerStatusBar;
+import rpg.engine.levels.Level;
+import rpg.engine.levels.LevelNode;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.monster.MonsterUtils;
-import rpg.engine.levels.Level;
-import rpg.engine.levels.LevelNode;
-import rpg.engine.animation.SpriteAnimation;
-import rpg.engine.common.misc.PlayerStatusBar;
-import rpg.engine.common.Usable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Player extends BaseMonster {
   private int shield;

@@ -1,12 +1,11 @@
 package rpg.engine.quest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rpg.engine.dialog.QuestDialogBox;
 import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;

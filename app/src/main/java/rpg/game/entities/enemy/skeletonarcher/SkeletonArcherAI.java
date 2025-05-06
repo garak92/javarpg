@@ -1,9 +1,9 @@
 package rpg.game.entities.enemy.skeletonarcher;
 
 import rpg.engine.ai.BaseEnemyAI;
-import rpg.engine.monster.BaseMonster;
 import rpg.engine.ai.EnumEnemyStates;
 import rpg.engine.ai.EnumEvents;
+import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class SkeletonArcherAI extends BaseEnemyAI {

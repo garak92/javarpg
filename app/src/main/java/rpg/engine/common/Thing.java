@@ -1,9 +1,8 @@
 package rpg.engine.common;
 
-import java.util.List;
-
 import rpg.engine.monster.BaseMonster;
-import rpg.engine.render.IRenderer;
+
+import java.util.List;
 
 public interface Thing {
   public void update(List<Usable> usables) throws Throwable;

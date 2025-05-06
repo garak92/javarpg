@@ -1,18 +1,18 @@
 package rpg.engine.common.misc;
 
-import java.util.HashMap;
-import java.util.List;
-
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
+import rpg.engine.levels.Level;
+import rpg.engine.levels.LevelLoader;
+import rpg.engine.levels.LevelNode;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
-import rpg.engine.levels.LevelLoader;
-import rpg.engine.levels.Level;
-import rpg.engine.levels.LevelNode;
 import rpg.game.entities.player.Player;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class Portal extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PORTAL;

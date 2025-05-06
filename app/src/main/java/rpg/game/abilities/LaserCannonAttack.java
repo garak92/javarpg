@@ -1,8 +1,8 @@
 package rpg.game.abilities;
 
+import rpg.engine.common.ability.BaseAbility;
 import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.enemy.cannon.CannonOrientation;
-import rpg.engine.common.ability.BaseAbility;
 import rpg.game.entities.enemy.cannon.LaserCannon;
 
 public class LaserCannonAttack extends BaseAbility {
