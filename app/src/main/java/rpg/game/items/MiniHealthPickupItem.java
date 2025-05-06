@@ -5,7 +5,7 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class MiniHealthPickupItem extends BaseItem {
-  private Player target;
+  private final Player target;
 
   public MiniHealthPickupItem(BaseMonster monster, Player target) {
     super(3, monster);

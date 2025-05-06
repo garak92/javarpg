@@ -9,7 +9,7 @@ class CommandParser {
         String value = "";
 
         try {
-            String wordList[] = command.split(" ");
+            String[] wordList = command.split(" ");
             if(wordList.length == 0) {
                 throw new Exception("Please, write a valid command.  Write \"list\" for a list of commands.");
             }

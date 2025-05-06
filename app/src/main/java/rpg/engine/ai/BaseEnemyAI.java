@@ -12,15 +12,15 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public abstract class BaseEnemyAI extends EnemyAI {
-  private List<StateTransition> transitionTable = new ArrayList<>();
+  private final List<StateTransition> transitionTable = new ArrayList<>();
   private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
-  private Random rngGenerator = new Random();
+  private final Random rngGenerator = new Random();
   private boolean shouldMoveRandomly = false;
   protected boolean isAttacking = false;
   protected boolean isPerformingAction = false;
   Line lineOfSight =  new Line();
   private int randomMovementAccumulator = 0;
-  private BaseMonster target;
+  private final BaseMonster target;
   private final int movementChangeFrequency = 200;
   protected double attackRange = 500.0;
   protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);

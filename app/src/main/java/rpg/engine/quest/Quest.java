@@ -4,17 +4,17 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class Quest {
-  private String name;
-  private String description;
-  private String inProgressDialog;
-  private String completedDialog;
+  private final String name;
+  private final String description;
+  private final String inProgressDialog;
+  private final String completedDialog;
   private Class<? extends BaseMonster> questEntityType = null;
   private Class<? extends BaseMonster> questGiver = null;
   private int entityCounter = 0;
   private int questObjective = 0;
   private int experiencePoints = 0;
   private EnumQuestStatus questStatus = EnumQuestStatus.AVAILABLE;
-  private String entityFriendlyName;
+  private final String entityFriendlyName;
 
   public <T extends BaseMonster> Quest(String name, String description, String inProgressDialog, String completedDialog,
       int experiencePoints, Class<? extends BaseMonster> questEntityType,
@@ -68,7 +68,6 @@ public class Quest {
     }
     if (entityCounter == questObjective) {
       this.questStatus = EnumQuestStatus.COMPLETED;
-      return;
     }
   }
 

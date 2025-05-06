@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Player extends BaseMonster {
-  private int shield;
-  private String name;
+  private final int shield;
+  private final String name;
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER;
   private boolean iceBallAttack = false;
   private boolean moveRight = false;
@@ -32,8 +32,8 @@ public class Player extends BaseMonster {
   private boolean using = false;
   private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
-  private CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
-  private Pane root;
+  private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
+  private final Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
   private PlayerStatusBar statusBar;

@@ -6,7 +6,7 @@ import rpg.engine.monster.BaseMonster;
 public class MaleSatyrFireballAttack extends BaseAbility {
   private double normalizedX = 0;
   private double normalizedY = 0;
-  private BaseMonster target;
+  private final BaseMonster target;
 
   public MaleSatyrFireballAttack(BaseMonster monster, BaseMonster target) {
     super(15, 0, 0, monster);

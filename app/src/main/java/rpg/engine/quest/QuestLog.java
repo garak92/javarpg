@@ -12,7 +12,7 @@ public enum QuestLog {
   INSTANCE;
 
   private final List<Quest> quests;
-  protected static Logger logger = LoggerFactory.getLogger(QuestLog.class);
+  private static Logger logger = LoggerFactory.getLogger(QuestLog.class);
 
   QuestLog() {
     quests = new ArrayList<>();

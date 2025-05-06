@@ -1,9 +1,9 @@
 package rpg.engine.levels;
 
 class TileData {
-    private int row;
-    private int column;
-    private boolean isSolid;
+    private final int row;
+    private final int column;
+    private final boolean isSolid;
 
     public TileData(int row, int column, boolean isSolid) {
         this.row = row;

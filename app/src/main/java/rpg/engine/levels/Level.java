@@ -142,7 +142,7 @@ public class Level {
     try {
       for (int i = 0; i < thingMap.size(); i++) {
         for (int j = 0; j < thingMap.get(i).size(); j++) {
-          String currentTileValue = thingMap.get(i).get(j).toString();
+          String currentTileValue = thingMap.get(i).get(j);
           switch (currentTileValue) {
             case "1":
               Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 12, 100, 10, "Player 1", stage,
@@ -350,7 +350,7 @@ public class Level {
   public void updateEnemyList() {
     enemies = things.stream().filter(v -> {
             return v.getMonster().getAlignment() == EnumMonsterAlignment.ENEMY;
-          }).map(v -> v.getMonster()).collect(Collectors.toList());;
+          }).map(v -> v.getMonster()).collect(Collectors.toList());
   }
 
   public List<BaseMonster> getAgenticMonsters() {

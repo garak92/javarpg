@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class QuestLoader {
 
   public static void loadQuests() {
-    try (InputStream questsFile = App.class.getClassLoader().getResourceAsStream("quests/Quests.xml");) {
+    try (InputStream questsFile = App.class.getClassLoader().getResourceAsStream("quests/Quests.xml")) {
       DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmldoc = docBuilder.parse(questsFile);
 

@@ -6,7 +6,7 @@ import rpg.engine.monster.BaseMonster;
 public class GorgonWaterballAttack extends BaseAbility {
   private double normalizedX = 0;
   private double normalizedY = 0;
-  private BaseMonster target;
+  private final BaseMonster target;
 
   public GorgonWaterballAttack(BaseMonster monster, BaseMonster target, double targetPosX, double targetPosY) {
     super(15, 0, 0, monster);

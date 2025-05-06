@@ -24,7 +24,7 @@ public class Tree extends BaseMonster {
         });
 
         getImageView().setImage(images.get("idle"));
-        getImageView().setViewport(new Rectangle2D(TILE_WIDTH * 1, 0, TILE_WIDTH, TILE_HEIGHT));
+        getImageView().setViewport(new Rectangle2D(TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT));
         getImageView().setFitHeight(100);
         getImageView().setPreserveRatio(true);
 

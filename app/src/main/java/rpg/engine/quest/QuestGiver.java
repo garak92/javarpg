@@ -11,9 +11,9 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class QuestGiver {
-  private QuestDialogBox dialogBox;
+  private final QuestDialogBox dialogBox;
   private Quest quest;
-  private BaseMonster monster;
+  private final BaseMonster monster;
   private final Text exclamation;
   protected static Logger logger = LoggerFactory.getLogger(QuestGiver.class);
 

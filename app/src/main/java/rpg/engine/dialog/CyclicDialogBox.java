@@ -6,10 +6,11 @@ import rpg.engine.monster.BaseMonster;
 import java.util.List;
 
 public class CyclicDialogBox extends BaseDialogBox {
-  private List<String> dialogues;
+  private final List<String> dialogues;
   private int currentIndex = 0;
-  private double posX, posY;
-  private BaseMonster monster;
+  private final double posX;
+    private final double posY;
+  private final BaseMonster monster;
 
   public CyclicDialogBox(List<String> dialogues, Pane pane, BaseMonster monster) {
     super(pane);

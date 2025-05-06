@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Villager extends BaseMonster implements Usable {
   private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
-  private CyclicDialogBox dialogBox;
+  private final CyclicDialogBox dialogBox;
   private final Random random = new Random();
   private final String[] defaultDialogueList = { "Hello, are you an adventurer?", "Sorry, I'm busy right now",
       "Can't believe I've lost my money at the horse race again...",

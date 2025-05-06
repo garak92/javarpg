@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class QuestDialogBox extends BaseDialogBox {
   private Quest quest;
-  private String[] defaultDialogueList;
-  private BaseMonster questGiver;
+  private final String[] defaultDialogueList;
+  private final BaseMonster questGiver;
 
   public QuestDialogBox(Quest quest, Pane pane, BaseMonster questGiver, String[] defaultDialogueList) {
     super(pane);

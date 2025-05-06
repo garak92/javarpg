@@ -4,17 +4,17 @@ enum CliOperation {
     SPAWN_ENTITY("spawn") {
         public String apply(String value) {
             return "VALUE: " + value;
-        };
+        }
     },
     RESURRECT("resurrect") {
         public String apply(String value) {
             return "VALUE: " + value;
-        };
+        }
     },
     LOAD_LEVEL("map") {
         public String apply(String value) {
             return "VALUE: " + value;
-        };
+        }
     };
 
     private final String symbol;

@@ -5,7 +5,7 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class ElixirOfYouthItem extends BaseItem {
-  private Player target;
+  private final Player target;
 
   public ElixirOfYouthItem(BaseMonster monster, Player target) {
     super(0, monster);

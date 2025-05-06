@@ -5,9 +5,9 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public interface Usable {
-  public void use(Player player);
+  void use(Player player);
 
-  public LevelNode getLevelNode();
+  LevelNode getLevelNode();
 
-  public BaseMonster getBaseMonster();
+  BaseMonster getBaseMonster();
 }

@@ -1,9 +1,9 @@
 package rpg.engine.ai;
 
 public class StateTransition {
-  private EnumEnemyStates fromState;
-  private EnumEvents event;
-  private EnumEnemyStates toState;
+  private final EnumEnemyStates fromState;
+  private final EnumEvents event;
+  private final EnumEnemyStates toState;
 
   public StateTransition(EnumEnemyStates fromState, EnumEvents event, EnumEnemyStates toState) {
     this.fromState = fromState;

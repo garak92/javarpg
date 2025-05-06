@@ -3,7 +3,7 @@ package rpg.engine.cli;
 public enum CommandLine {
     INSTANCE;
 
-    private CommandLineUI commandLineUI;
+    private final CommandLineUI commandLineUI;
     private CommandLineController commandLineController;
 
     CommandLine() {
