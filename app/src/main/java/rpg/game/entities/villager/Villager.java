@@ -27,10 +27,10 @@ public class Villager extends BaseMonster implements Usable {
   private final String[] types = { "oldMan", "woman", "boy" };
   private final String type;
   private boolean shouldMoveRandomly = false;
-  private boolean shouldWalkX = false;
-  private boolean shouldWalkY = false;
   private int randomMovementAccumulator = 0;
-  int velocity = 3;
+  private double moveDirX = charPosx;
+  private double moveDirY = charPosy;
+  double velocity = 2;
   private final int movementChangeFrequency = 30;
 
   public Villager(
@@ -74,47 +74,42 @@ public class Villager extends BaseMonster implements Usable {
 
   @Override
   public void update(List<Usable> usables) {
-    if (dialogBox.isOpen()) { // Don't walk and talk at the same time
+    // 1. If talking, stop movement and show idle
+    if (dialogBox.isOpen()) {
       getImageView().setImage(images.get(this.type + "Idle"));
       return;
     }
-    if (randomMovementAccumulator == movementChangeFrequency) {
-      shouldMoveRandomly = random.nextFloat(0, 1) <= 0.4;
-      shouldWalkX = random.nextFloat(0, 1) <= 0.2;
-      shouldWalkY = random.nextFloat(0, 1) <= 0.2;
+
+    // 2. Occasionally change direction
+    if (randomMovementAccumulator >= movementChangeFrequency) {
+      shouldMoveRandomly = random.nextDouble() < 0.4;
+      moveDirX = random.nextBoolean() ? -1 : 1;
+      moveDirY = random.nextBoolean() ? -1 : 1;
       randomMovementAccumulator = 0;
     } else {
       randomMovementAccumulator++;
     }
 
+    // 3. Only move if shouldMoveRandomly is true
     if (shouldMoveRandomly) {
-      charPosx -= shouldWalkX ? velocity : 0;
-      charPosy -= shouldWalkY ? velocity : 0;
-      if (shouldWalkX) {
+      double newX = charPosx + moveDirX * velocity;
+      double newY = charPosy + moveDirY * velocity;
+
+      // 4. Check for collisions before moving
+      if (!detectCollision(getLevel().getSolidTiles(), newX, newY)) {
+        charPosx = newX;
+        charPosy = newY;
+
+        // Set walking animation
         getImageView().setImage(images.get(this.type + "Walk"));
-        imageView.setScaleX(-1);
+        imageView.setScaleX(moveDirX < 0 ? -1 : 1);
       } else {
+        // Stop if blocked
         getImageView().setImage(images.get(this.type + "Idle"));
       }
     } else {
-      charPosx += shouldWalkX ? velocity : 0;
-      charPosy += shouldWalkY ? velocity : 0;
-      if (shouldWalkX) {
-        getImageView().setImage(images.get(this.type + "Walk"));
-        imageView.setScaleX(1);
-      } else {
-        getImageView().setImage(images.get(this.type + "Idle"));
-      }
-    }
-
-    if (detectCollision(getLevel().getSolidTiles(), charPosx, charPosy)) {
-      if (shouldMoveRandomly) {
-        charPosx += velocity;
-        charPosy += velocity;
-      } else {
-        charPosx -= velocity;
-        charPosy -= velocity;
-      }
+      // Not moving
+      getImageView().setImage(images.get(this.type + "Idle"));
     }
   }
 
