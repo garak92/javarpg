@@ -8,11 +8,13 @@ public class GameLoop extends BaseGameLoop
 {
     private final Level level;
     private final Consumer<Integer> fpsReporter;
+    private final Runnable renderer;
 
-    public GameLoop(Level level, Consumer<Integer> fpsReporter)
+    public GameLoop(Level level, Consumer<Integer> fpsReporter, Runnable renderer)
     {
         this.level = level;
         this.fpsReporter = fpsReporter;
+        this.renderer = renderer;
     }
 
     private static final float timeStep = 0.0166f;
@@ -36,6 +38,7 @@ public class GameLoop extends BaseGameLoop
         accumulatedTime += secondsElapsedCapped;
         previousTime = currentTime;
 
+        // Update game logic
         while (accumulatedTime >= timeStep) {
             try {
                 level.update();
@@ -44,11 +47,9 @@ public class GameLoop extends BaseGameLoop
             }
             accumulatedTime -= timeStep;
         }
-        try {
-            level.render();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+
+        // Render game world
+        renderer.run();
 
         secondsElapsedSinceLastFpsUpdate += secondsElapsed;
         framesSinceLastFpsUpdate++;

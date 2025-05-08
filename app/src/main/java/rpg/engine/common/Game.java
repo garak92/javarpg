@@ -20,6 +20,7 @@ public class Game extends Application {
   private Level currentLevel = null;
   Stage primaryStage = null;
   Consumer<Integer> fpsReporter = fps -> log.info("FPS: {}", fps);
+  Runnable renderer;
 
   final int WIDTH = 1920;
   final int HEIGHT = 1080;
@@ -73,7 +74,16 @@ public class Game extends Application {
       Level currentLevel = new Level("cityhub", "sheet1.png", root, primaryStage).load();
 
       // Initialize game loop
-      gameLoop = new GameLoop(currentLevel, fpsReporter);
+
+        renderer = () -> {
+        try {
+          currentLevel.render();
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
+        }
+      };
+
+      gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
       gameLoop.setMaximumStep(60);
       gameLoop.start();
     } catch (Exception e) {
@@ -84,7 +94,14 @@ public class Game extends Application {
   public void restart() {
     cleanup();
     gameLoop.stop();
-    gameLoop = new GameLoop(currentLevel, fpsReporter);
+    renderer = () -> {
+      try {
+        currentLevel.render();
+      } catch (Throwable e) {
+        throw new RuntimeException(e);
+      }
+    };
+    gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
     gameLoop.start();
   }
 
