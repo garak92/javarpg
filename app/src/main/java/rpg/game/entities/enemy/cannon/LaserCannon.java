@@ -58,8 +58,8 @@ public class LaserCannon extends BaseMonster {
   public void update(List<Usable> usables) throws Throwable {
     if(attackCoolDownCounter == attackCoolDown) {
       this.getMonster().getLevel()
-              .addThing(new LaserCannonLaser(this.getMonster().getImageView().getLayoutX(),
-                      this.getMonster().getImageView().getLayoutY(),
+              .addThing(new LaserCannonLaser(this.getMonster().getCharPosx(),
+                      this.getMonster().getCharPosy(),
                       this.getMonster().getLevel(), this.orientation));
       attackCoolDownCounter = 0;
     } else {
