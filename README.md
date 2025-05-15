@@ -22,3 +22,6 @@ Controls are for now fixed:
 - Arrows for movement
 - "E" to interact with things and NPCs
 - "R" for shooting an ice ball
+
+## Gameplay demo video
+[![15 May 2025](https://img.youtube.com/vi/jmEx8VBgCNE/0.jpg)](https://www.youtube.com/watch?v=jmEx8VBgCNE)
