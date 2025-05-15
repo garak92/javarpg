@@ -6,11 +6,11 @@ The purpose of this project is to build a bullet hell 2d game with some RPG mech
 
 Features:
 
-- [ x ] Moddable XML-based questing system
-- [ x ] MIDI music system (might be replaced with mp3)
-- [ x ] Enemies, items, power-ups, static turrets, and environment (rocks, trees, etc.)
-- [ x ] Command console for debugging purposes
-- [ x ] Moddable tile level format
+- [x] Moddable XML-based questing system
+- [x] MIDI music system (might be replaced with mp3)
+- [x] Enemies, items, power-ups, static turrets, and environment (rocks, trees, etc.)
+- [x] Command console for debugging purposes
+- [x] Moddable tile level format
 - [ ] Saving system
 - [ ] Main menu
 - [ ] Player skills tied to experience points
