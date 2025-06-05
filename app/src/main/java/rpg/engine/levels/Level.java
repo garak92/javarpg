@@ -26,7 +26,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class Level {
@@ -36,16 +35,16 @@ public class Level {
   private final List<List<String>> thingMap = new ArrayList<List<String>>();
   private final String title;
   protected List<LevelNode> tiles = new ArrayList<>();
-  protected CopyOnWriteArrayList<Thing> things = new CopyOnWriteArrayList<>();
-  protected CopyOnWriteArrayList<Usable> usables = new CopyOnWriteArrayList<>();
+  protected List<Thing> things = new ArrayList<>();
+  protected List<Usable> usables = new ArrayList<>();
   protected List<LevelNode> solidNodes = new ArrayList<>();
   protected List<BaseMonster> envProps = new ArrayList<>();
   private final String textureFile;
   private Image tileSheet;
   private final Pane pane;
   private final Stage stage;
-  private final CopyOnWriteArrayList<Thing> thingQueue = new CopyOnWriteArrayList<>();
-  private final CopyOnWriteArrayList<Thing> removeThingQueue = new CopyOnWriteArrayList<>();
+  private final List<Thing> thingQueue = new ArrayList<>();
+  private final List<Thing> removeThingQueue = new ArrayList<>();
   private List<BaseMonster> enemies = new LinkedList<>();
   private Player player;
 
@@ -275,18 +274,18 @@ public class Level {
 
   public void update() throws Throwable {
     if (!thingQueue.isEmpty()) {
-      for (Thing i : thingQueue) {
-        things.add(i.getMonster());
-        i.getMonster().spawn(this.pane);
-        thingQueue.remove(i);
+      for (int i = 0; i < thingQueue.size(); i++) {
+        things.add(thingQueue.get(i).getMonster());
+        thingQueue.get(i).getMonster().spawn(this.pane);
+        thingQueue.remove(thingQueue.get(i));
       }
     }
     if (!removeThingQueue.isEmpty()) {
-      for (Thing i : removeThingQueue) {
-        things.remove(i.getMonster());
-        enemies.remove(i.getMonster());
-        i.getMonster().deSpawn(this.pane);
-        removeThingQueue.remove(i);
+      for (int i = 0; i < removeThingQueue.size(); i++) {
+        things.remove(removeThingQueue.get(i).getMonster());
+        enemies.remove(removeThingQueue.get(i).getMonster());
+        removeThingQueue.get(i).getMonster().deSpawn(this.pane);
+        removeThingQueue.remove(removeThingQueue.get(i));
       }
     }
     for (Thing i : things) {
