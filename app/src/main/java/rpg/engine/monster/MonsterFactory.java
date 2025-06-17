@@ -24,7 +24,7 @@ public class MonsterFactory {
     public static BaseMonster getMonster(EnumMonsterKind kind, int x, int y, Level level) {
         return switch (kind) {
             case PLAYER -> Player.initialize(x, y, 12, 100, 10, "Player 1", level.getStage(), null, level);
-            case IGRENNE -> Igrenne.initialize(x, y, 10, 30, 10, "Igrene", level);
+            case IGRENNE -> Igrenne.initialize(x, y, 10, 30, 10, "Igrenne", level);
 
             case SATYR -> new MaleSatyr(x, y, 2, "Male Satyr", level);
             case WEREWOLF -> new Werewolf(x, y, 2, "Werewolf", level);

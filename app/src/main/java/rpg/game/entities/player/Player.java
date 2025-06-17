@@ -36,7 +36,6 @@ public class Player extends BaseMonster {
   private final Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
-  private PlayerStatusBar statusBar;
   private static Player instance;
   private final Camera camera = new Camera();
 
@@ -64,9 +63,6 @@ public class Player extends BaseMonster {
     setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
 
     setKeyBinds(primaryStage);
-
-    this.statusBar = new PlayerStatusBar(0, 0, root, this);
-
   }
 
   public static Player initialize(double charPosx, double charPosy, double velocity, int health,
@@ -80,7 +76,6 @@ public class Player extends BaseMonster {
       instance.setCharPosx(charPosx);
       instance.setCharPosy(charPosy);
       instance.setLevel(level);
-      instance.setStatusBar(new PlayerStatusBar(0, 0, root, instance));
     }
     return instance;
   }
@@ -220,7 +215,6 @@ public class Player extends BaseMonster {
 
     if (health <= 0) {
       if (isDead) {
-        this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
         return;
       }
       die();
@@ -272,9 +266,6 @@ public class Player extends BaseMonster {
     }
 
     stopInteraction();
-
-    camera.updateCamera(this);
-    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
   }
 
 
@@ -294,10 +285,6 @@ public class Player extends BaseMonster {
   private void setLevel(Level level) {
     this.level = level;
     this.solidTiles = level.getSolidTiles();
-  }
-
-  public void setStatusBar(PlayerStatusBar statusBar) {
-    this.statusBar = statusBar;
   }
 
   public void heal(int healingValue) {

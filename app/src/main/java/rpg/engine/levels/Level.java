@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpg.engine.common.Thing;
 import rpg.engine.common.Usable;
+import rpg.engine.common.camera.Camera;
+import rpg.engine.common.misc.PlayerStatusBar;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.monster.EnumMonsterKind;
@@ -43,10 +45,12 @@ public class Level {
   private Image tileSheet;
   private final Pane pane;
   private final Stage stage;
+  private final Camera camera = new Camera();
   private final List<Thing> thingQueue = new ArrayList<>();
   private final List<Thing> removeThingQueue = new ArrayList<>();
   private List<BaseMonster> enemies = new LinkedList<>();
   private Player player;
+  private PlayerStatusBar statusBar;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
     this.title = levelName;
@@ -105,6 +109,9 @@ public class Level {
 
       // Load music
       MusicSystem.INSTANCE.playFile(music);
+
+      // Initialize status bar
+      statusBar = new PlayerStatusBar(0, 0, pane, player);
     } catch (IOException | InvalidMidiDataException e) {
       e.printStackTrace();
     }
@@ -273,6 +280,7 @@ public class Level {
   }
 
   public void update() throws Throwable {
+
     if (!thingQueue.isEmpty()) {
       for (int i = 0; i < thingQueue.size(); i++) {
         things.add(thingQueue.get(i).getMonster());
@@ -289,14 +297,28 @@ public class Level {
       }
     }
     for (Thing i : things) {
+      i.getMonster().setPrevCharPosx(i.getMonster().getCharPosx());
+      i.getMonster().setPrevCharPosy(i.getMonster().getCharPosy());
       i.update(usables);
     }
+
+    camera.updateCamera(player);
+  }
+
+  public void interpolate(double alpha) throws Throwable {
+    for (Thing i : things) {
+      i.interpolate(alpha);
+    }
+    camera.interpolate(alpha, pane);
   }
 
   public void render() throws Throwable {
     for (Thing i : things) {
-      i.render();
+        i.render();
     }
+
+    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
+    camera.render(pane);
   }
 
 

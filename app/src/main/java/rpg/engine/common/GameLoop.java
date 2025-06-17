@@ -33,13 +33,25 @@ public class GameLoop extends BaseGameLoop
             return;
         }
 
-        float secondsElapsed = (currentTime - previousTime) / 1e9f; /* nanoseconds to seconds */
+        float secondsElapsed = (currentTime - previousTime) / 1e9f;
         float secondsElapsedCapped = Math.min(secondsElapsed, getMaximumStep());
         accumulatedTime += secondsElapsedCapped;
         previousTime = currentTime;
 
-        // Update game logic
-        while (accumulatedTime >= timeStep) {
+        if (accumulatedTime < timeStep) {
+            float remainderOfTimeStepSincePreviousInterpolation =
+                    timeStep - (accumulatedTime - secondsElapsed);
+            float alphaInRemainderOfTimeStep =
+                    secondsElapsed / remainderOfTimeStepSincePreviousInterpolation;
+            try {
+                level.interpolate(alphaInRemainderOfTimeStep);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
+        while (accumulatedTime >= 2 * timeStep) {
             try {
                 level.update();
             } catch (Throwable e) {
@@ -47,9 +59,19 @@ public class GameLoop extends BaseGameLoop
             }
             accumulatedTime -= timeStep;
         }
-
-        // Render game world
         renderer.run();
+         try {
+                level.update();
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        accumulatedTime -= timeStep;
+        float alpha = accumulatedTime / timeStep;
+        try {
+            level.interpolate(alpha);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
 
         secondsElapsedSinceLastFpsUpdate += secondsElapsed;
         framesSinceLastFpsUpdate++;

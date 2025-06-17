@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.render.IRenderer;
 import rpg.engine.render.Renderer;
+import rpg.game.entities.player.Player;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -37,6 +39,8 @@ public abstract class BaseMonster implements Thing {
   protected int health;
   protected double charPosx;
   protected double charPosy;
+  protected double prevCharPosx;
+  protected double prevCharPosy;
   protected double velocity;
   protected Level level;
   protected boolean isDead = false;
@@ -151,9 +155,10 @@ public abstract class BaseMonster implements Thing {
    virtualBounds = new BoundingBox(
               targetX,
               targetY,
-              this.imageView.getBoundsInParent().getHeight() * 20 / 100,
-           this.imageView.getBoundsInParent().getWidth() * 20 / 100
+              this.imageView.getBoundsInParent().getHeight(),
+            this.imageView.getBoundsInParent().getWidth()
       );
+
     // Detect collision with solid tiles
     for (Node b : nodeList) {
       if (b.getBoundsInParent().intersects(virtualBounds)) {
@@ -167,6 +172,7 @@ public abstract class BaseMonster implements Thing {
               return true;
           }
       }
+
     return false;
   }
 
@@ -269,8 +275,38 @@ public abstract class BaseMonster implements Thing {
         isHurt = hurt;
     }
 
+    public void setPrevCharPosx(double prevCharPosx) {
+        this.prevCharPosx = prevCharPosx;
+    }
+
+    public void setPrevCharPosy(double prevCharPosy) {
+        this.prevCharPosy = prevCharPosy;
+    }
+
+    @Override
+    public void interpolate(double alpha) throws Throwable {
+        imageView.setTranslateX(alpha * charPosx + (1 - alpha) * prevCharPosx);
+        imageView.setTranslateY(alpha * charPosy + (1 - alpha) * prevCharPosy);
+    }
+
     @Override
     public void render() throws Throwable {
-      this.renderer.updatePosition(charPosx, charPosy);
+      if(!isOutsideOfScreen()) {
+          this.renderer.updatePosition(charPosx, charPosy);
+      }
     }
+
+    public boolean isOutsideOfScreen() {
+        Node node = this.imageView;
+        if (node.getScene() == null) return true;
+
+        Bounds bounds = node.localToScene(node.getBoundsInLocal());
+
+        double sceneWidth = node.getScene().getWidth();
+        double sceneHeight = node.getScene().getHeight();
+
+        return bounds.getMaxX() < 0 || bounds.getMinX() > sceneWidth ||
+                bounds.getMaxY() < 0 || bounds.getMinY() > sceneHeight;
+    }
+
 }

@@ -84,7 +84,7 @@ public class Game extends Application {
       };
 
       gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
-      gameLoop.setMaximumStep(60);
+      gameLoop.setMaximumStep(0.0166f);
       gameLoop.start();
     } catch (Exception e) {
       throw new Exception(e.getMessage());
@@ -102,6 +102,7 @@ public class Game extends Application {
       }
     };
     gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
+    gameLoop.setMaximumStep(0.0166f);
     gameLoop.start();
   }
 
