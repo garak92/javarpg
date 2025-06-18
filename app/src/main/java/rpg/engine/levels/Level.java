@@ -297,8 +297,8 @@ public class Level {
       }
     }
     for (Thing i : things) {
-      i.getMonster().setPrevCharPosx(i.getMonster().getCharPosx());
-      i.getMonster().setPrevCharPosy(i.getMonster().getCharPosy());
+      i.getMonster().setPrevCharPosx(i.getMonster().getImageView().getTranslateX());
+      i.getMonster().setPrevCharPosy(i.getMonster().getImageView().getTranslateY());
       i.update(usables);
     }
 

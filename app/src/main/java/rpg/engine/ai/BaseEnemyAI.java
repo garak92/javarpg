@@ -118,10 +118,10 @@ public abstract class BaseEnemyAI extends EnemyAI {
     }
 
     if (checkMonsterInAttackRange(target) && !target.isDead()
-            && monster.isTargeInLineOfSight(monster.getLevel().getSolidTiles(),
+            && monster.isTargetInLineOfSight(monster.getLevel().getSolidTiles(),
             lineOfSight)) {
       transition(EnumEvents.CAN_ATTACK);
-    } else if(!target.isDead() && monster.isTargeInLineOfSight(monster.getLevel().getSolidTiles(),
+    } else if(!target.isDead() && monster.isTargetInLineOfSight(monster.getLevel().getSolidTiles(),
             lineOfSight)) {
       transition(EnumEvents.AGGROED);
     }

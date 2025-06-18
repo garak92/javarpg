@@ -22,7 +22,6 @@ import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.render.IRenderer;
 import rpg.engine.render.Renderer;
-import rpg.game.entities.player.Player;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -46,8 +45,11 @@ public abstract class BaseMonster implements Thing {
   protected boolean isDead = false;
   protected boolean isHurt = false;
   protected String name;
-  protected  Bounds virtualBounds;
-  private DropShadow dropShadow;
+  protected double boundingBoxHeight;
+  protected double boundingBoxWidth;
+  protected final Rectangle hitBox = new Rectangle(0,0,0,0);
+  protected final double SCALING_FACTOR = 0.1;
+  protected final DropShadow dropShadow = new DropShadow();
   protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
 
   public abstract void die();
@@ -63,13 +65,14 @@ public abstract class BaseMonster implements Thing {
         imageView.setPreserveRatio(true);
     }
 
-      dropShadow = new DropShadow();
       dropShadow.setOffsetY(4.0f);
       dropShadow.setOffsetX(4.0f);
       dropShadow.setColor(Color.BLACK);
 
       imageView.setEffect(dropShadow);
-    root.getChildren().add(this.imageView);
+      root.getChildren().add(this.imageView);
+      hitBox.setWidth(boundingBoxWidth);
+      hitBox.setHeight(boundingBoxHeight);
   }
 
   public void deSpawn(Pane root) {
@@ -102,7 +105,6 @@ public abstract class BaseMonster implements Thing {
     this.level = level;
     this.name = name;
     this.renderer = new Renderer(this.imageView);
-    this.virtualBounds = new BoundingBox(0,0,0,0);
   }
 
   protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
@@ -150,25 +152,26 @@ public abstract class BaseMonster implements Thing {
 
   }
 
+private void updateHitBoxPosition(double coordinateX, double coordinateY, double SCALING_FACTOR) {
+    hitBox.setX((coordinateX + this.imageView.getBoundsInLocal().getWidth() / 2)
+            - ((boundingBoxWidth * SCALING_FACTOR) / 2));
+    hitBox.setY((coordinateY + this.imageView.getBoundsInLocal().getHeight() / 2)
+            - ((boundingBoxHeight * SCALING_FACTOR) / 2));
+}
+
   public boolean detectCollision(List<LevelNode> nodeList, double targetX, double targetY) {
-    // We take 20% of the entity's dimensions for a nicer feel
-   virtualBounds = new BoundingBox(
-              targetX,
-              targetY,
-              this.imageView.getBoundsInParent().getHeight(),
-            this.imageView.getBoundsInParent().getWidth()
-      );
+      updateHitBoxPosition(targetX, targetY, SCALING_FACTOR);
 
     // Detect collision with solid tiles
     for (Node b : nodeList) {
-      if (b.getBoundsInParent().intersects(virtualBounds)) {
+      if (b.getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
         return true;
       }
     }
 
     // Detect collision with solid environmental props (trees, rocks, etc.)
    for (BaseMonster m : level.getEnvProps()) {
-          if (m.getImageView().getBoundsInParent().intersects(virtualBounds)) {
+          if (m.getImageView().getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
               return true;
           }
       }
@@ -178,13 +181,10 @@ public abstract class BaseMonster implements Thing {
 
     // Use this function when you want to allow friendly fire among monsters
     public BaseMonster detectCollisionWithMonsterList(List<BaseMonster> monsterList) {
-        // We take 20% of the entity's dimensions for a nicer feel
-        double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
-        double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+        updateHitBoxPosition(charPosx, charPosy, SCALING_FACTOR);
+
         for (BaseMonster b : monsterList) {
-            if (b.getImageView().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-                    this.imageView.getBoundsInParent().getCenterY(),
-                    boundingBoxWidth, boundingBoxHeight)) {
+            if (b.getImageView().getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
                 return b;
             }
         }
@@ -193,16 +193,12 @@ public abstract class BaseMonster implements Thing {
 
 
   public boolean detectCollision(BaseMonster monster) {
-    // We take 20% of the entity's dimensions for a nicer feel
+    updateHitBoxPosition(charPosx, charPosy, SCALING_FACTOR);
     LevelNode monsterNode = monster.getImageView();
-    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
-    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
-      return monsterNode.getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-              this.imageView.getBoundsInParent().getCenterY(),
-              boundingBoxWidth, boundingBoxHeight);
+    return monsterNode.getBoundsInParent().intersects(hitBox.getBoundsInLocal());
   }
 
- public boolean isTargeInLineOfSight(List<LevelNode> nodeList, Line line) {
+ public boolean isTargetInLineOfSight(List<LevelNode> nodeList, Line line) {
     for (Node b : nodeList) {
         if (line.intersects(b.getBoundsInParent())) {
             return false;
