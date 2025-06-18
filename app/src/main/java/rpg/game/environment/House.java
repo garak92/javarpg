@@ -11,9 +11,6 @@ import java.util.List;
 
 public class House extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;
-    private final int TILE_SIZE = 1024;
-    private final int spriteWidthOffset = (int) (Math.random() * 2);
-    private final int spriteHeightOffset = (int) (Math.random() * 2);
 
     public House(double charPosx, double charPosy, Level level) {
         super(charPosx, charPosy, 0, 0, alignment, level);
@@ -25,11 +22,13 @@ public class House extends BaseMonster {
         });
 
         getImageView().setImage(images.get("idle"));
+        int spriteWidthOffset = (int) (Math.random() * 2);
+        int spriteHeightOffset = (int) (Math.random() * 2);
+        int TILE_SIZE = 1024;
         getImageView().setViewport(new Rectangle2D(TILE_SIZE * spriteWidthOffset, TILE_SIZE * spriteHeightOffset,
                 TILE_SIZE, TILE_SIZE));
         getImageView().setFitHeight(200);
         getImageView().setPreserveRatio(true);
-
     }
 
     @Override
