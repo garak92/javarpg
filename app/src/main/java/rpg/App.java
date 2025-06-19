@@ -10,6 +10,8 @@ import static javafx.application.Application.launch;
 public class App {
     public static void main(String[] args) {
         System.setProperty("quantum.multithreaded", "true");
+        System.setProperty("prism.order", "es2,d3d");
+        System.setProperty("prism.forceGPU","true");
         launch(Game.class, args);
     }
 
