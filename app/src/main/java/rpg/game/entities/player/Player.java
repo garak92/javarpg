@@ -3,12 +3,14 @@ package rpg.game.entities.player;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.cli.CommandLine;
+import rpg.engine.common.Game;
 import rpg.engine.common.Usable;
-import rpg.engine.common.camera.Camera;
 import rpg.engine.common.misc.PlayerStatusBar;
 import rpg.engine.levels.Level;
 import rpg.engine.levels.LevelNode;
@@ -33,22 +35,24 @@ public class Player extends BaseMonster {
   private int attackAccumulator = 30;
   private List<LevelNode> solidTiles;
   private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
-  private final Pane root;
   private int experiencePoints = 0;
   private int playerLevel = 0;
   private static Player instance;
-  private final Camera camera = new Camera();
+  private final PlayerStatusBar statusBar;
 
 
   private Player(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, Stage primaryStage, Pane root, Level level) {
+    int shield, String name, Stage primaryStage, Level level) {
     super(charPosx, charPosy, velocity, health, alignment, level, name);
     this.shield = shield;
     this.name = name;
-    this.root = root;
     this.solidTiles = level.getSolidTiles();
 
-    preCacheSprites(new HashMap<String, String>() {
+      Pane playerPane = new Pane();
+      statusBar = new PlayerStatusBar(0, 0, playerPane, this);
+    Game.getInstance().getRoot().getChildren().add(playerPane);
+
+    preCacheSprites(new HashMap<>() {
       {
         put("idle", "/player/Idle.png");
         put("run", "/player/Run.png");
@@ -63,13 +67,15 @@ public class Player extends BaseMonster {
     setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
 
     setKeyBinds(primaryStage);
+
+
   }
 
   public static Player initialize(double charPosx, double charPosy, double velocity, int health,
       int shield, String name, Stage primaryStage, Pane root, Level level) {
     if (instance == null) {
       instance = new Player(charPosx, charPosy, velocity, health,
-          shield, name, primaryStage, root, level);
+          shield, name, primaryStage, level);
     } else {
       // Player should maintain their stats throughout a level transition
       // but other stuff, such as the level data, must obviously change
@@ -210,6 +216,7 @@ public class Player extends BaseMonster {
 
   @Override
   public void update(List<Usable> usables) {
+    statusBar.update(0, 0);
     double projectedX = 0;
     double projectedY = 0;
 

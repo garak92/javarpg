@@ -50,7 +50,6 @@ public class Level {
   private final List<Thing> removeThingQueue = new ArrayList<>();
   private List<BaseMonster> enemies = new LinkedList<>();
   private Player player;
-  private PlayerStatusBar statusBar;
 
   public Level(String levelName, String textureFile, Pane pane, Stage stage) {
     this.title = levelName;
@@ -110,8 +109,6 @@ public class Level {
       // Load music
       MusicSystem.INSTANCE.playFile(music);
 
-      // Initialize status bar
-      statusBar = new PlayerStatusBar(0, 0, pane, player);
     } catch (IOException | InvalidMidiDataException e) {
       e.printStackTrace();
     }
@@ -317,7 +314,6 @@ public class Level {
         i.render();
     }
 
-    this.statusBar.update(camera.getCameraX() + 10, camera.getCameraY() + 20);
     camera.render(pane);
   }
 

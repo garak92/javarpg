@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class Game extends Application {
   Stage primaryStage = null;
   Consumer<Integer> fpsReporter = fps -> log.info("FPS: {}", fps);
   Runnable renderer;
+  StackPane root = new StackPane();
 
   final int WIDTH = 1920;
   final int HEIGHT = 1080;
@@ -51,8 +53,9 @@ public class Game extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     // Initialize JavaFx
+    Pane levelPane = new Pane();
+    root.getChildren().add(levelPane);
     primaryStage = new Stage();
-    Pane root = new Pane();
     Scene scene = new Scene(root, WIDTH, HEIGHT);
     scene.setCursor(Cursor.NONE);
     scene.setFill(null);
@@ -71,7 +74,7 @@ public class Game extends Application {
       QuestLoader.loadQuests();
 
       // Initialize first level
-      Level currentLevel = new Level("cityhub", "sheet1.png", root, primaryStage).load();
+      Level currentLevel = new Level("cityhub", "sheet1.png", levelPane, primaryStage).load();
 
       // Initialize game loop
 
@@ -110,5 +113,9 @@ public class Game extends Application {
   public void stop() throws Exception {
     super.stop();
     MusicSystem.INSTANCE.close();
+  }
+
+  public StackPane getRoot() {
+    return root;
   }
 }
