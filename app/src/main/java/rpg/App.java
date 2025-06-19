@@ -8,9 +8,9 @@ import rpg.engine.common.Game;
 import static javafx.application.Application.launch;
 
 public class App {
-  public static void main(String[] args) {
-    System.setProperty("quantum.multithreaded", "true");
-    launch(Game.class, args);
-  }
+    public static void main(String[] args) {
+        System.setProperty("quantum.multithreaded", "true");
+        launch(Game.class, args);
+    }
 
 }

@@ -28,6 +28,11 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class BaseMonster implements Thing {
+    protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
+    protected final Rectangle hitBox = new Rectangle(0, 0, 0, 0);
+    protected final double HITBOX_SCALING_FACTOR_Y = 0.3;
+    protected final double HITBOX_SCALING_FACTOR_X = 0.03;
+    protected final DropShadow dropShadow = new DropShadow();
     protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
     protected Map<String, Image> images = new HashMap<>();
     protected Animation animation;
@@ -46,11 +51,29 @@ public abstract class BaseMonster implements Thing {
     protected String name;
     protected double boundingBoxHeight;
     protected double boundingBoxWidth;
-    protected final Rectangle hitBox = new Rectangle(0, 0, 0, 0);
-    protected final double HITBOX_SCALING_FACTOR_Y = 0.3;
-    protected final double HITBOX_SCALING_FACTOR_X = 0.03;
-    protected final DropShadow dropShadow = new DropShadow();
-    protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
+
+    protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
+                          EnumMonsterAlignment alignment, Level level, String name) {
+        this.charPosx = charPosx;
+        this.charPosy = charPosy;
+        this.velocity = velocity;
+        this.health = health;
+        this.alignment = alignment;
+        this.level = level;
+        this.name = name;
+        this.renderer = new Renderer(this.imageView);
+    }
+
+    protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
+                          EnumMonsterAlignment alignment, Level level) {
+        this.charPosx = charPosx;
+        this.charPosy = charPosy;
+        this.velocity = velocity;
+        this.health = health;
+        this.alignment = alignment;
+        this.level = level;
+        this.renderer = new Renderer(this.imageView);
+    }
 
     public abstract void die();
 
@@ -91,35 +114,22 @@ public abstract class BaseMonster implements Thing {
         return animation;
     }
 
+    public void setAnimation(SpriteAnimation animation) {
+        this.animation = animation;
+        if (animations == null) {
+            animation.stop();
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.play();
+        }
+
+    }
+
     public Map<String, SpriteAnimation> getAnimations() {
         return animations;
     }
 
     public void setImage(String imageName) {
         imageView.setImage(images.get(imageName));
-    }
-
-    protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
-                          EnumMonsterAlignment alignment, Level level, String name) {
-        this.charPosx = charPosx;
-        this.charPosy = charPosy;
-        this.velocity = velocity;
-        this.health = health;
-        this.alignment = alignment;
-        this.level = level;
-        this.name = name;
-        this.renderer = new Renderer(this.imageView);
-    }
-
-    protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
-                          EnumMonsterAlignment alignment, Level level) {
-        this.charPosx = charPosx;
-        this.charPosy = charPosy;
-        this.velocity = velocity;
-        this.health = health;
-        this.alignment = alignment;
-        this.level = level;
-        this.renderer = new Renderer(this.imageView);
     }
 
     protected void preCacheSprites(Map<String, String> sprites) {
@@ -144,16 +154,6 @@ public abstract class BaseMonster implements Thing {
 
     public void setDead() {
         isDead = true;
-    }
-
-    public void setAnimation(SpriteAnimation animation) {
-        this.animation = animation;
-        if (animations == null) {
-            animation.stop();
-            animation.setCycleCount(Animation.INDEFINITE);
-            animation.play();
-        }
-
     }
 
     protected void updateHitBoxPosition(double coordinateX, double coordinateY) {
@@ -243,12 +243,12 @@ public abstract class BaseMonster implements Thing {
         return charPosx;
     }
 
-    public double getCharPosy() {
-        return charPosy;
-    }
-
     public void setCharPosx(double charPosx) {
         this.charPosx = charPosx;
+    }
+
+    public double getCharPosy() {
+        return charPosy;
     }
 
     public void setCharPosy(double charPosy) {

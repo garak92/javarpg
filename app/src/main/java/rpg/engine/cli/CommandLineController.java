@@ -16,7 +16,7 @@ class CommandLineController {
 
     public void handleResults() throws Throwable {
         Optional<String> result = textInputDialog.showAndWait();
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             handleInputCommand(result.get());
         }
     }

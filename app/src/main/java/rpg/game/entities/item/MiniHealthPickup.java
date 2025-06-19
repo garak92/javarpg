@@ -11,36 +11,36 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MiniHealthPickup extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;
-  private final MiniHealthPickupItem item;
+    private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;
+    private final MiniHealthPickupItem item;
 
-  public MiniHealthPickup(double charPosx, double charPosy, Level level) {
-    super(charPosx, charPosy, 0, 0, alignment, level);
+    public MiniHealthPickup(double charPosx, double charPosy, Level level) {
+        super(charPosx, charPosy, 0, 0, alignment, level);
 
-    preCacheSprites(new HashMap<String, String>() {
-      {
-        put("idle", "/items/potions/Icon24.png");
-      }
-    });
+        preCacheSprites(new HashMap<String, String>() {
+            {
+                put("idle", "/items/potions/Icon24.png");
+            }
+        });
 
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
-    getImageView().setFitWidth(40);
-    getImageView().setFitHeight(40);
+        getImageView().setImage(images.get("idle"));
+        getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
+        getImageView().setFitWidth(40);
+        getImageView().setFitHeight(40);
 
-    this.item = new MiniHealthPickupItem(this, this.getLevel().getPlayer());
+        this.item = new MiniHealthPickupItem(this, this.getLevel().getPlayer());
 
-    logger.info("Item: " + this);
+        logger.info("Item: " + this);
 
-  }
+    }
 
-  @Override
-  public void die() {
-    level.removeThing(this);
-  }
+    @Override
+    public void die() {
+        level.removeThing(this);
+    }
 
-  @Override
-  public void update(List<Usable> usables) {
-    item.update();
-  }
+    @Override
+    public void update(List<Usable> usables) {
+        item.update();
+    }
 }

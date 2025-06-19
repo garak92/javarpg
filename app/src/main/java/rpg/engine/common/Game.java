@@ -15,107 +15,106 @@ import rpg.engine.quest.QuestLoader;
 import java.util.function.Consumer;
 
 public class Game extends Application {
-  private static final Logger log = LoggerFactory.getLogger(Game.class);
-  private static Game applicationInstance;
-  GameLoop gameLoop = null;
-  private Level currentLevel = null;
-  Stage primaryStage = null;
-  Consumer<Integer> fpsReporter = fps -> log.info("FPS: {}", fps);
-  Runnable renderer;
-  StackPane root = new StackPane();
+    private static final Logger log = LoggerFactory.getLogger(Game.class);
+    private static Game applicationInstance;
+    final int WIDTH = 1920;
+    final int HEIGHT = 1080;
+    GameLoop gameLoop = null;
+    Stage primaryStage = null;
+    Consumer<Integer> fpsReporter = fps -> log.info("FPS: {}", fps);
+    Runnable renderer;
+    StackPane root = new StackPane();
+    private Level currentLevel = null;
 
-  final int WIDTH = 1920;
-  final int HEIGHT = 1080;
-
-  public void setCurrentLevel(Level newLevel) {
-    this.currentLevel = newLevel;
-  }
-
-  public static Game getInstance() {
-    return applicationInstance;
-  }
-
-  public Stage getPrimaryStage() {
-    return primaryStage;
-  }
-
-  @Override
-  public void init() {
-    applicationInstance = this;
-  }
-
-  void cleanup() {
-    if (gameLoop != null) {
-      gameLoop.stop();
+    public static Game getInstance() {
+        return applicationInstance;
     }
-  }
 
-  @Override
-  public void start(Stage stage) throws Exception {
-    // Initialize JavaFx
-    Pane levelPane = new Pane();
-    root.getChildren().add(levelPane);
-    primaryStage = new Stage();
-    Scene scene = new Scene(root, WIDTH, HEIGHT);
-    scene.setCursor(Cursor.NONE);
-    scene.setFill(null);
-    primaryStage.setTitle("My RPG");
-    primaryStage.setScene(scene);
-    primaryStage.setResizable(false);
-    primaryStage.setWidth(WIDTH);
-    primaryStage.setHeight(HEIGHT);
-    primaryStage.setFullScreen(true);
-    primaryStage.setAlwaysOnTop(true);
-    primaryStage.show();
-    root.setStyle("-fx-background-color: transparent;");
-    root.setPrefSize(WIDTH, HEIGHT);
-    try {
-      // Initialize quests
-      QuestLoader.loadQuests();
+    public void setCurrentLevel(Level newLevel) {
+        this.currentLevel = newLevel;
+    }
 
-      // Initialize first level
-      Level currentLevel = new Level("cityhub", "sheet1.png", levelPane, primaryStage).load();
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
-      // Initialize game loop
+    @Override
+    public void init() {
+        applicationInstance = this;
+    }
 
-        renderer = () -> {
-        try {
-          currentLevel.render();
-        } catch (Throwable e) {
-          throw new RuntimeException(e);
+    void cleanup() {
+        if (gameLoop != null) {
+            gameLoop.stop();
         }
-      };
-
-      gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
-      gameLoop.setMaximumStep(0.0166f);
-      gameLoop.start();
-    } catch (Exception e) {
-      throw new Exception(e.getMessage());
     }
-  }
 
-  public void restart() {
-    cleanup();
-    gameLoop.stop();
-    renderer = () -> {
-      try {
-        currentLevel.render();
-      } catch (Throwable e) {
-        throw new RuntimeException(e);
-      }
-    };
-    gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
-    gameLoop.setMaximumStep(0.0166f);
-    gameLoop.start();
-  }
+    @Override
+    public void start(Stage stage) throws Exception {
+        // Initialize JavaFx
+        Pane levelPane = new Pane();
+        root.getChildren().add(levelPane);
+        primaryStage = new Stage();
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        scene.setCursor(Cursor.NONE);
+        scene.setFill(null);
+        primaryStage.setTitle("My RPG");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.setWidth(WIDTH);
+        primaryStage.setHeight(HEIGHT);
+        primaryStage.setFullScreen(true);
+        primaryStage.setAlwaysOnTop(true);
+        primaryStage.show();
+        root.setStyle("-fx-background-color: transparent;");
+        root.setPrefSize(WIDTH, HEIGHT);
+        try {
+            // Initialize quests
+            QuestLoader.loadQuests();
 
-  @Override
-  public void stop() throws Exception {
-    super.stop();
-    MusicSystem.INSTANCE.close();
-  }
+            // Initialize first level
+            Level currentLevel = new Level("cityhub", "sheet1.png", levelPane, primaryStage).load();
 
-  public StackPane getRoot() {
-    return root;
-  }
+            // Initialize game loop
+
+            renderer = () -> {
+                try {
+                    currentLevel.render();
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            };
+
+            gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
+            gameLoop.setMaximumStep(0.0166f);
+            gameLoop.start();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void restart() {
+        cleanup();
+        gameLoop.stop();
+        renderer = () -> {
+            try {
+                currentLevel.render();
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        };
+        gameLoop = new GameLoop(currentLevel, fpsReporter, renderer);
+        gameLoop.setMaximumStep(0.0166f);
+        gameLoop.start();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        MusicSystem.INSTANCE.close();
+    }
+
+    public StackPane getRoot() {
+        return root;
+    }
 }

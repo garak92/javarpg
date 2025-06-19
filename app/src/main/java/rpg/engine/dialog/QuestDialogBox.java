@@ -9,46 +9,46 @@ import rpg.engine.quest.QuestLog;
 import java.util.Random;
 
 public class QuestDialogBox extends BaseDialogBox {
-  private Quest quest;
-  private final String[] defaultDialogueList;
-  private final BaseMonster questGiver;
+    private final String[] defaultDialogueList;
+    private final BaseMonster questGiver;
+    private Quest quest;
 
-  public QuestDialogBox(Quest quest, Pane pane, BaseMonster questGiver, String[] defaultDialogueList) {
-    super(pane);
-    this.quest = quest;
-    this.questGiver = questGiver;
-    this.defaultDialogueList = defaultDialogueList;
+    public QuestDialogBox(Quest quest, Pane pane, BaseMonster questGiver, String[] defaultDialogueList) {
+        super(pane);
+        this.quest = quest;
+        this.questGiver = questGiver;
+        this.defaultDialogueList = defaultDialogueList;
 
-    text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
-    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
+        text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
+        updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
 
-  }
-
-  private void setDialogueText() {
-    if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
-      text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
-      quest.deliverQuest(questGiver.getLevel().getPlayer());
-    } else {
-      int randomNumber = new Random().nextInt(defaultDialogueList.length);
-      text.setText(defaultDialogueList[randomNumber]);
     }
 
-    updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
-  }
+    private void setDialogueText() {
+        if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
+            text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
+            quest.deliverQuest(questGiver.getLevel().getPlayer());
+        } else {
+            int randomNumber = new Random().nextInt(defaultDialogueList.length);
+            text.setText(defaultDialogueList[randomNumber]);
+        }
 
-  @Override
-  public void use() {
-    setDialogueText();
-    if (open) {
-      close();
-      quest.acceptQuest();
-      if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
-              && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
-        this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
-        text.setText(this.quest.getCurrentText());
-      }
-    } else {
-      open();
+        updateLayout(questGiver.getCharPosx(), questGiver.getCharPosy());
     }
-  }
+
+    @Override
+    public void use() {
+        setDialogueText();
+        if (open) {
+            close();
+            quest.acceptQuest();
+            if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
+                    && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
+                this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
+                text.setText(this.quest.getCurrentText());
+            }
+        } else {
+            open();
+        }
+    }
 }

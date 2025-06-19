@@ -44,15 +44,15 @@ public class AnimationController {
     }
 
     private void playAnimation(SpriteAnimation animation, EnumEvents monsterEvent) {
-        if(animation.equals(monster.getAnimation())) {
+        if (animation.equals(monster.getAnimation())) {
             return;
         }
-        if(monster.getAnimation() != null) {
+        if (monster.getAnimation() != null) {
             monster.getAnimation().stop();
         }
         monster.setAnimation(animation);
 
-        if(monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
+        if (monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
             monster.getAnimation().setOnFinished(e -> {
                 ai.setIsPerformingAction(false);
@@ -64,15 +64,15 @@ public class AnimationController {
     }
 
     private void playAnimation(SpriteAnimation animation) {
-        if(animation.equals(monster.getAnimation())) {
+        if (animation.equals(monster.getAnimation())) {
             return;
         }
-        if(monster.getAnimation() != null) {
+        if (monster.getAnimation() != null) {
             monster.getAnimation().stop();
         }
         monster.setAnimation(animation);
 
-        if(monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
+        if (monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
             monster.getAnimation().setOnFinished(e -> {
                 ai.setIsPerformingAction(false);

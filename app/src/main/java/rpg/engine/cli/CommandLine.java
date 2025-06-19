@@ -7,11 +7,11 @@ public enum CommandLine {
     private CommandLineController commandLineController;
 
     CommandLine() {
-       commandLineUI = new CommandLineUI();
+        commandLineUI = new CommandLineUI();
     }
 
     public void activate() throws Throwable {
-       commandLineController = new CommandLineController(commandLineUI.getTextInputDialog());
-       commandLineController.handleResults();
+        commandLineController = new CommandLineController(commandLineUI.getTextInputDialog());
+        commandLineController.handleResults();
     }
 }

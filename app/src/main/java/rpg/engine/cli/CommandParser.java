@@ -10,19 +10,19 @@ class CommandParser {
 
         try {
             String[] wordList = command.split(" ");
-            if(wordList.length == 0) {
+            if (wordList.length == 0) {
                 throw new Exception("Please, write a valid command.  Write \"list\" for a list of commands.");
             }
 
             String verb = wordList[0].toLowerCase().trim();
 
-            if(wordList.length == 2) {
+            if (wordList.length == 2) {
                 value = wordList[1].trim();
             }
 
             CliOperation cliOperation = CliOperation.valueOfStringVerb(verb);
 
-            if(cliOperation == null) {
+            if (cliOperation == null) {
                 throw new Exception("Command " + verb + " does not exist");
             }
 

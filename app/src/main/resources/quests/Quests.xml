@@ -1,40 +1,42 @@
 <?xml version="1.0"?>
 <Quests>
-        <Quest>
-            <Name>Dammned creatures on my yard!</Name>
-            <Description>
-Hello, fellow traveler! My name is Igrenne. Do you see that portal over there?
-It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord and his troops.
-Please, kill six Satyr for me. Find me on the other side of the portal, I'll reward you with 10 experience points.
-      </Description>
-            <DialogInProgress>
-                Have you killed them yet?
-            </DialogInProgress>
-            <DialogCompleted>
-                Wow! You are a strong one. Thank you for taking care of those bastards!
-                Here, take my 10 exp points and get lost.
-            </DialogCompleted>
-            <ExperiencePoints>
-                10
-            </ExperiencePoints>
-            <Entity>
-                rpg.game.entities.enemy.malesatyr.MaleSatyr
-            </Entity>
-            <EntityFriendlyName>
-                Satyr
-            </EntityFriendlyName>
-            <ObjectiveQuantity>
-               6
-            </ObjectiveQuantity>
-            <Giver>
-                rpg.game.entities.igrenne.Igrenne
-            </Giver>
-        </Quest>
+    <Quest>
+        <Name>Dammned creatures on my yard!</Name>
+        <Description>
+            Hello, fellow traveler! My name is Igrenne. Do you see that portal over there?
+            It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord and his troops.
+            Please, kill six Satyr for me. Find me on the other side of the portal, I'll reward you with 10 experience
+            points.
+        </Description>
+        <DialogInProgress>
+            Have you killed them yet?
+        </DialogInProgress>
+        <DialogCompleted>
+            Wow! You are a strong one. Thank you for taking care of those bastards!
+            Here, take my 10 exp points and get lost.
+        </DialogCompleted>
+        <ExperiencePoints>
+            10
+        </ExperiencePoints>
+        <Entity>
+            rpg.game.entities.enemy.malesatyr.MaleSatyr
+        </Entity>
+        <EntityFriendlyName>
+            Satyr
+        </EntityFriendlyName>
+        <ObjectiveQuantity>
+            6
+        </ObjectiveQuantity>
+        <Giver>
+            rpg.game.entities.igrenne.Igrenne
+        </Giver>
+    </Quest>
     <Quest>
         <Name>Elixir of youth</Name>
         <Description>
-           I am not getting any younger, pal. Please, bring me the elixir of youth. You'll find it deep into the satyr realms,
-           following that portal over there.
+            I am not getting any younger, pal. Please, bring me the elixir of youth. You'll find it deep into the satyr
+            realms,
+            following that portal over there.
         </Description>
         <DialogInProgress>
             Have you find it yet?

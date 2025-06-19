@@ -3,11 +3,11 @@ package rpg.engine.common.ability;
 import rpg.engine.monster.BaseMonster;
 
 abstract class Ability {
-  protected BaseMonster monster;
+    protected BaseMonster monster;
 
-  public Ability(BaseMonster monster) {
-    this.monster = monster;
-  }
+    public Ability(BaseMonster monster) {
+        this.monster = monster;
+    }
 
-  public abstract void update();
+    public abstract void update();
 }

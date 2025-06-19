@@ -23,21 +23,21 @@ enum CliOperation {
         this.symbol = symbol;
     }
 
-    @Override
-    public String toString() {
-       return symbol;
-    }
-
-    public abstract String apply(String value);
-
     public static CliOperation valueOfStringVerb(String verb) {
-        for(CliOperation cliOperation: CliOperation.values()) {
-            if(cliOperation.symbol.equals(verb)) {
+        for (CliOperation cliOperation : CliOperation.values()) {
+            if (cliOperation.symbol.equals(verb)) {
                 return cliOperation;
             }
         }
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        return symbol;
+    }
+
+    public abstract String apply(String value);
 
 }

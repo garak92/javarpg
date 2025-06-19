@@ -32,11 +32,11 @@ public class MonsterUtils {
 
         double newX = currentX + (targetPosX - currentX) * lerpFactor;
         double newY = currentY + (targetPosY - currentY) * lerpFactor;
-        if(monster.detectCollision(monster.getLevel().getSolidTiles(), newX, newY))  {
+        if (monster.detectCollision(monster.getLevel().getSolidTiles(), newX, newY)) {
             return;
         }
-            monster.setCharPosx(newX);
-            monster.setCharPosy(newY);
+        monster.setCharPosx(newX);
+        monster.setCharPosy(newY);
 
         monster.setCharPosx(newX);
         monster.setCharPosy(newY);
@@ -48,9 +48,9 @@ public class MonsterUtils {
         Level level = Player.getInstance().level;
         int howFarFromThePlayerToSpawn = 400;
 
-        for(EnumMonsterKind monsterKind: EnumMonsterKind.values()) {
-            if(monsterClassName.equals(monsterKind.toString())) {
-               selectedMonsterKind = monsterKind;
+        for (EnumMonsterKind monsterKind : EnumMonsterKind.values()) {
+            if (monsterClassName.equals(monsterKind.toString())) {
+                selectedMonsterKind = monsterKind;
             }
         }
 
@@ -62,7 +62,7 @@ public class MonsterUtils {
 
         if (baseMonster instanceof Usable) {
             level.getUsables().add((Usable) baseMonster);
-        } else if(baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+        } else if (baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
             level.getEnvProps().add(baseMonster);
         }
 
@@ -78,7 +78,7 @@ public class MonsterUtils {
 
         if (baseMonster instanceof Usable) {
             level.getUsables().add((Usable) baseMonster);
-        } else if(baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+        } else if (baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
             level.getEnvProps().add(baseMonster);
         }
 

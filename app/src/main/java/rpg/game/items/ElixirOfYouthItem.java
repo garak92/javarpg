@@ -5,22 +5,22 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class ElixirOfYouthItem extends BaseItem {
-  private final Player target;
+    private final Player target;
 
-  public ElixirOfYouthItem(BaseMonster monster, Player target) {
-    super(0, monster);
-    this.target = target;
-  }
-
-  @Override
-  protected void useItem() {
-    if (monster.getMonster().detectCollision(target)) {
-      monster.die();
+    public ElixirOfYouthItem(BaseMonster monster, Player target) {
+        super(0, monster);
+        this.target = target;
     }
-  }
 
-  @Override
-  public void update() {
-    useItem();
-  }
+    @Override
+    protected void useItem() {
+        if (monster.getMonster().detectCollision(target)) {
+            monster.die();
+        }
+    }
+
+    @Override
+    public void update() {
+        useItem();
+    }
 }

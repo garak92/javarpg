@@ -4,30 +4,23 @@ import rpg.engine.levels.Level;
 
 import java.util.function.Consumer;
 
-public class GameLoop extends BaseGameLoop
-{
+public class GameLoop extends BaseGameLoop {
+    private static final float timeStep = 0.0166f;
     private final Level level;
     private final Consumer<Integer> fpsReporter;
     private final Runnable renderer;
-
-    public GameLoop(Level level, Consumer<Integer> fpsReporter, Runnable renderer)
-    {
+    private long previousTime = 0;
+    private float accumulatedTime = 0;
+    private float secondsElapsedSinceLastFpsUpdate = 0f;
+    private int framesSinceLastFpsUpdate = 0;
+    public GameLoop(Level level, Consumer<Integer> fpsReporter, Runnable renderer) {
         this.level = level;
         this.fpsReporter = fpsReporter;
         this.renderer = renderer;
     }
 
-    private static final float timeStep = 0.0166f;
-
-    private long previousTime = 0;
-    private float accumulatedTime = 0;
-
-    private float secondsElapsedSinceLastFpsUpdate = 0f;
-    private int framesSinceLastFpsUpdate = 0;
-
     @Override
-    public void handle(long currentTime)
-    {
+    public void handle(long currentTime) {
         if (previousTime == 0) {
             previousTime = currentTime;
             return;
@@ -60,11 +53,11 @@ public class GameLoop extends BaseGameLoop
             accumulatedTime -= timeStep;
         }
         renderer.run();
-         try {
-                level.update();
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            level.update();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
         accumulatedTime -= timeStep;
         float alpha = accumulatedTime / timeStep;
         try {
@@ -84,8 +77,7 @@ public class GameLoop extends BaseGameLoop
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
         previousTime = 0;
         accumulatedTime = 0;
         secondsElapsedSinceLastFpsUpdate = 0f;
@@ -94,8 +86,7 @@ public class GameLoop extends BaseGameLoop
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Fixed time steps";
     }
 }

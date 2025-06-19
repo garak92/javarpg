@@ -1,134 +1,205 @@
 {
-  "resources":{
-  "includes":[{
-    "pattern":"\\QMETA-INF/fonts.mf\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/ch.qos.logback.classic.spi.Configurator\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/java.lang.System$LoggerFinder\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/java.time.zone.ZoneRulesProvider\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/java.util.prefs.PreferencesFactory\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/java.util.spi.ResourceBundleControlProvider\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/javax.sound.midi.spi.MidiDeviceProvider\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/javax.sound.midi.spi.MidiFileReader\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/javax.sound.midi.spi.SoundbankReader\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/javax.sound.sampled.spi.MixerProvider\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/javax.xml.parsers.DocumentBuilderFactory\\E"
-  }, {
-    "pattern":"\\Qcom/sun/glass/utils/NativeLibLoader.class\\E"
-  }, {
-    "pattern":"\\Qcom/sun/prism/es2/glsl/FillPgram_Color.frag\\E"
-  }, {
-    "pattern":"\\Qcom/sun/prism/es2/glsl/FillRoundRect_Color.frag\\E"
-  }, {
-    "pattern":"\\Qcom/sun/prism/es2/glsl/Solid_ImagePattern.frag\\E"
-  }, {
-    "pattern":"\\Qcom/sun/prism/es2/glsl/Solid_TextureRGB.frag\\E"
-  }, {
-    "pattern":"\\Qcom/sun/prism/es2/glsl/Texture_Color.frag\\E"
-  }, {
-    "pattern":"\\Qcom/sun/scenario/effect/impl/es2/glsl/ColorAdjust.frag\\E"
-  }, {
-    "pattern":"\\Qlevels/cityhub.monsters\\E"
-  }, {
-    "pattern":"\\Qlevels/cityhub.tiles\\E"
-  }, {
-    "pattern":"\\Qlevels/level1.monsters\\E"
-  }, {
-    "pattern":"\\Qlevels/level1.tiles\\E"
-  }, {
-    "pattern":"\\Qlibglass.so\\E"
-  }, {
-    "pattern":"\\Qlibglassgtk3.so\\E"
-  }, {
-    "pattern":"\\Qlibjavafx_font.so\\E"
-  }, {
-    "pattern":"\\Qlibjavafx_font_freetype.so\\E"
-  }, {
-    "pattern":"\\Qlibjavafx_font_pango.so\\E"
-  }, {
-    "pattern":"\\Qlibjavafx_iio.so\\E"
-  }, {
-    "pattern":"\\Qlibprism_es2.so\\E"
-  }, {
-    "pattern":"\\Qlogback-test.xml\\E"
-  }, {
-    "pattern":"\\Qlogback.groovy\\E"
-  }, {
-    "pattern":"\\Qlogback.xml\\E"
-  }, {
-    "pattern":"\\Qmusic/cityhub.mid\\E"
-  }, {
-    "pattern":"\\Qmusic/level1.mid\\E"
-  }, {
-    "pattern":"\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"
-  }, {
-    "pattern":"\\Qquests/Quests.xml\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/satyr/satyr_3/Attack.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/satyr/satyr_3/Dead.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/satyr/satyr_3/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/satyr/satyr_3/Walk.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/satyr/satyr_3/fireball.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/werewolf/black_werewolf/Charge.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/werewolf/black_werewolf/Dead.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/werewolf/black_werewolf/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/enemies/werewolf/black_werewolf/Run.png\\E"
-  }, {
-    "pattern":"\\Qsprites/items/potions/Icon24.png\\E"
-  }, {
-    "pattern":"\\Qsprites/items/questitems/17.png\\E"
-  }, {
-    "pattern":"\\Qsprites/levels/common-background.jpg\\E"
-  }, {
-    "pattern":"\\Qsprites/levels/portal.png\\E"
-  }, {
-    "pattern":"\\Qsprites/levels/sheet1.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/givers/enchantress/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/boy/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/boy/Walk.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/oldman/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/oldman/Walk.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/woman/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/npc/villagers/woman/Walk.png\\E"
-  }, {
-    "pattern":"\\Qsprites/player/Attack_4.png\\E"
-  }, {
-    "pattern":"\\Qsprites/player/Dead.png\\E"
-  }, {
-    "pattern":"\\Qsprites/player/Idle.png\\E"
-  }, {
-    "pattern":"\\Qsprites/player/Run.png\\E"
-  }, {
-    "pattern":"\\Qsprites/player/iceball.png\\E"
-  }, {
-    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/ubidi.icu\\E"
-  }]},
-  "bundles":[{
-    "name":"com.sun.javafx.tk.quantum.QuantumMessagesBundle",
-    "locales":["", "es", "und"]
-  }]
+  "resources": {
+    "includes": [
+      {
+        "pattern": "\\QMETA-INF/fonts.mf\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/ch.qos.logback.classic.spi.Configurator\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/java.lang.System$LoggerFinder\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/java.time.zone.ZoneRulesProvider\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/java.util.prefs.PreferencesFactory\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/java.util.spi.ResourceBundleControlProvider\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/javax.sound.midi.spi.MidiDeviceProvider\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/javax.sound.midi.spi.MidiFileReader\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/javax.sound.midi.spi.SoundbankReader\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/javax.sound.sampled.spi.MixerProvider\\E"
+      },
+      {
+        "pattern": "\\QMETA-INF/services/javax.xml.parsers.DocumentBuilderFactory\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/glass/utils/NativeLibLoader.class\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/prism/es2/glsl/FillPgram_Color.frag\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/prism/es2/glsl/FillRoundRect_Color.frag\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/prism/es2/glsl/Solid_ImagePattern.frag\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/prism/es2/glsl/Solid_TextureRGB.frag\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/prism/es2/glsl/Texture_Color.frag\\E"
+      },
+      {
+        "pattern": "\\Qcom/sun/scenario/effect/impl/es2/glsl/ColorAdjust.frag\\E"
+      },
+      {
+        "pattern": "\\Qlevels/cityhub.monsters\\E"
+      },
+      {
+        "pattern": "\\Qlevels/cityhub.tiles\\E"
+      },
+      {
+        "pattern": "\\Qlevels/level1.monsters\\E"
+      },
+      {
+        "pattern": "\\Qlevels/level1.tiles\\E"
+      },
+      {
+        "pattern": "\\Qlibglass.so\\E"
+      },
+      {
+        "pattern": "\\Qlibglassgtk3.so\\E"
+      },
+      {
+        "pattern": "\\Qlibjavafx_font.so\\E"
+      },
+      {
+        "pattern": "\\Qlibjavafx_font_freetype.so\\E"
+      },
+      {
+        "pattern": "\\Qlibjavafx_font_pango.so\\E"
+      },
+      {
+        "pattern": "\\Qlibjavafx_iio.so\\E"
+      },
+      {
+        "pattern": "\\Qlibprism_es2.so\\E"
+      },
+      {
+        "pattern": "\\Qlogback-test.xml\\E"
+      },
+      {
+        "pattern": "\\Qlogback.groovy\\E"
+      },
+      {
+        "pattern": "\\Qlogback.xml\\E"
+      },
+      {
+        "pattern": "\\Qmusic/cityhub.mid\\E"
+      },
+      {
+        "pattern": "\\Qmusic/level1.mid\\E"
+      },
+      {
+        "pattern": "\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"
+      },
+      {
+        "pattern": "\\Qquests/Quests.xml\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/satyr/satyr_3/Attack.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/satyr/satyr_3/Dead.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/satyr/satyr_3/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/satyr/satyr_3/Walk.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/satyr/satyr_3/fireball.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/werewolf/black_werewolf/Charge.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/werewolf/black_werewolf/Dead.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/werewolf/black_werewolf/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/enemies/werewolf/black_werewolf/Run.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/items/potions/Icon24.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/items/questitems/17.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/levels/common-background.jpg\\E"
+      },
+      {
+        "pattern": "\\Qsprites/levels/portal.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/levels/sheet1.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/givers/enchantress/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/boy/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/boy/Walk.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/oldman/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/oldman/Walk.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/woman/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/npc/villagers/woman/Walk.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/player/Attack_4.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/player/Dead.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/player/Idle.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/player/Run.png\\E"
+      },
+      {
+        "pattern": "\\Qsprites/player/iceball.png\\E"
+      },
+      {
+        "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt72b/ubidi.icu\\E"
+      }
+    ]
+  },
+  "bundles": [
+    {
+      "name": "com.sun.javafx.tk.quantum.QuantumMessagesBundle",
+      "locales": [
+        "",
+        "es",
+        "und"
+      ]
+    }
+  ]
 }

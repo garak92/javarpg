@@ -3,8 +3,6 @@ package rpg.game.entities.player;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.engine.animation.SpriteAnimation;
@@ -23,279 +21,278 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Player extends BaseMonster {
-  private final int shield;
-  private final String name;
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER;
-  private boolean iceBallAttack = false;
-  private boolean moveRight = false;
-  private boolean moveLeft = false;
-  private boolean moveUp = false;
-  private boolean moveDown = false;
-  private boolean using = false;
-  private int attackAccumulator = 30;
-  private List<LevelNode> solidTiles;
-  private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
-  private int experiencePoints = 0;
-  private int playerLevel = 0;
-  private static Player instance;
-  private final PlayerStatusBar statusBar;
+    private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER;
+    private static Player instance;
+    private final int shield;
+    private final String name;
+    private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
+    private final PlayerStatusBar statusBar;
+    private boolean iceBallAttack = false;
+    private boolean moveRight = false;
+    private boolean moveLeft = false;
+    private boolean moveUp = false;
+    private boolean moveDown = false;
+    private boolean using = false;
+    private int attackAccumulator = 30;
+    private List<LevelNode> solidTiles;
+    private int experiencePoints = 0;
+    private int playerLevel = 0;
 
 
-  private Player(double charPosx, double charPosy, double velocity, int health,
-    int shield, String name, Stage primaryStage, Level level) {
-    super(charPosx, charPosy, velocity, health, alignment, level, name);
-    this.shield = shield;
-    this.name = name;
-    this.solidTiles = level.getSolidTiles();
+    private Player(double charPosx, double charPosy, double velocity, int health,
+                   int shield, String name, Stage primaryStage, Level level) {
+        super(charPosx, charPosy, velocity, health, alignment, level, name);
+        this.shield = shield;
+        this.name = name;
+        this.solidTiles = level.getSolidTiles();
 
-      Pane playerPane = new Pane();
-      statusBar = new PlayerStatusBar(0, 0, playerPane, this);
-    Game.getInstance().getRoot().getChildren().add(playerPane);
+        Pane playerPane = new Pane();
+        statusBar = new PlayerStatusBar(0, 0, playerPane, this);
+        Game.getInstance().getRoot().getChildren().add(playerPane);
 
-    preCacheSprites(new HashMap<>() {
-      {
-        put("idle", "/player/Idle.png");
-        put("run", "/player/Run.png");
-        put("dead", "/player/Dead.png");
-        put("attack", "/player/Attack_4.png");
-      }
-    });
+        preCacheSprites(new HashMap<>() {
+            {
+                put("idle", "/player/Idle.png");
+                put("run", "/player/Run.png");
+                put("dead", "/player/Dead.png");
+                put("attack", "/player/Attack_4.png");
+            }
+        });
 
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 160, 128));
+        getImageView().setImage(images.get("idle"));
+        getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 160, 128));
 
-    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
+        setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
 
-    setKeyBinds(primaryStage);
+        setKeyBinds(primaryStage);
 
 
-  }
-
-  public static Player initialize(double charPosx, double charPosy, double velocity, int health,
-      int shield, String name, Stage primaryStage, Pane root, Level level) {
-    if (instance == null) {
-      instance = new Player(charPosx, charPosy, velocity, health,
-          shield, name, primaryStage, level);
-    } else {
-      // Player should maintain their stats throughout a level transition
-      // but other stuff, such as the level data, must obviously change
-      instance.setCharPosx(charPosx);
-      instance.setCharPosy(charPosy);
-      instance.setLevel(level);
     }
-    return instance;
-  }
 
-  public static Player getInstance() throws NullPointerException {
-    if(instance == null) {
-     throw new NullPointerException();
+    public static Player initialize(double charPosx, double charPosy, double velocity, int health,
+                                    int shield, String name, Stage primaryStage, Pane root, Level level) {
+        if (instance == null) {
+            instance = new Player(charPosx, charPosy, velocity, health,
+                    shield, name, primaryStage, level);
+        } else {
+            // Player should maintain their stats throughout a level transition
+            // but other stuff, such as the level data, must obviously change
+            instance.setCharPosx(charPosx);
+            instance.setCharPosy(charPosy);
+            instance.setLevel(level);
+        }
+        return instance;
     }
-     return instance;
-  }
 
-  private void setKeyBinds(Stage primaryStage) {
-    primaryStage.getScene().setOnKeyPressed(event -> {
-      // Movement
-      KeyCode keyCode = event.getCode();
-      if (keyCode == KeyCode.RIGHT) {
-        moveRight = true;
-      }
-      if (keyCode == KeyCode.LEFT) {
-        moveLeft = true;
-      }
-      if (keyCode == KeyCode.UP) {
-        moveUp = true;
-      }
-      if (keyCode == KeyCode.DOWN) {
-        moveDown = true;
-      }
-      if (keyCode == KeyCode.E) {
-        using = true;
-      }
+    public static Player getInstance() throws NullPointerException {
+        if (instance == null) {
+            throw new NullPointerException();
+        }
+        return instance;
+    }
 
-      if (keyCode == KeyCode.C) {
-          try {
-              CommandLine.INSTANCE.activate();
-          } catch (Throwable e) {
-            throw new RuntimeException(e);
-          }
-      }
+    private void setKeyBinds(Stage primaryStage) {
+        primaryStage.getScene().setOnKeyPressed(event -> {
+            // Movement
+            KeyCode keyCode = event.getCode();
+            if (keyCode == KeyCode.RIGHT) {
+                moveRight = true;
+            }
+            if (keyCode == KeyCode.LEFT) {
+                moveLeft = true;
+            }
+            if (keyCode == KeyCode.UP) {
+                moveUp = true;
+            }
+            if (keyCode == KeyCode.DOWN) {
+                moveDown = true;
+            }
+            if (keyCode == KeyCode.E) {
+                using = true;
+            }
 
-      // Attack
-      if (keyCode == KeyCode.R) {
-        iceBallAttack = true;
-      }
-    });
+            if (keyCode == KeyCode.C) {
+                try {
+                    CommandLine.INSTANCE.activate();
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
-    primaryStage.getScene().setOnKeyReleased(event -> {
-      KeyCode keyCode = event.getCode();
-      // Movement
-      if (keyCode == KeyCode.RIGHT) {
-        moveRight = false;
-      }
-      if (keyCode == KeyCode.LEFT) {
-        moveLeft = false;
-      }
-      if (keyCode == KeyCode.UP) {
-        moveUp = false;
-      }
-      if (keyCode == KeyCode.DOWN) {
-        moveDown = false;
-      }
+            // Attack
+            if (keyCode == KeyCode.R) {
+                iceBallAttack = true;
+            }
+        });
 
-      // Attack
-      if (keyCode == KeyCode.R) {
-        iceBallAttack = false;
-        attackAccumulator = 30;
-      }
-    });
-  }
+        primaryStage.getScene().setOnKeyReleased(event -> {
+            KeyCode keyCode = event.getCode();
+            // Movement
+            if (keyCode == KeyCode.RIGHT) {
+                moveRight = false;
+            }
+            if (keyCode == KeyCode.LEFT) {
+                moveLeft = false;
+            }
+            if (keyCode == KeyCode.UP) {
+                moveUp = false;
+            }
+            if (keyCode == KeyCode.DOWN) {
+                moveDown = false;
+            }
 
-  public void interact(List<Usable> usables) {
-    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
-    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
-    for (Usable b : usables) {
-      if (b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-          this.imageView.getBoundsInParent().getCenterY(),
-          boundingBoxWidth, boundingBoxHeight)) {
-        if (!usedEntities.contains(b)) { // Don't use if already used
-          b.use(this);
-          if (b.getBaseMonster().getAlignment() == EnumMonsterAlignment.FRIEND) {
-            usedEntities.add(b);
-          }
+            // Attack
+            if (keyCode == KeyCode.R) {
+                iceBallAttack = false;
+                attackAccumulator = 30;
+            }
+        });
+    }
+
+    public void interact(List<Usable> usables) {
+        double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
+        double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+        for (Usable b : usables) {
+            if (b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+                    this.imageView.getBoundsInParent().getCenterY(),
+                    boundingBoxWidth, boundingBoxHeight)) {
+                if (!usedEntities.contains(b)) { // Don't use if already used
+                    b.use(this);
+                    if (b.getBaseMonster().getAlignment() == EnumMonsterAlignment.FRIEND) {
+                        usedEntities.add(b);
+                    }
+                }
+
+            } else {
+                using = false;
+            }
+        }
+    }
+
+    public void stopInteraction() {
+        double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
+        double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+        for (Usable b : usedEntities) {
+            if (!b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
+                    this.imageView.getBoundsInParent().getCenterY(),
+                    boundingBoxWidth, boundingBoxHeight)) {
+                b.use(this);
+                usedEntities.remove(b);
+            }
         }
 
-      } else {
-        using = false;
-      }
-    }
-  }
-
-  public void stopInteraction() {
-    double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
-    double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
-    for (Usable b : usedEntities) {
-      if (!b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
-          this.imageView.getBoundsInParent().getCenterY(),
-          boundingBoxWidth, boundingBoxHeight)) {
-        b.use(this);
-        usedEntities.remove(b);
-      }
     }
 
-  }
+    public void iceBallAttack() {
+        if (attackAccumulator < 30) {
+            attackAccumulator++;
+            return;
+        }
+        iceBallAttack = true;
+        this.getLevel()
+                .addThing(new PlayerIceBall(imageView.getBoundsInParent().getCenterX(),
+                        imageView.getBoundsInParent().getCenterY(), level, level.getEnemies(), imageView.getScaleX()));
 
-  public void iceBallAttack() {
-    if (attackAccumulator < 30) {
-      attackAccumulator++;
-      return;
-    }
-    iceBallAttack = true;
-    this.getLevel()
-        .addThing(new PlayerIceBall(imageView.getBoundsInParent().getCenterX(),
-            imageView.getBoundsInParent().getCenterY(), level, level.getEnemies(), imageView.getScaleX()));
-
-    iceBallAttack = true;
-    attackAccumulator = 0;
-  }
-
-  @Override
-  public void die() {
-    imageView.setImage(images.get("dead"));
-    isDead = true;
-
-    MonsterUtils.playAnimationOnlyOnce(animation);
-  }
-
-  public void resurrect() {
-    isDead = false;
-    health = 100;
-    setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
-    animation.play();
-  }
-
-  @Override
-  public void update(List<Usable> usables) {
-    statusBar.update(0, 0);
-    double projectedX = 0;
-    double projectedY = 0;
-
-    if (health <= 0) {
-      if (isDead) {
-        return;
-      }
-      die();
-      return;
+        iceBallAttack = true;
+        attackAccumulator = 0;
     }
 
-    if (iceBallAttack) {
-      iceBallAttack();
+    @Override
+    public void die() {
+        imageView.setImage(images.get("dead"));
+        isDead = true;
+
+        MonsterUtils.playAnimationOnlyOnce(animation);
     }
 
-    if (moveRight) {
-      imageView.setScaleX(1);
-      imageView.setImage(images.get("run"));
-      projectedX = charPosx + velocity;
-      if (detectCollision(solidTiles, projectedX, charPosy)) {
-        return;
-      }
-      charPosx = projectedX;
-    } else if (moveLeft) {
-      imageView.setScaleX(-1);
-      imageView.setImage(images.get("run"));
-      projectedX = charPosx - velocity;
-      if (detectCollision(solidTiles, projectedX, charPosy)) {
-        return;
-      }
-      charPosx = projectedX;
-    } else if (moveUp) {
-      imageView.setImage(images.get("run"));
-      projectedY = charPosy - velocity;
-      if (detectCollision(solidTiles, charPosx, projectedY)) {
-        return;
-      }
-      charPosy = projectedY;
-    } else if (moveDown) {
-      imageView.setImage(images.get("run"));
-      projectedY = charPosy + velocity;
-      if (detectCollision(solidTiles, charPosx, projectedY)) {
-        return;
-      }
-      charPosy = projectedY;
-    } else if (iceBallAttack) {
-      imageView.setImage(images.get("attack"));
-    } else {
-      imageView.setImage(images.get("idle"));
+    public void resurrect() {
+        isDead = false;
+        health = 100;
+        setAnimation(new SpriteAnimation(imageView, new Duration(300), 4, 4, 0, 0, 128, 160));
+        animation.play();
     }
 
-    if (using) {
-      interact(usables);
+    @Override
+    public void update(List<Usable> usables) {
+        statusBar.update(0, 0);
+        double projectedX = 0;
+        double projectedY = 0;
+
+        if (health <= 0) {
+            if (isDead) {
+                return;
+            }
+            die();
+            return;
+        }
+
+        if (iceBallAttack) {
+            iceBallAttack();
+        }
+
+        if (moveRight) {
+            imageView.setScaleX(1);
+            imageView.setImage(images.get("run"));
+            projectedX = charPosx + velocity;
+            if (detectCollision(solidTiles, projectedX, charPosy)) {
+                return;
+            }
+            charPosx = projectedX;
+        } else if (moveLeft) {
+            imageView.setScaleX(-1);
+            imageView.setImage(images.get("run"));
+            projectedX = charPosx - velocity;
+            if (detectCollision(solidTiles, projectedX, charPosy)) {
+                return;
+            }
+            charPosx = projectedX;
+        } else if (moveUp) {
+            imageView.setImage(images.get("run"));
+            projectedY = charPosy - velocity;
+            if (detectCollision(solidTiles, charPosx, projectedY)) {
+                return;
+            }
+            charPosy = projectedY;
+        } else if (moveDown) {
+            imageView.setImage(images.get("run"));
+            projectedY = charPosy + velocity;
+            if (detectCollision(solidTiles, charPosx, projectedY)) {
+                return;
+            }
+            charPosy = projectedY;
+        } else if (iceBallAttack) {
+            imageView.setImage(images.get("attack"));
+        } else {
+            imageView.setImage(images.get("idle"));
+        }
+
+        if (using) {
+            interact(usables);
+        }
+
+        stopInteraction();
     }
 
-    stopInteraction();
-  }
 
+    public void setPlayerLevel(int playerLevel) {
+        this.playerLevel = playerLevel;
+    }
 
+    public void addExperiencePoints(int experiencePoints) {
+        this.experiencePoints += experiencePoints;
+    }
 
-  public void setPlayerLevel(int playerLevel) {
-    this.playerLevel = playerLevel;
-  }
+    public int getExperiencePoints() {
+        return experiencePoints;
+    }
 
-  public void addExperiencePoints(int experiencePoints) {
-    this.experiencePoints += experiencePoints;
-  }
+    private void setLevel(Level level) {
+        this.level = level;
+        this.solidTiles = level.getSolidTiles();
+    }
 
-  public int getExperiencePoints() {
-    return experiencePoints;
-  }
-
-  private void setLevel(Level level) {
-    this.level = level;
-    this.solidTiles = level.getSolidTiles();
-  }
-
-  public void heal(int healingValue) {
-    health += healingValue;
-  }
+    public void heal(int healingValue) {
+        health += healingValue;
+    }
 
 }

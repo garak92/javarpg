@@ -4,12 +4,11 @@ import javafx.scene.layout.Pane;
 import rpg.engine.monster.BaseMonster;
 
 public class Camera {
+    private static final double CAMERA_LERP_SPEED = 0.05;
     private double cameraX = 0;
     private double cameraY = 0;
     private double prevCameraX = 0;
     private double prevCameraY = 0;
-
-    private static final double CAMERA_LERP_SPEED = 0.05;
 
     public void updateCamera(BaseMonster monster) {
         double targetX = (monster.getImageView().getLayoutX() + monster.getImageView().getTranslateX())
@@ -31,13 +30,5 @@ public class Camera {
     public void render(Pane pane) {
         pane.setTranslateX(-cameraX);
         pane.setTranslateY(-cameraY);
-    }
-
-    public double getCameraX() {
-        return cameraX;
-    }
-
-    public double getCameraY() {
-        return cameraY;
     }
 }

@@ -11,33 +11,33 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PlayerIceBall extends BaseMonster {
-  private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
-  private final PlayerIceBallAttack attack;
+    private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
+    private final PlayerIceBallAttack attack;
 
-  public PlayerIceBall(double charPosx, double charPosy, Level level, List<BaseMonster> targetList, double direction) {
-    super(charPosx, charPosy, 7, 0, alignment, level);
+    public PlayerIceBall(double charPosx, double charPosy, Level level, List<BaseMonster> targetList, double direction) {
+        super(charPosx, charPosy, 7, 0, alignment, level);
 
-    preCacheSprites(new HashMap<String, String>() {
-      {
-        put("idle", "/player/iceball.png");
-      }
-    });
+        preCacheSprites(new HashMap<String, String>() {
+            {
+                put("idle", "/player/iceball.png");
+            }
+        });
 
-    getImageView().setImage(images.get("idle"));
-    getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
-    getImageView().setFitWidth(30);
-    getImageView().setFitHeight(30);
+        getImageView().setImage(images.get("idle"));
+        getImageView().setViewport(new Rectangle2D(charPosx, charPosy, 0, 0));
+        getImageView().setFitWidth(30);
+        getImageView().setFitHeight(30);
 
-    this.attack = new PlayerIceBallAttack(this, targetList, direction);
-  }
+        this.attack = new PlayerIceBallAttack(this, targetList, direction);
+    }
 
-  @Override
-  public void die() {
-    level.removeThing(this);
-  }
+    @Override
+    public void die() {
+        level.removeThing(this);
+    }
 
-  @Override
-  public void update(List<Usable> usables) {
-    attack.update();
-  }
+    @Override
+    public void update(List<Usable> usables) {
+        attack.update();
+    }
 }
