@@ -8,13 +8,13 @@ import rpg.engine.monster.BaseMonster;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 
 public abstract class BaseEnemyAI extends EnemyAI {
     protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);
     private final List<StateTransition> transitionTable = new ArrayList<>();
-    private final Random rngGenerator = new Random();
+    private final SplittableRandom rngGenerator = new SplittableRandom();
     private final BaseMonster target;
     private final int movementChangeFrequency = 200;
     protected boolean isAttacking = false;

@@ -1,6 +1,7 @@
 .gradle
 app/build/
 app/bin/
+out-win/
 
 # Ignore Gradle GUI config
 gradle-app.setting
