@@ -25,6 +25,7 @@ public class Game extends Application {
     Runnable renderer;
     StackPane root = new StackPane();
     private Level currentLevel = null;
+    private boolean isPaused = false;
 
     public static Game getInstance() {
         return applicationInstance;
@@ -112,6 +113,20 @@ public class Game extends Application {
     public void stop() throws Exception {
         super.stop();
         MusicSystem.INSTANCE.close();
+    }
+
+    public void pauseGame() {
+        gameLoop.stop();
+        isPaused = true;
+    }
+
+    public void unpauseGame() {
+        gameLoop.start();
+        isPaused = false;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
     }
 
     public StackPane getRoot() {

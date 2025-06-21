@@ -46,8 +46,9 @@ public class PlayerStatusBar {
     private String generateStatusText() {
         List<Quest> questLogActive = QuestLog.INSTANCE.getCurrentQuests();
         StringBuilder sb = new StringBuilder();
-        sb.append("Health: ").append(player.getMonster().getHealth()).append("\n");
+        sb.append("Current level: ").append(player.getPlayerLevel()).append("\n");
         sb.append("Experience points: ").append(player.getExperiencePoints()).append("\n");
+        sb.append("Health: ").append(player.getMonster().getHealth()).append("\n");
         sb.append("Quest log:\n");
 
         for (Quest q : questLogActive) {

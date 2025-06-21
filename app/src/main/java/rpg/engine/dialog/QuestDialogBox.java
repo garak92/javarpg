@@ -27,7 +27,6 @@ public class QuestDialogBox extends BaseDialogBox {
     private void setDialogueText() {
         if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
             text.setText(questGiver.getName().toUpperCase() + ": " + this.quest.getCurrentText());
-            quest.deliverQuest(questGiver.getLevel().getPlayer());
         } else {
             int randomNumber = new Random().nextInt(defaultDialogueList.length);
             text.setText(defaultDialogueList[randomNumber]);
@@ -41,7 +40,11 @@ public class QuestDialogBox extends BaseDialogBox {
         setDialogueText();
         if (open) {
             close();
+            if(this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
+                quest.deliverQuest(questGiver.getLevel().getPlayer());
+            }
             quest.acceptQuest();
+
             if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
                     && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
                 this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);

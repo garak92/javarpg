@@ -1,8 +1,11 @@
 package rpg.game.entities.player;
 
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import rpg.engine.animation.SpriteAnimation;
@@ -15,6 +18,8 @@ import rpg.engine.levels.LevelNode;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.monster.MonsterUtils;
+import rpg.engine.notification.INotificationService;
+import rpg.engine.notification.NotificationService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +41,8 @@ public class Player extends BaseMonster {
     private int attackAccumulator = 30;
     private List<LevelNode> solidTiles;
     private int experiencePoints = 0;
-    private int playerLevel = 0;
+    private int playerLevel = 1;
+    private INotificationService notificationService = new NotificationService();
 
 
     private Player(double charPosx, double charPosy, double velocity, int health,
@@ -93,37 +99,37 @@ public class Player extends BaseMonster {
 
     private void setKeyBinds(Stage primaryStage) {
         primaryStage.getScene().setOnKeyPressed(event -> {
-            // Movement
-            KeyCode keyCode = event.getCode();
-            if (keyCode == KeyCode.RIGHT) {
-                moveRight = true;
-            }
-            if (keyCode == KeyCode.LEFT) {
-                moveLeft = true;
-            }
-            if (keyCode == KeyCode.UP) {
-                moveUp = true;
-            }
-            if (keyCode == KeyCode.DOWN) {
-                moveDown = true;
-            }
-            if (keyCode == KeyCode.E) {
-                using = true;
-            }
+                    // Movement
+                    KeyCode keyCode = event.getCode();
+                    if (keyCode == KeyCode.RIGHT) {
+                        moveRight = true;
+                    }
+                    if (keyCode == KeyCode.LEFT) {
+                        moveLeft = true;
+                    }
+                    if (keyCode == KeyCode.UP) {
+                        moveUp = true;
+                    }
+                    if (keyCode == KeyCode.DOWN) {
+                        moveDown = true;
+                    }
+                    if (keyCode == KeyCode.E) {
+                        using = true;
+                    }
 
-            if (keyCode == KeyCode.C) {
-                try {
-                    CommandLine.INSTANCE.activate();
-                } catch (Throwable e) {
-                    throw new RuntimeException(e);
-                }
-            }
+                    if (keyCode == KeyCode.C) {
+                        try {
+                            CommandLine.INSTANCE.activate();
+                        } catch (Throwable e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
 
-            // Attack
-            if (keyCode == KeyCode.R) {
-                iceBallAttack = true;
-            }
-        });
+                    // Attack
+                    if (keyCode == KeyCode.R) {
+                        iceBallAttack = true;
+                    }
+                });
 
         primaryStage.getScene().setOnKeyReleased(event -> {
             KeyCode keyCode = event.getCode();
@@ -214,6 +220,13 @@ public class Player extends BaseMonster {
 
     @Override
     public void update(List<Usable> usables) {
+        if(experiencePoints >= 20 && playerLevel != 2) {
+            this.playerLevel = 2;
+            notificationService
+                    .pushNotification("YOU ARE NOW LEVEL 2! NEW ABILITY UNLOCKED: TERROR OF ICE.\n PRESS 2 TO TRY IT! USE IT WISELY.",
+                            5000);
+        }
+
         statusBar.update(0, 0);
         double projectedX = 0;
         double projectedY = 0;
@@ -280,6 +293,10 @@ public class Player extends BaseMonster {
 
     public void addExperiencePoints(int experiencePoints) {
         this.experiencePoints += experiencePoints;
+    }
+
+    public int getPlayerLevel() {
+        return playerLevel;
     }
 
     public int getExperiencePoints() {

@@ -1,6 +1,8 @@
 package rpg.engine.quest;
 
 import rpg.engine.monster.BaseMonster;
+import rpg.engine.notification.INotificationService;
+import rpg.engine.notification.NotificationService;
 import rpg.game.entities.player.Player;
 
 public class Quest {
@@ -15,6 +17,7 @@ public class Quest {
     private int questObjective = 0;
     private int experiencePoints = 0;
     private EnumQuestStatus questStatus = EnumQuestStatus.AVAILABLE;
+    private INotificationService notificationService = new NotificationService();
 
     public <T extends BaseMonster> Quest(String name, String description, String inProgressDialog, String completedDialog,
                                          int experiencePoints, Class<? extends BaseMonster> questEntityType,
@@ -68,6 +71,7 @@ public class Quest {
         }
         if (entityCounter == questObjective) {
             this.questStatus = EnumQuestStatus.COMPLETED;
+            notificationService.pushNotification("QUEST COMPLETED!", 2000);
         }
     }
 

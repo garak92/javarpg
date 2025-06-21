@@ -5,6 +5,7 @@ import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import rpg.engine.common.Game;
 
 public class SpriteAnimation extends Transition {
 
@@ -65,6 +66,9 @@ public class SpriteAnimation extends Transition {
     }
 
     protected void interpolate(double k) {
+        if(Game.getInstance().isPaused()) {
+            return;
+        }
         final int index = Math.min((int) Math.floor(k * count), count - 1);
         if (index != lastIndex) {
             final int x = (index % columns) * width + offsetX;
