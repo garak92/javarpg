@@ -10,7 +10,7 @@ public class NotificationService implements INotificationService {
     public void pushNotification(String notificationText, long delayInMillis) {
         new Thread(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
