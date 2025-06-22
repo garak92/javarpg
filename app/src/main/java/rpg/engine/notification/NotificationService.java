@@ -8,9 +8,14 @@ import rpg.game.entities.player.Player;
 public class NotificationService implements INotificationService {
     @Override
     public void pushNotification(String notificationText, long delayInMillis) {
-        Notification notification = Notification.valueOf(notificationText);
-        Pane pane = Player.getInstance().getLevel().getPane();
         new Thread(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Notification notification = Notification.valueOf(notificationText);
+            Pane pane = Player.getInstance().getLevel().getPane();
             Platform.runLater(
                     () -> {
                         pane.getChildren().addAll(notification.getBox(), notification.getTextFlow());
