@@ -21,6 +21,7 @@ import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.render.IRenderer;
 import rpg.engine.render.Renderer;
+import rpg.game.entities.player.Player;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -161,6 +162,35 @@ public abstract class BaseMonster implements Thing {
                 - ((boundingBoxWidth) / 2));
         hitBox.setY((coordinateY + this.imageView.getBoundsInLocal().getHeight() / 2)
                 - ((boundingBoxHeight) / 2));
+    }
+
+    public boolean detectCollisionWithNodesPropsAndMonsters(List<LevelNode> nodeList, double targetX, double targetY) {
+        updateHitBoxPosition(targetX, targetY);
+
+        // Detect collision with solid tiles
+        for (Node b : nodeList) {
+            if (b.getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
+                return true;
+            }
+        }
+
+        // Detect collision with solid environmental props (trees, rocks, etc.)
+        for (BaseMonster m : level.getEnvProps()) {
+            if (m.getImageView().getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
+                return true;
+            }
+        }
+
+        for (BaseMonster m : level.getEnemies()) {
+            if(m.equals(this) || m.equals(Player.getInstance())) {
+                return false;
+            }
+            if (m.getImageView().getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean detectCollision(List<LevelNode> nodeList, double targetX, double targetY) {

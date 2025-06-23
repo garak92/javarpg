@@ -186,7 +186,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
                 monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
             }
 
-            if (monster.detectCollision(monster.getLevel().getSolidTiles(), monster.getCharPosx(), monster.getCharPosy())) {
+            if (monster.detectCollisionWithNodesPropsAndMonsters(monster.getLevel().getSolidTiles(), monster.getCharPosx(), monster.getCharPosy())) {
                 if (shouldMoveRandomly) {
                     monster.setCharPosx(monster.getCharPosx() + (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
                     monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
