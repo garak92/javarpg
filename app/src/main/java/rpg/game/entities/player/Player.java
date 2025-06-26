@@ -230,6 +230,21 @@ public class Player extends BaseMonster {
         statusBar.update(0, 0);
         double projectedX = 0;
         double projectedY = 0;
+        double moveX = 0;
+        double moveY = 0;
+
+        if(isPlayerMoving()) {
+            if (moveRight) moveX += 1;
+            if (moveLeft) moveX -= 1;
+            if (moveDown) moveY += 1;
+            if (moveUp) moveY -= 1;
+
+            double length = Math.sqrt(moveX * moveX + moveY * moveY);
+            if (length != 0) {
+                moveX = (moveX / length) * velocity;
+                moveY = (moveY / length) * velocity;
+            }
+        }
 
         if (health <= 0) {
             if (isDead) {
@@ -246,36 +261,46 @@ public class Player extends BaseMonster {
         if (moveRight) {
             imageView.setScaleX(1);
             imageView.setImage(images.get("run"));
-            projectedX = charPosx + velocity;
+            projectedX = charPosx + moveX;
             if (detectCollision(solidTiles, projectedX, charPosy)) {
                 return;
             }
             charPosx = projectedX;
-        } else if (moveLeft) {
+        }
+
+        if (moveLeft) {
             imageView.setScaleX(-1);
             imageView.setImage(images.get("run"));
-            projectedX = charPosx - velocity;
+            projectedX = charPosx + moveX;
             if (detectCollision(solidTiles, projectedX, charPosy)) {
                 return;
             }
             charPosx = projectedX;
-        } else if (moveUp) {
+        }
+
+        if (moveUp) {
             imageView.setImage(images.get("run"));
-            projectedY = charPosy - velocity;
+            projectedY = charPosy + moveY;
             if (detectCollision(solidTiles, charPosx, projectedY)) {
                 return;
             }
             charPosy = projectedY;
-        } else if (moveDown) {
+        }
+
+        if (moveDown) {
             imageView.setImage(images.get("run"));
-            projectedY = charPosy + velocity;
+            projectedY = charPosy + moveY;
             if (detectCollision(solidTiles, charPosx, projectedY)) {
                 return;
             }
             charPosy = projectedY;
-        } else if (iceBallAttack) {
+        }
+
+        if (iceBallAttack) {
             imageView.setImage(images.get("attack"));
-        } else {
+        }
+
+        if(!isPlayerMoving() && !iceBallAttack) {
             imageView.setImage(images.get("idle"));
         }
 
@@ -310,6 +335,10 @@ public class Player extends BaseMonster {
 
     public void heal(int healingValue) {
         health += healingValue;
+    }
+
+    private boolean isPlayerMoving() {
+        return moveDown || moveRight || moveLeft || moveUp;
     }
 
 }
