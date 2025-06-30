@@ -12,6 +12,7 @@ public enum EnumMonsterKind {
     ORC_BERSERK,
     ORC_SHAMAN,
     GORGON,
+    KARASU,
     PORTAL_CITY_HUB,
     PORTAL_LEVEL1,
     MINI_HEALTH_PICKUP,
