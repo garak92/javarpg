@@ -9,6 +9,7 @@ import rpg.game.entities.enemy.gorgon.Gorgon;
 import rpg.game.entities.enemy.malesatyr.MaleSatyr;
 import rpg.game.entities.enemy.minotaur.Minotaur;
 import rpg.game.entities.enemy.orcberserk.OrcBerserk;
+import rpg.game.entities.enemy.orcshaman.OrcShaman;
 import rpg.game.entities.enemy.skeletonarcher.SkeletonArcher;
 import rpg.game.entities.enemy.skeletonspearman.SkeletonSpearman;
 import rpg.game.entities.enemy.werewolf.Werewolf;
@@ -35,6 +36,7 @@ public class MonsterFactory {
             case SKELETON_ARCHER -> new SkeletonArcher(x, y, 2, "Skeleton Archer", level);
             case SKELETON_SPEARMAN -> new SkeletonSpearman(x, y, 2, "Skeleton Spearman", level);
             case ORC_BERSERK -> new OrcBerserk(x, y, 2, "Orc Berserk", level);
+            case ORC_SHAMAN -> new OrcShaman(x, y, 2, "Orc Shaman", level);
             case GORGON -> new Gorgon(x, y, 2, "Gorgon", level);
 
             case PORTAL_CITY_HUB -> new Portal(x, y, 2, 50, 10, "Portal to City Hub", level, "cityhub", "sheet1.png");

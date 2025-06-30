@@ -83,6 +83,23 @@ public class MonsterUtils {
         baseMonster.spawn(level.getPane());
     }
 
+    public static void spawnMonster(EnumMonsterKind monsterKind, int charPosX, int charPosY) {
+        Level level = Player.getInstance().level;
+        BaseMonster baseMonster = MonsterFactory.getMonster(monsterKind, charPosX, charPosY, level);
+
+        if (baseMonster instanceof Usable) {
+            level.getUsables().add((Usable) baseMonster);
+        } else if (baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+            level.getEnvProps().add(baseMonster);
+        }
+
+
+        level.getThings().add(baseMonster);
+
+        level.updateEnemyList();
+        baseMonster.spawn(level.getPane());
+    }
+
     public static void spawnMonster(EnumMonsterKind monsterKind, int charPosX, int charPosY, Level level) {
         BaseMonster baseMonster = MonsterFactory.getMonster(monsterKind, charPosX, charPosY, level);
 

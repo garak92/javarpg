@@ -10,6 +10,7 @@ public enum EnumMonsterKind {
     SKELETON_ARCHER,
     SKELETON_SPEARMAN,
     ORC_BERSERK,
+    ORC_SHAMAN,
     GORGON,
     PORTAL_CITY_HUB,
     PORTAL_LEVEL1,

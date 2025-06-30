@@ -292,10 +292,11 @@ public class Level {
                 removeThingQueue.remove(removeThingQueue.get(i));
             }
         }
-        for (Thing i : things) {
-            i.getMonster().setPrevCharPosx(i.getMonster().getImageView().getTranslateX());
-            i.getMonster().setPrevCharPosy(i.getMonster().getImageView().getTranslateY());
-            i.update(usables);
+        for (int i = 0; i < things.size(); i++) {
+            Thing currentThing = things.get(i);
+            currentThing.getMonster().setPrevCharPosx(currentThing.getMonster().getImageView().getTranslateX());
+            currentThing.getMonster().setPrevCharPosy(currentThing.getMonster().getImageView().getTranslateY());
+            currentThing.update(usables);
         }
 
         camera.updateCamera(player);
