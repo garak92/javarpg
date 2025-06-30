@@ -4,6 +4,7 @@ public enum EnumMonsterKind {
     PLAYER,
     IGRENNE,
     SATYR,
+    FEM_SATYR,
     WEREWOLF,
     MINOTAUR,
     SKELETON_ARCHER,

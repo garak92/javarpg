@@ -4,6 +4,7 @@ import rpg.engine.common.misc.Portal;
 import rpg.engine.levels.Level;
 import rpg.game.entities.enemy.cannon.CannonOrientation;
 import rpg.game.entities.enemy.cannon.LaserCannon;
+import rpg.game.entities.enemy.femalesatyr.FemaleSatyr;
 import rpg.game.entities.enemy.gorgon.Gorgon;
 import rpg.game.entities.enemy.malesatyr.MaleSatyr;
 import rpg.game.entities.enemy.minotaur.Minotaur;
@@ -28,6 +29,7 @@ public class MonsterFactory {
             case IGRENNE -> Igrenne.initialize(x, y, 10, 30, 10, "Igrenne", level);
 
             case SATYR -> new MaleSatyr(x, y, 2, "Male Satyr", level);
+            case FEM_SATYR -> new FemaleSatyr(x, y, 2, "Female Satyr", level);
             case WEREWOLF -> new Werewolf(x, y, 2, "Werewolf", level);
             case MINOTAUR -> new Minotaur(x, y, 2, "Minotaur", level);
             case SKELETON_ARCHER -> new SkeletonArcher(x, y, 2, "Skeleton Archer", level);
