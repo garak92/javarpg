@@ -7,6 +7,7 @@ public enum EnumMonsterKind {
     WEREWOLF,
     MINOTAUR,
     SKELETON_ARCHER,
+    SKELETON_SPEARMAN,
     ORC_BERSERK,
     GORGON,
     PORTAL_CITY_HUB,

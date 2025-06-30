@@ -9,6 +9,7 @@ import rpg.game.entities.enemy.malesatyr.MaleSatyr;
 import rpg.game.entities.enemy.minotaur.Minotaur;
 import rpg.game.entities.enemy.orcberserk.OrcBerserk;
 import rpg.game.entities.enemy.skeletonarcher.SkeletonArcher;
+import rpg.game.entities.enemy.skeletonspearman.SkeletonSpearman;
 import rpg.game.entities.enemy.werewolf.Werewolf;
 import rpg.game.entities.igrenne.Igrenne;
 import rpg.game.entities.item.ElixirOfYouth;
@@ -30,6 +31,7 @@ public class MonsterFactory {
             case WEREWOLF -> new Werewolf(x, y, 2, "Werewolf", level);
             case MINOTAUR -> new Minotaur(x, y, 2, "Minotaur", level);
             case SKELETON_ARCHER -> new SkeletonArcher(x, y, 2, "Skeleton Archer", level);
+            case SKELETON_SPEARMAN -> new SkeletonSpearman(x, y, 2, "Skeleton Spearman", level);
             case ORC_BERSERK -> new OrcBerserk(x, y, 2, "Orc Berserk", level);
             case GORGON -> new Gorgon(x, y, 2, "Gorgon", level);
 

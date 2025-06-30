@@ -23,7 +23,10 @@ public abstract class BaseEnemyAI extends EnemyAI {
     Line lineOfSight = new Line();
     private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
     private boolean shouldMoveRandomly = false;
+    protected boolean canParry = false;
     private int randomMovementAccumulator = 0;
+    private int parryCounter = 0;
+    private static final int PARRY_DURATION_TICKS = 30;
 
     public BaseEnemyAI(BaseMonster monster, BaseMonster target) {
         super(monster);
@@ -46,7 +49,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
 // ATTACK state transitions
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
-        transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From ATTACK to DEAD when KILLED
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in ATTACK -> back to IDLE
@@ -56,6 +58,13 @@ public abstract class BaseEnemyAI extends EnemyAI {
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // Finish ATTACK -> back to CHASE
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From TRY_ATTACK to CHASE if AGGROED
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in TRY_ATTACK -> IDLE
+
+
+//  PARRY state transitions
+        transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.PARRY, EnumEnemyStates.PARRY));
+        transitionTable.add(new StateTransition(EnumEnemyStates.PARRY, EnumEvents.FINISH_PARRY, EnumEnemyStates.CHASE));
+        transitionTable.add(new StateTransition(EnumEnemyStates.PARRY, EnumEvents.KILLED, EnumEnemyStates.DEAD));
+        transitionTable.add(new StateTransition(EnumEnemyStates.PARRY, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));
 
 // DEAD state transitions
 // No transitions out of DEAD, as the enemy is inactive or has finished its lifecycle
@@ -93,6 +102,17 @@ public abstract class BaseEnemyAI extends EnemyAI {
         return currentState;
     }
 
+
+    public void parry() {
+        parryCounter++;
+        if (parryCounter >= PARRY_DURATION_TICKS) {
+            if(rngGenerator.nextFloat(0, 1) <= 0.4) {
+                transition(EnumEvents.PARRY);
+            }
+            parryCounter = 0;
+        }
+    }
+
     @Override
     public void update(List<Usable> usables) {
         if (monster.isDead() && currentState() != EnumEnemyStates.DEAD) {
@@ -123,7 +143,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
             transition(EnumEvents.CAN_ATTACK);
         } else if (!target.isDead() && monster.isTargetInLineOfSight(monster.getLevel().getSolidTiles(),
                 lineOfSight)) {
-            transition(EnumEvents.AGGROED);
+                transition(EnumEvents.AGGROED);
         }
 
         if (monster.getHealth() <= 0 && !monster.isDead()) {
@@ -147,8 +167,12 @@ public abstract class BaseEnemyAI extends EnemyAI {
                 chase();
                 break;
             case TRY_ATTACK:
-                attack();
-                //chase();
+                if(canParry) {
+                    parry();
+                }
+                if(currentState != EnumEnemyStates.PARRY) {
+                    attack();
+                }
             case DEAD:
                 break;
             default:
@@ -195,6 +219,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
                     monster.setCharPosy(monster.getCharPosy() - (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
                 }
                 shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.5;
+
                 randomMovementAccumulator = movementChangeFrequency - 30;
             }
         } catch (Exception e) {

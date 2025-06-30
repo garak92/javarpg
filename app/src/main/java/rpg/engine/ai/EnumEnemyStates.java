@@ -6,5 +6,6 @@ public enum EnumEnemyStates {
     STUN,
     TRY_ATTACK,
     ATTACK,
-    DEAD
+    DEAD,
+    PARRY
 }

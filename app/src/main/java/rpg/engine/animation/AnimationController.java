@@ -24,62 +24,53 @@ public class AnimationController {
         EnumEnemyStates currentState = ai.currentState();
         Map<String, SpriteAnimation> animations = monster.getAnimations();
         switch (currentState) {
-            case IDLE -> {
-                monster.setImage("idle");
-                playAnimation(animations.get("idle"));
-            }
-            case DEAD -> {
-                monster.setImage("dead");
-                playAnimation(animations.get("dead"));
-            }
-            case CHASE -> {
-                monster.setImage("walk");
-                playAnimation(animations.get("walk"));
-            }
-            case ATTACK -> {
-                monster.setImage("attack");
-                playAnimation(animations.get("attack"), EnumEvents.FINISH_ATTACK);
-            }
+            case IDLE -> playAnimation("idle", animations.get("idle"));
+            case DEAD -> playAnimation("dead", animations.get("dead"));
+            case CHASE -> playAnimation("walk", animations.get("walk"));
+            case ATTACK -> playAnimation("attack", animations.get("attack"), EnumEvents.FINISH_ATTACK);
+            case PARRY -> playAnimation("parry", animations.get("parry"), EnumEvents.FINISH_PARRY);
         }
     }
 
-    private void playAnimation(SpriteAnimation animation, EnumEvents monsterEvent) {
-        if (animation.equals(monster.getAnimation())) {
-            return;
-        }
+    private void playAnimation(String imageKey, SpriteAnimation animation, EnumEvents monsterEvent) {
+        if (animation == monster.getAnimation()) return;
+
         if (monster.getAnimation() != null) {
             monster.getAnimation().stop();
         }
+
+        monster.setImage(imageKey); // Moved here, after stopping the current animation
         monster.setAnimation(animation);
 
-        if (monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
+        if (animation.getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
-            monster.getAnimation().setOnFinished(e -> {
+            animation.setOnFinished(e -> {
                 ai.setIsPerformingAction(false);
-                ai.transition(monsterEvent); // Event to fire when animation is over
+                ai.transition(monsterEvent);
             });
         }
 
-        monster.getAnimation().play();
+        animation.playFromStart();
     }
 
-    private void playAnimation(SpriteAnimation animation) {
-        if (animation.equals(monster.getAnimation())) {
-            return;
-        }
+    private void playAnimation(String imageKey, SpriteAnimation animation) {
+        if (animation == monster.getAnimation()) return;
+
         if (monster.getAnimation() != null) {
             monster.getAnimation().stop();
         }
+
+        monster.setImage(imageKey); // Moved here
         monster.setAnimation(animation);
 
-        if (monster.getAnimation().getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
+        if (animation.getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
-            monster.getAnimation().setOnFinished(e -> {
+            animation.setOnFinished(e -> {
                 ai.setIsPerformingAction(false);
             });
         }
 
-        monster.getAnimation().play();
+        animation.playFromStart();
     }
 
     public void update() throws Throwable {
