@@ -3,15 +3,21 @@ package rpg.game.entities.enemy.orcberserk;
 import rpg.engine.ai.BaseEnemyAI;
 import rpg.engine.ai.EnumEnemyStates;
 import rpg.engine.ai.EnumEvents;
+import rpg.engine.monster.AttackPhase;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.MonsterUtils;
 import rpg.game.entities.player.Player;
 
 public class OrcBerserkAI extends BaseEnemyAI {
-    private final int attackCoolDown = 20;
-    double targetPosX = Player.getInstance().getCharPosx();
-    double targetPosY = Player.getInstance().getCharPosy();
-    private int randomAttackAccumulator = 0;
+    private AttackPhase attackPhase = AttackPhase.IDLE;
+    private int attackTimer = 0;
+
+    private double targetX, targetY;
+
+    private static final int WINDUP_TIME = 15;
+    private static final int COOLDOWN_TIME = 30;
+    private static final double JUMP_SPEED = 40;
+    private static final int DAMAGE = 10;
 
     public OrcBerserkAI(BaseMonster monster) {
         super(monster, Player.getInstance());
@@ -20,20 +26,48 @@ public class OrcBerserkAI extends BaseEnemyAI {
 
     @Override
     public void attack() {
-        if (!monster.detectCollision(Player.getInstance())) {
-            MonsterUtils.jumpToDirection(monster, targetPosX, targetPosY, 0.05);
-        }
-        if (randomAttackAccumulator == attackCoolDown) {
-            transition(EnumEvents.CAST_ATTACK);
-            if (monster.detectCollision(Player.getInstance())) {
-                Player.getInstance().receiveDamage(10);
-            }
-            randomAttackAccumulator = 0;
-        } else {
-            transition(EnumEvents.FINISH_ATTACK);
-            targetPosX = Player.getInstance().getCharPosx();
-            targetPosY = Player.getInstance().getCharPosy();
-            randomAttackAccumulator++;
+        BaseMonster player = target;
+
+        switch (attackPhase) {
+            case IDLE:
+                // Start the attack
+                attackPhase = AttackPhase.WINDUP;
+                attackTimer = 0;
+                break;
+
+            case WINDUP:
+                // Face the player, charge the attack
+                attackTimer++;
+                if (attackTimer >= WINDUP_TIME) {
+                    // Lock onto player’s position and start jump
+                    targetX = player.getCharPosx();
+                    targetY = player.getCharPosy();
+                    attackPhase = AttackPhase.JUMPING;
+                }
+                break;
+
+            case JUMPING:
+                boolean reached = MonsterUtils.jumpToDirection(monster, targetX, targetY, JUMP_SPEED);
+                if (reached) {
+                    attackPhase = AttackPhase.LAND;
+                }
+                break;
+
+            case LAND:
+                transition(EnumEvents.CAST_ATTACK);
+                if (monster.detectCollision(player)) {
+                    player.receiveDamage(DAMAGE);
+                }
+                attackPhase = AttackPhase.COOLDOWN;
+                attackTimer = 0;
+                break;
+
+            case COOLDOWN:
+                attackTimer++;
+                if (attackTimer >= COOLDOWN_TIME) {
+                    attackPhase = AttackPhase.IDLE;
+                }
+                break;
         }
     }
 

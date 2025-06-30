@@ -15,7 +15,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     protected static Logger logger = LoggerFactory.getLogger(BaseEnemyAI.class);
     private final List<StateTransition> transitionTable = new ArrayList<>();
     private final SplittableRandom rngGenerator = new SplittableRandom();
-    private final BaseMonster target;
+    protected final BaseMonster target;
     private final int movementChangeFrequency = 200;
     protected boolean isAttacking = false;
     protected boolean isPerformingAction = false;

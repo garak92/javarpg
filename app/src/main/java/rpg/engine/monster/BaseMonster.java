@@ -238,6 +238,11 @@ public abstract class BaseMonster implements Thing {
                 return false;
             }
         }
+       for (BaseMonster m : level.getEnvProps()) {
+            if (m.getImageView().getBoundsInParent().intersects(line.getBoundsInParent())) {
+                return false;
+            }
+        }
         return true;
     }
 

@@ -23,24 +23,34 @@ public class MonsterUtils {
         animation.play();
     }
 
-    public static void jumpToDirection(BaseMonster monster, double targetPosX, double targetPosY, double lerpFactor) {
-        lerpFactor = Math.max(0, Math.min(1, lerpFactor));
+    public static boolean jumpToDirection(BaseMonster monster, double targetX, double targetY, double speed) {
+        double dx = targetX - monster.getCharPosx();
+        double dy = targetY - monster.getCharPosy();
+        double distance = Math.sqrt(dx * dx + dy * dy);
 
-        double currentX = monster.getCharPosx();
-        double currentY = monster.getCharPosy();
-
-
-        double newX = currentX + (targetPosX - currentX) * lerpFactor;
-        double newY = currentY + (targetPosY - currentY) * lerpFactor;
-        if (monster.detectCollision(monster.getLevel().getSolidTiles(), newX, newY)) {
-            return;
+        if (distance < speed) {
+            monster.setCharPosx(targetX);
+            monster.setCharPosy(targetY);
+            return true; // Reached destination
         }
-        monster.setCharPosx(newX);
-        monster.setCharPosy(newY);
 
+        double nx = dx / distance;
+        double ny = dy / distance;
+
+        double newX = monster.getCharPosx() + nx * speed;
+        double newY = monster.getCharPosy() + ny * speed;
+
+        // Check for collisions
+        if (monster.detectCollisionWithNodesPropsAndMonsters(monster.getLevel().getSolidTiles(), newX, newY)) {
+            return true; // Blocked by environment
+        }
+
+        // Apply movement if not blocked
         monster.setCharPosx(newX);
         monster.setCharPosy(newY);
+        return false; // Still moving toward target
     }
+
 
 
     public static void spawnMonster(String monsterClassName) {

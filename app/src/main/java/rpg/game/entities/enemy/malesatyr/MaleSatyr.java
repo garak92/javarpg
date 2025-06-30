@@ -50,7 +50,7 @@ public class MaleSatyr extends BaseMonster {
 
     @Override
     public void update(List<Usable> usables) throws Throwable {
-        ai.update(usables);
         animationController.update();
+        ai.update(usables);
     }
 }
