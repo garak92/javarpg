@@ -15,7 +15,7 @@ import java.util.List;
 
 public class OrcShaman extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ENEMY;
-    private final EnemyAI ai = new OrcShamankAI(this);
+    private final EnemyAI ai = new OrcShamanAI(this);
     private final AnimationController animationController = new AnimationController(ai, this);
 
     public OrcShaman(double charPosx, double charPosy,
