@@ -41,6 +41,7 @@ public class AnimationController {
 
         monster.setImage(imageKey); // Moved here, after stopping the current animation
         monster.setAnimation(animation);
+        animation.playFromStart();
 
         if (animation.getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
@@ -50,7 +51,7 @@ public class AnimationController {
             });
         }
 
-        animation.playFromStart();
+
     }
 
     private void playAnimation(String imageKey, SpriteAnimation animation) {
@@ -62,6 +63,7 @@ public class AnimationController {
 
         monster.setImage(imageKey); // Moved here
         monster.setAnimation(animation);
+        animation.playFromStart();
 
         if (animation.getCycleCount() != Animation.INDEFINITE && !monster.isDead()) {
             ai.setIsPerformingAction(true);
@@ -70,7 +72,7 @@ public class AnimationController {
             });
         }
 
-        animation.playFromStart();
+
     }
 
     public void update() throws Throwable {

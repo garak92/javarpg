@@ -78,4 +78,18 @@ public class SpriteAnimation extends Transition {
             lastIndex = index;
         }
     }
+
+    @Override
+    public String toString() {
+        return "SpriteAnimation{" +
+                "imageView=" + imageView +
+                ", count=" + count +
+                ", columns=" + columns +
+                ", offsetX=" + offsetX +
+                ", offsetY=" + offsetY +
+                ", width=" + width +
+                ", height=" + height +
+                ", lastIndex=" + lastIndex +
+                '}';
+    }
 }
