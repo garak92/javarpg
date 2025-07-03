@@ -65,6 +65,7 @@ public class SpriteAnimation extends Transition {
                 width, height, cycleCount);
     }
 
+    @Override
     protected void interpolate(double k) {
         if(Game.getInstance().isPaused()) {
             return;

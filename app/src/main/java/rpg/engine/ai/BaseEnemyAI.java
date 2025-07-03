@@ -173,6 +173,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
                 if(currentState != EnumEnemyStates.PARRY) {
                     attack();
                 }
+                break;
             case DEAD:
                 break;
             default:
