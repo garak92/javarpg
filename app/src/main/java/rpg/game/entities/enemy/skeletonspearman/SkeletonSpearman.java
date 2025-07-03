@@ -43,7 +43,7 @@ public class SkeletonSpearman extends BaseMonster {
                 put("dead", SpriteAnimation.newInstance(imageView, 300, 5, 1));
                 put("walk", SpriteAnimation.newInstance(imageView, 600, 7, Animation.INDEFINITE));
                 put("attack", SpriteAnimation.newInstance(imageView, 300, 5, 1));
-                put("parry", SpriteAnimation.newInstance(imageView, 2000, 2, 1));
+                put("parry", SpriteAnimation.newInstance(imageView, 2000, 4, 1));
             }
         });
     }
