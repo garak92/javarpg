@@ -23,10 +23,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
     Line lineOfSight = new Line();
     private EnumEnemyStates currentState = EnumEnemyStates.IDLE;
     private boolean shouldMoveRandomly = false;
-    protected boolean canParry = false;
     private int randomMovementAccumulator = 0;
-    private int parryCounter = 0;
-    private static final int PARRY_DURATION_TICKS = 30;
 
     public BaseEnemyAI(BaseMonster monster, BaseMonster target) {
         super(monster);
@@ -102,17 +99,6 @@ public abstract class BaseEnemyAI extends EnemyAI {
         return currentState;
     }
 
-
-    public void parry() {
-        parryCounter++;
-        if (parryCounter >= PARRY_DURATION_TICKS) {
-            if(rngGenerator.nextFloat(0, 1) <= 0.4) {
-                transition(EnumEvents.PARRY);
-            }
-            parryCounter = 0;
-        }
-    }
-
     @Override
     public void update(List<Usable> usables) {
         if (monster.isDead() && currentState() != EnumEnemyStates.DEAD) {
@@ -167,12 +153,7 @@ public abstract class BaseEnemyAI extends EnemyAI {
                 chase();
                 break;
             case TRY_ATTACK:
-                if(canParry) {
-                    parry();
-                }
-                if(currentState != EnumEnemyStates.PARRY) {
-                    attack();
-                }
+                attack();
                 break;
             case DEAD:
                 break;

@@ -16,6 +16,7 @@ import java.util.SplittableRandom;
 public class SkeletonSpearmanAI extends BaseEnemyAI {
     private AttackPhase attackPhase = AttackPhase.IDLE;
     private int attackTimer = 0;
+    private final SplittableRandom rngGenerator = new SplittableRandom();
 
     private double targetX, targetY;
 
@@ -27,24 +28,26 @@ public class SkeletonSpearmanAI extends BaseEnemyAI {
     public SkeletonSpearmanAI(BaseMonster monster) {
         super(monster, Player.getInstance());
         attackRange = 530;
-        canParry = true;
     }
 
+    @Override
     public void attack() {
+        if (attackPhase == AttackPhase.IDLE && rngGenerator.nextDouble() < 0.4) {
+            transition(EnumEvents.PARRY);
+            return;
+        }
+
         BaseMonster player = target;
 
         switch (attackPhase) {
             case IDLE:
-                // Start the attack
                 attackPhase = AttackPhase.WINDUP;
                 attackTimer = 0;
                 break;
 
             case WINDUP:
-                // Face the player, charge the attack
                 attackTimer++;
                 if (attackTimer >= WINDUP_TIME) {
-                    // Lock onto player’s position and start jump
                     targetX = player.getCharPosx();
                     targetY = player.getCharPosy();
                     attackPhase = AttackPhase.JUMPING;
