@@ -10,12 +10,14 @@ import java.util.Random;
 
 public class OrcShamanAI extends BaseEnemyAI {
     Random random = new Random();
-    private final int attackCoolDown = 100;
+    private final int attackCoolDown = 150;
     EnumMonsterKind[] monsterKinds = {EnumMonsterKind.GORGON, EnumMonsterKind.MINOTAUR, EnumMonsterKind.SATYR,
             EnumMonsterKind.FEM_SATYR, EnumMonsterKind.SKELETON_ARCHER, EnumMonsterKind.SKELETON_SPEARMAN};
-    private int randomAttackAccumulator = 100;    public OrcShamanAI(BaseMonster monster) {
+    private int randomAttackAccumulator = 150;
+
+    public OrcShamanAI(BaseMonster monster) {
         super(monster, Player.getInstance());
-        attackRange = 600;
+        attackRange = 800;
     }
 
     @Override
