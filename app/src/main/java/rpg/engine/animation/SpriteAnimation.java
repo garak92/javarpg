@@ -56,7 +56,7 @@ public class SpriteAnimation extends Transition {
 
     public static SpriteAnimation newInstance(ImageView imageView, int duration, int framesQty, int cycleCount) {
         return new SpriteAnimation(imageView, new Duration(duration), framesQty, framesQty, 0, 0,
-                128, 160, cycleCount);
+                128, 128, cycleCount);
     }
 
     public static SpriteAnimation newInstance(ImageView imageView, int duration, int framesQty, int cycleCount,

@@ -182,7 +182,7 @@ public abstract class BaseMonster implements Thing {
         }
 
         for (BaseMonster m : level.getEnemies()) {
-            if(m.equals(this) || m.equals(Player.getInstance())) {
+            if(m.equals(this) || m.equals(Player.getInstance()) || m.isDead()) {
                 return false;
             }
             if (m.getImageView().getBoundsInParent().intersects(hitBox.getBoundsInLocal())) {
