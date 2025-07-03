@@ -173,10 +173,9 @@ public abstract class BaseEnemyAI extends EnemyAI {
 
     public void chase() {
         try {
-            if (target == null) {
-                return;
-            }
+            if (target == null) return;
 
+            // Occasionally decide to move randomly
             if (randomMovementAccumulator >= movementChangeFrequency) {
                 shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.2;
                 randomMovementAccumulator = 0;
@@ -184,24 +183,43 @@ public abstract class BaseEnemyAI extends EnemyAI {
                 randomMovementAccumulator++;
             }
 
+            // Compute directional delta
+            double dx = (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity();
+            double dy = (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity();
+
+            // Invert direction if doing random movement
             if (shouldMoveRandomly) {
-                monster.setCharPosx(monster.getCharPosx() - (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
-                monster.setCharPosy(monster.getCharPosy() - (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
-            } else {
-                monster.setCharPosx(monster.getCharPosx() + (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
-                monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
+                dx *= -1;
+                dy *= -1;
             }
 
-            if (monster.detectCollisionWithNodesPropsAndMonsters(monster.getLevel().getSolidTiles(), monster.getCharPosx(), monster.getCharPosy())) {
-                if (shouldMoveRandomly) {
-                    monster.setCharPosx(monster.getCharPosx() + (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
-                    monster.setCharPosy(monster.getCharPosy() + (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
-                } else {
-                    monster.setCharPosx(monster.getCharPosx() - (target.getCharPosx() - monster.getCharPosx()) * monster.getVelocity());
-                    monster.setCharPosy(monster.getCharPosy() - (target.getCharPosy() - monster.getCharPosy()) * monster.getVelocity());
-                }
-                shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.5;
+            // Predict next position
+            double nextX = monster.getCharPosx() + dx;
+            double nextY = monster.getCharPosy() + dy;
 
+            // Check for collisions ahead of moving
+            boolean willCollide = monster.detectCollisionWithNodesPropsAndMonsters(
+                    monster.getLevel().getSolidTiles(), nextX, nextY);
+
+            if (!willCollide) {
+                // Safe to move
+                monster.setCharPosx(nextX);
+                monster.setCharPosy(nextY);
+            } else {
+                // Invert movement direction and attempt again
+                double altDx = -dx;
+                double altDy = -dy;
+                double altX = monster.getCharPosx() + altDx;
+                double altY = monster.getCharPosy() + altDy;
+
+                if (!monster.detectCollisionWithNodesPropsAndMonsters(monster.getLevel().getSolidTiles(), altX, altY)) {
+                    // Move in opposite direction
+                    monster.setCharPosx(altX);
+                    monster.setCharPosy(altY);
+                }
+
+                // Flip random behavior more often after a block
+                shouldMoveRandomly = rngGenerator.nextFloat(0, 1) <= 0.5;
                 randomMovementAccumulator = movementChangeFrequency - 30;
             }
         } catch (Exception e) {

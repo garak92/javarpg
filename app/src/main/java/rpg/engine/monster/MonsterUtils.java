@@ -110,7 +110,7 @@ public class MonsterUtils {
         }
 
         level.getThings().add(baseMonster);
-
+        level.updateEnemyList();
         baseMonster.spawn(level.getPane());
     }
 
