@@ -31,8 +31,8 @@ import java.util.Map;
 public abstract class BaseMonster implements Thing {
     protected static Logger logger = LoggerFactory.getLogger(BaseMonster.class);
     protected final Rectangle hitBox = new Rectangle(0, 0, 0, 0);
-    protected final double HITBOX_SCALING_FACTOR_Y = 0.3;
-    protected final double HITBOX_SCALING_FACTOR_X = 0.03;
+    protected double HITBOX_SCALING_FACTOR_Y = 0.3;
+    protected double HITBOX_SCALING_FACTOR_X = 0.03;
     protected final DropShadow dropShadow = new DropShadow();
     protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
     protected Map<String, Image> images = new HashMap<>();
@@ -52,6 +52,7 @@ public abstract class BaseMonster implements Thing {
     protected String name;
     protected double boundingBoxHeight;
     protected double boundingBoxWidth;
+    protected int customDimension = 0;
 
     protected BaseMonster(double charPosx, double charPosy, double velocity, int health,
                           EnumMonsterAlignment alignment, Level level, String name) {
@@ -84,8 +85,12 @@ public abstract class BaseMonster implements Thing {
 
     public void spawn(Pane root) {
         if (alignment == EnumMonsterAlignment.PLAYER || alignment == EnumMonsterAlignment.ENEMY) {
-            imageView.setFitHeight(170);
-            imageView.setFitWidth(170);
+            int dimension = 170;
+            if(customDimension != 0) {
+                dimension = customDimension;
+            }
+            imageView.setFitHeight(dimension);
+            imageView.setFitWidth(dimension);
             imageView.setPreserveRatio(true);
         }
 

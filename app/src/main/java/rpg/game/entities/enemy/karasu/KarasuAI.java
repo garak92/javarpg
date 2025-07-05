@@ -16,12 +16,12 @@ public class KarasuAI extends BaseEnemyAI {
 
     private static final int WINDUP_TIME = 15;
     private static final int COOLDOWN_TIME = 30;
-    private static final double JUMP_SPEED = 20;
-    private static final int DAMAGE = 20;
+    private static final double JUMP_SPEED = 30;
+    private static final int DAMAGE = 50;
 
     public KarasuAI(BaseMonster monster) {
         super(monster, Player.getInstance());
-        attackRange = 600;
+        attackRange = 430;
     }
 
     public void attack() {

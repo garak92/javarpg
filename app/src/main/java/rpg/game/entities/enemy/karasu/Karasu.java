@@ -21,11 +21,11 @@ public class Karasu extends BaseMonster {
     public Karasu(double charPosx, double charPosy,
                   int shield, String name, Level level) {
 
-        super(charPosx, charPosy, 0.002, 170, alignment, level, name);
+        super(charPosx, charPosy, 0.009, 400, alignment, level, name);
 
         preCacheSprites(new HashMap<>() {
             {
-                put("idle", "/enemies/yokai/karasu_tengu/Idle_2.png");
+                put("idle", "/enemies/yokai/karasu_tengu/Idle.png");
                 put("dead", "/enemies/yokai/karasu_tengu/Dead.png");
                 put("walk", "/enemies/yokai/karasu_tengu/Walk.png");
                 put("attack", "/enemies/yokai/karasu_tengu/Attack_2.png");
@@ -40,6 +40,9 @@ public class Karasu extends BaseMonster {
                 put("attack", SpriteAnimation.newInstance(imageView, 300, 4, 1));
             }
         });
+        HITBOX_SCALING_FACTOR_X = 0.6;
+        HITBOX_SCALING_FACTOR_Y = 0.7;
+        customDimension = 260;
     }
 
     @Override

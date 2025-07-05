@@ -1,20 +1,19 @@
 package rpg.game.entities.enemy.firewizard;
 
 import javafx.animation.Animation;
-import javafx.geometry.Rectangle2D;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
-import rpg.game.abilities.MaleSatyrFireballAttack;
+import rpg.game.abilities.FireWizardFireballAttack;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class FireWizardFireball extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ATTACK;
-    private final MaleSatyrFireballAttack attack;
+    private final FireWizardFireballAttack attack;
     private final BaseMonster target;
 
     public FireWizardFireball(double charPosx, double charPosy, Level level, BaseMonster target) {
@@ -38,7 +37,7 @@ public class FireWizardFireball extends BaseMonster {
         setAnimation(getAnimations().get("idle"));
 
         this.target = target;
-        this.attack = new MaleSatyrFireballAttack(this, target);
+        this.attack = new FireWizardFireballAttack(this, target);
 
         getAnimation().setOnFinished(e -> {
           getAnimation().pause();
