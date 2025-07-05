@@ -5,6 +5,7 @@ import rpg.engine.levels.Level;
 import rpg.game.entities.enemy.cannon.CannonOrientation;
 import rpg.game.entities.enemy.cannon.LaserCannon;
 import rpg.game.entities.enemy.femalesatyr.FemaleSatyr;
+import rpg.game.entities.enemy.firewizard.FireWizard;
 import rpg.game.entities.enemy.gorgon.Gorgon;
 import rpg.game.entities.enemy.karasu.Karasu;
 import rpg.game.entities.enemy.malesatyr.MaleSatyr;
@@ -40,6 +41,7 @@ public class MonsterFactory {
             case ORC_SHAMAN -> new OrcShaman(x, y, 2, "Orc Shaman", level);
             case GORGON -> new Gorgon(x, y, 2, "Gorgon", level);
             case KARASU -> new Karasu(x, y, 2, "Karasu", level);
+            case FIRE_WIZARD -> new FireWizard(x, y, 2, "Fire Wizard", level);
 
             case PORTAL_CITY_HUB -> new Portal(x, y, 2, 50, 10, "Portal to City Hub", level, "cityhub", "sheet1.png");
             case PORTAL_LEVEL1 -> new Portal(x, y, 2, 50, 10, "Portal to level 1", level, "level1", "sheet1.png");

@@ -13,6 +13,7 @@ public enum EnumMonsterKind {
     ORC_SHAMAN,
     GORGON,
     KARASU,
+    FIRE_WIZARD,
     PORTAL_CITY_HUB,
     PORTAL_LEVEL1,
     MINI_HEALTH_PICKUP,

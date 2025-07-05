@@ -50,8 +50,16 @@ public abstract class BaseEnemyAI extends EnemyAI {
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From ATTACK to DEAD when KILLED
         transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in ATTACK -> back to IDLE
 
+
+// ATTACK_SECONDARY state transitions
+        transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK_SECONDARY, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
+        transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK_SECONDARY, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // From ATTACK to CHASE if AGGROED
+        transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK_SECONDARY, EnumEvents.KILLED, EnumEnemyStates.DEAD));  // From ATTACK to DEAD when KILLED
+        transitionTable.add(new StateTransition(EnumEnemyStates.ATTACK_SECONDARY, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in ATTACK -> back to IDLE
+
 // TRY_ATTACK state transitions
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.CAST_ATTACK, EnumEnemyStates.ATTACK));  // From TRY_ATTACK to ATTACK when CAST_ATTACK
+        transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.CAST_ATTACK_SECONDARY, EnumEnemyStates.ATTACK_SECONDARY));  // From TRY_ATTACK to ATTACK when CAST_ATTACK
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.FINISH_ATTACK, EnumEnemyStates.CHASE));  // Finish ATTACK -> back to CHASE
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.AGGROED, EnumEnemyStates.CHASE));  // From TRY_ATTACK to CHASE if AGGROED
         transitionTable.add(new StateTransition(EnumEnemyStates.TRY_ATTACK, EnumEvents.TARGET_KILLED, EnumEnemyStates.IDLE));  // Target KILLED in TRY_ATTACK -> IDLE
@@ -92,6 +100,13 @@ public abstract class BaseEnemyAI extends EnemyAI {
         double currentMonsterDistance = Math
                 .sqrt(Math.pow(monster.getCharPosx() - target.getCharPosx(), 2) + Math.pow(monster.getCharPosy() - target.getCharPosy(), 2));
         return currentMonsterDistance <= attackRange;
+
+    }
+
+    public boolean checkMonsterInAttackRange(BaseMonster target, int ATTACK_RANGE) {
+        double currentMonsterDistance = Math
+                .sqrt(Math.pow(monster.getCharPosx() - target.getCharPosx(), 2) + Math.pow(monster.getCharPosy() - target.getCharPosy(), 2));
+        return currentMonsterDistance <= ATTACK_RANGE;
 
     }
 

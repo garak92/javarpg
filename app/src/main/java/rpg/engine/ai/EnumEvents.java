@@ -8,6 +8,7 @@ public enum EnumEvents {
     CAN_ATTACK,
     FINISH_ATTACK,
     CAST_ATTACK,
+    CAST_ATTACK_SECONDARY,
     PARRY,
     FINISH_PARRY
 }

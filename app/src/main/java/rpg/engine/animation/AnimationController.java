@@ -28,6 +28,8 @@ public class AnimationController {
             case DEAD -> playAnimation("dead", animations.get("dead"));
             case CHASE -> playAnimation("walk", animations.get("walk"));
             case ATTACK -> playAnimation("attack", animations.get("attack"), EnumEvents.FINISH_ATTACK);
+            case ATTACK_SECONDARY -> playAnimation("attack_secondary", animations.get("attack_secondary"),
+                    EnumEvents.FINISH_ATTACK);
             case PARRY -> playAnimation("parry", animations.get("parry"), EnumEvents.FINISH_PARRY);
         }
     }
