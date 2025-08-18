@@ -4,6 +4,7 @@ import javafx.scene.layout.Pane;
 import rpg.engine.monster.BaseMonster;
 
 import java.util.List;
+import java.util.SplittableRandom;
 
 public class CyclicDialogBox extends BaseDialogBox {
     private final List<String> dialogues;
@@ -11,6 +12,7 @@ public class CyclicDialogBox extends BaseDialogBox {
     private final double posY;
     private final BaseMonster monster;
     private int currentIndex = 0;
+    private final SplittableRandom rngGenerator = new SplittableRandom();
 
     public CyclicDialogBox(List<String> dialogues, Pane pane, BaseMonster monster) {
         super(pane);
@@ -25,14 +27,12 @@ public class CyclicDialogBox extends BaseDialogBox {
 
     @Override
     public void use() {
-        currentIndex = (currentIndex + 1) % dialogues.size();
-        text.setText(dialogues.get(currentIndex));
-
-        updateLayout(monster.getCharPosx(), monster.getCharPosy());
-
         if (open) {
             close();
         } else {
+            currentIndex = (rngGenerator.nextInt(0, dialogues.size())) % dialogues.size();
+            text.setText(dialogues.get(currentIndex));
+            updateLayout(monster.getCharPosx(), monster.getCharPosy());
             open();
         }
     }
