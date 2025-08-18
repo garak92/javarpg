@@ -90,6 +90,7 @@ public class Game extends Application {
             gameLoop.setMaximumStep(0.0166f);
             gameLoop.start();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
     }

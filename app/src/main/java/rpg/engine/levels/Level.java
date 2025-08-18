@@ -33,6 +33,7 @@ public class Level {
     final static Logger logger = LoggerFactory.getLogger(Level.class);
     private final int TILE_SIZE = 128;
     private final List<List<String>> tileMap = new ArrayList<List<String>>();
+    private final List<String> dialogList = new ArrayList<>();
     private final List<List<String>> thingMap = new ArrayList<List<String>>();
     private final String title;
     private final String textureFile;
@@ -86,12 +87,22 @@ public class Level {
                 // Level textures file
                 InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
 
+                // Level dialogs file
+                Object dialogsFile = this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs");
+                BufferedReader dialogReader = null;
+                if(dialogsFile != null) {
+                    dialogReader = new BufferedReader(
+                            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs"),
+                                    StandardCharsets.UTF_8));
+                }
+
             // Cleanup
             this.pane.getChildren().clear();
 
             // Initialize tile list and monster list
             cacheLevelData(tileReader, NodeTypeEnum.LEVEL);
             cacheLevelData(thingReader, NodeTypeEnum.MONSTER);
+            cacheDialogData(dialogReader);
 
             // Create tile sheet image
             tileSheet = new Image(stream);
@@ -132,6 +143,24 @@ public class Level {
             }
             pane.getChildren().addAll(getTiles());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cacheDialogData(BufferedReader reader) {
+        if(reader == null) {
+            return;
+        }
+
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                dialogList.add(line);
+                line = reader.readLine();
+            }
+
+        } catch (Exception e) {
+            logger.error("There was an error caching dialog data");
             e.printStackTrace();
         }
     }
@@ -386,4 +415,7 @@ public class Level {
         return stage;
     }
 
+    public List<String> getDialogList() {
+        return dialogList;
+    }
 }
