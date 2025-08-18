@@ -15,10 +15,10 @@ class TileMapper {
         tileDataMap.put("3", new TileData(0, 3, true));
         tileDataMap.put("4", new TileData(0, 4, true));
         tileDataMap.put("5", new TileData(0, 5, true));
-        tileDataMap.put("6", new TileData(0, 6, true));
-        tileDataMap.put("7", new TileData(0, 7, true));
+        tileDataMap.put("6", new TileData(0, 6, false));
+        tileDataMap.put("7", new TileData(0, 7, false));
         tileDataMap.put("8", new TileData(0, 8, true));
-        tileDataMap.put("9", new TileData(1, 0, true));
+        tileDataMap.put("9", new TileData(1, 0, false));
         tileDataMap.put("a", new TileData(1, 1, true));
         tileDataMap.put("b", new TileData(1, 2, true));
         tileDataMap.put("c", new TileData(1, 3, true));
@@ -38,7 +38,7 @@ class TileMapper {
         tileDataMap.put("q", new TileData(2, 8, true));
         tileDataMap.put("r", new TileData(3, 0, true));
         tileDataMap.put("s", new TileData(3, 1, true));
-        tileDataMap.put("t", new TileData(3, 2, true));
+        tileDataMap.put("t", new TileData(3, 2, false));
         tileDataMap.put("u", new TileData(3, 3, true));
         tileDataMap.put("v", new TileData(3, 4, true));
         tileDataMap.put("w", new TileData(3, 5, true));
@@ -72,6 +72,24 @@ class TileMapper {
         tileDataMap.put("♫", new TileData(6, 6, true));
         tileDataMap.put("✌", new TileData(6, 7, true));
         tileDataMap.put("✿", new TileData(6, 8, true));
+        tileDataMap.put("R", new TileData(7, 0, true));
+        tileDataMap.put("A", new TileData(7, 1, true));
+        tileDataMap.put("B", new TileData(7, 2, true));
+        tileDataMap.put("C", new TileData(7, 3, true));
+        tileDataMap.put("D", new TileData(7, 4, true));
+        tileDataMap.put("E", new TileData(7, 5, true));
+        tileDataMap.put("F", new TileData(7, 6, true));
+        tileDataMap.put("G", new TileData(7, 7, true));
+        tileDataMap.put("H", new TileData(7, 8, true));
+        tileDataMap.put("I", new TileData(8, 0, true));
+        tileDataMap.put("J", new TileData(8, 1, true));
+        tileDataMap.put("K", new TileData(8, 2, true));
+        tileDataMap.put("L", new TileData(8, 3, true));
+        tileDataMap.put("M", new TileData(8, 4, true));
+        tileDataMap.put("N", new TileData(8, 5, true));
+        tileDataMap.put("O", new TileData(8, 6, true));
+        tileDataMap.put("P", new TileData(8, 7, true));
+        tileDataMap.put("Q", new TileData(8, 8, true));
     }
 
     public static TileData getTileData(String symbol) {
