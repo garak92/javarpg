@@ -28,7 +28,7 @@ public class MiniHealthPickup extends BaseMonster {
         getImageView().setFitWidth(40);
         getImageView().setFitHeight(40);
 
-        this.item = new MiniHealthPickupItem(this, this.getLevel().getPlayer());
+        this.item = new MiniHealthPickupItem(this);
 
         logger.info("Item: " + this);
 

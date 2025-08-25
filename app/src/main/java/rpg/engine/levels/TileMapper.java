@@ -27,7 +27,7 @@ class TileMapper {
         tileDataMap.put("f", new TileData(1, 6, true));
         tileDataMap.put("g", new TileData(1, 7, true));
         tileDataMap.put("h", new TileData(1, 8, true));
-        tileDataMap.put("i", new TileData(2, 0, true));
+        tileDataMap.put("i", new TileData(2, 0, false));
         tileDataMap.put("j", new TileData(2, 1, true));
         tileDataMap.put("k", new TileData(2, 2, true));
         tileDataMap.put("l", new TileData(2, 3, true));
