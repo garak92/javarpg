@@ -26,6 +26,11 @@ public enum EnumMonsterKind {
     LASER_CANNON_UP,
     LASER_CANNON_DOWN,
     LASER_CANNON_RIGHT,
-    LASER_CANNON_LEFT
+    LASER_CANNON_LEFT,
+    STATUE,
+    TENT,
+    FOUNTAIN,
+    STABLE,
+    CATTLE
 }
 

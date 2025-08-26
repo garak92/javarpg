@@ -65,6 +65,12 @@ public class SpriteAnimation extends Transition {
                 width, height, cycleCount);
     }
 
+    public static SpriteAnimation newInstance(ImageView imageView, int duration, int framesQty, int cycleCount,
+                                              int width, int height, int offsetX, int offsetY) {
+        return new SpriteAnimation(imageView, new Duration(duration), framesQty, framesQty, offsetX, offsetY,
+                width, height, cycleCount);
+    }
+
     @Override
     protected void interpolate(double k) {
         if(Game.getInstance().isPaused()) {

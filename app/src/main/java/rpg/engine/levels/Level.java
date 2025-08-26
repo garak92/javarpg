@@ -231,6 +231,21 @@ public class Level {
                         case "H":
                             MonsterUtils.spawnMonster(EnumMonsterKind.HOUSE, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
+                        case "S":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.STATUE, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "F":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.FOUNTAIN, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "L":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.STABLE, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "C":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.CATTLE, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "N":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.TENT, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
                         case "v":
                             MonsterUtils.spawnMonster(EnumMonsterKind.VILLAGER, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;

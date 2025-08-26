@@ -20,10 +20,7 @@ import rpg.game.entities.item.ElixirOfYouth;
 import rpg.game.entities.item.MiniHealthPickup;
 import rpg.game.entities.player.Player;
 import rpg.game.entities.villager.Villager;
-import rpg.game.environment.Bush;
-import rpg.game.environment.House;
-import rpg.game.environment.Rock;
-import rpg.game.environment.Tree;
+import rpg.game.environment.*;
 
 public class MonsterFactory {
     public static BaseMonster getMonster(EnumMonsterKind kind, int x, int y, Level level) {
@@ -55,11 +52,16 @@ public class MonsterFactory {
             case HOUSE -> new House(x, y, level);
 
             case VILLAGER -> new Villager(x, y, 1, 30, 10, "Villager", level);
+            case CATTLE -> new Cattle(x, y, 1, 30, 10, "Cattle", level);
 
             case LASER_CANNON_UP -> new LaserCannon(x, y, 1, "Laser Cannon", level, CannonOrientation.UP);
             case LASER_CANNON_DOWN -> new LaserCannon(x, y, 1, "Laser Cannon", level, CannonOrientation.DOWN);
             case LASER_CANNON_RIGHT -> new LaserCannon(x, y, 1, "Laser Cannon", level, CannonOrientation.RIGHT);
             case LASER_CANNON_LEFT -> new LaserCannon(x, y, 1, "Laser Cannon", level, CannonOrientation.LEFT);
+            case STATUE -> new Statue(x, y, level);
+            case TENT -> new Tent(x, y, level);
+            case FOUNTAIN -> new Fountain(x, y, level);
+            case STABLE -> new Stable(x, y, level);
         };
     }
 }
