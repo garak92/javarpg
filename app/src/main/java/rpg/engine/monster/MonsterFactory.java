@@ -62,6 +62,9 @@ public class MonsterFactory {
             case TENT -> new Tent(x, y, level);
             case FOUNTAIN -> new Fountain(x, y, level);
             case STABLE -> new Stable(x, y, level);
+            case TOMBSTONE -> new Tombstone(x, y, level);
+            case FURNACE -> new Furnace(x, y, level);
+            case ANVIL -> new Anvil(x, y, level);
         };
     }
 }

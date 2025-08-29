@@ -31,6 +31,9 @@ public enum EnumMonsterKind {
     TENT,
     FOUNTAIN,
     STABLE,
-    CATTLE
+    CATTLE,
+    TOMBSTONE,
+    FURNACE,
+    ANVIL
 }
 
