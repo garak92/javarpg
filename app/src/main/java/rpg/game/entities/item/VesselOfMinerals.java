@@ -6,16 +6,16 @@ import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.quest.QuestLog;
-import rpg.game.items.ElixirOfYouthItem;
+import rpg.game.items.VesselOfMineralsItem;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ElixirOfYouth extends BaseMonster {
+public class VesselOfMinerals extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.ITEM;
-    private final ElixirOfYouthItem item;
+    private final VesselOfMineralsItem item;
 
-    public ElixirOfYouth(double charPosx, double charPosy, Level level) {
+    public VesselOfMinerals(double charPosx, double charPosy, Level level) {
         super(charPosx, charPosy, 0, 0, alignment, level);
 
         preCacheSprites(new HashMap<String, String>() {
@@ -29,13 +29,16 @@ public class ElixirOfYouth extends BaseMonster {
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
 
-        this.item = new ElixirOfYouthItem(this, this.getLevel().getPlayer());
+        this.item = new VesselOfMineralsItem(this, this.getLevel().getPlayer());
 
         logger.info("Item: " + this);
     }
 
     @Override
     public void die() {
+        if(!QuestLog.INSTANCE.isQuestEntity(this)) {
+            return;
+        }
         level.removeThing(this);
         QuestLog.INSTANCE.updateActiveQuests(this);
     }

@@ -22,7 +22,7 @@ public class Notification {
         this.box = box;
     }
 
-    public static Notification valueOf(String text) {
+    protected static Notification valueOf(String text) {
         Font rpgFont = Font.loadFont(Notification.class.getResourceAsStream("/fonts/HomeVideo-BLG6G.ttf"), 20);
         if (rpgFont == null) {
             rpgFont = Font.font("Serif", 16); // fallback

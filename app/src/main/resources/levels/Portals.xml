@@ -1,0 +1,23 @@
+<levels>
+    <level name="SunVillage">
+        <portals>
+            <portal>
+                <yCoordinate>18</yCoordinate>
+                <xCoordinate>94</xCoordinate>
+                <destination>PanambiWoods</destination>
+                <unlockingQuestName>Clear the field!</unlockingQuestName>
+            </portal>
+        </portals>
+    </level>
+
+    <level name="PanambiWoods">
+        <portals>
+            <portal>
+                <yCoordinate>26</yCoordinate>
+                <xCoordinate>71</xCoordinate>
+                <destination>GoldenBeach</destination>
+                <unlockingQuestName>Get those rocks</unlockingQuestName>
+            </portal>
+        </portals>
+    </level>
+</levels>

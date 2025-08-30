@@ -45,8 +45,8 @@ class TileMapper {
         tileDataMap.put("x", new TileData(3, 6, false));
         tileDataMap.put("y", new TileData(3, 7, true));
         tileDataMap.put("z", new TileData(3, 8, true));
-        tileDataMap.put("{", new TileData(4, 0, true));
-        tileDataMap.put("|", new TileData(4, 1, true));
+        tileDataMap.put("{", new TileData(4, 0, false));
+        tileDataMap.put("|", new TileData(4, 1, false));
         tileDataMap.put("}", new TileData(4, 2, true));
         tileDataMap.put("~", new TileData(4, 3, true));
         tileDataMap.put("€", new TileData(4, 4, true));
@@ -63,7 +63,7 @@ class TileMapper {
         tileDataMap.put("¥", new TileData(5, 6, true));
         tileDataMap.put("∆", new TileData(5, 7, true));
         tileDataMap.put("♂", new TileData(5, 8, true));
-        tileDataMap.put("♀", new TileData(6, 0, true));
+        tileDataMap.put("♀", new TileData(6, 0, false));
         tileDataMap.put("•", new TileData(6, 1, true));
         tileDataMap.put("♦", new TileData(6, 2, true));
         tileDataMap.put("♣", new TileData(6, 3, true));

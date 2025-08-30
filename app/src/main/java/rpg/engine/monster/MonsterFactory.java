@@ -16,7 +16,9 @@ import rpg.game.entities.enemy.skeletonarcher.SkeletonArcher;
 import rpg.game.entities.enemy.skeletonspearman.SkeletonSpearman;
 import rpg.game.entities.enemy.werewolf.Werewolf;
 import rpg.game.entities.igrenne.Igrenne;
-import rpg.game.entities.item.ElixirOfYouth;
+import rpg.game.entities.item.ScientificInstrument;
+import rpg.game.entities.item.ScrollOfAntibiotics;
+import rpg.game.entities.item.VesselOfMinerals;
 import rpg.game.entities.item.MiniHealthPickup;
 import rpg.game.entities.player.Player;
 import rpg.game.entities.villager.Villager;
@@ -39,13 +41,14 @@ public class MonsterFactory {
             case GORGON -> new Gorgon(x, y, 2, "Gorgon", level);
             case KARASU -> new Karasu(x, y, 2, "Karasu", level);
             case FIRE_WIZARD -> new FireWizard(x, y, 2, "Fire Wizard", level);
-
-            case PORTAL_CITY_HUB -> new Portal(x, y, 2, 50, 10, "Portal to City Hub", level, "cityhub", "sheet1.png");
-            case PORTAL_LEVEL1 -> new Portal(x, y, 2, 50, 10, "Portal to level 1", level, "level1", "sheet1.png");
-
             case MINI_HEALTH_PICKUP -> new MiniHealthPickup(x, y, level);
-            case ELIXIR_OF_YOUTH -> new ElixirOfYouth(x, y, level);
 
+            // Quest items
+            case VESSEL_OF_MINERALS -> new VesselOfMinerals(x, y, level);
+            case SCROLL_OF_ANTIBIOTICS -> new ScrollOfAntibiotics(x, y, level);
+            case SCIENTIFIC_INSTRUMENT -> new ScientificInstrument(x, y, level);
+
+            // Props
             case TREE -> new Tree(x, y, level);
             case ROCK -> new Rock(x, y, level);
             case BUSH -> new Bush(x, y, level);

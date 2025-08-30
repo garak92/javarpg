@@ -7,9 +7,14 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import rpg.engine.common.Thing;
 import rpg.engine.common.Usable;
 import rpg.engine.common.camera.Camera;
+import rpg.engine.common.misc.Portal;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.monster.EnumMonsterKind;
@@ -19,14 +24,14 @@ import rpg.game.entities.igrenne.Igrenne;
 import rpg.game.entities.player.Player;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Level {
@@ -74,6 +79,9 @@ public class Level {
                 // Common level background
                 InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
 
+                // Portal manifest
+                InputStream portalManifest = this.getClass().getResourceAsStream("/levels/Portals.xml");
+
                 // Level tiles file
                 BufferedReader tileReader = new BufferedReader(
                         new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles"),
@@ -110,6 +118,7 @@ public class Level {
             // Load tiles and monsters
             loadTiles();
             loadMonsters();
+            generatePortals(portalManifest, this.title);
 
             // Load common background
             Image commonBackgroundImage = new Image(backgroundImageFile);
@@ -146,6 +155,62 @@ public class Level {
             e.printStackTrace();
         }
     }
+
+    private void generatePortals(InputStream portalManifest, String levelName) {
+        try {
+            // Parse XML
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(portalManifest);
+            doc.getDocumentElement().normalize();
+
+            // Get all levels
+            NodeList levels = doc.getElementsByTagName("level");
+
+            for (int i = 0; i < levels.getLength(); i++) {
+                Element levelElement = (Element) levels.item(i);
+
+                if (levelElement.getAttribute("name").equals(levelName)) {
+                    System.out.println("Level: " + levelName);
+
+                    NodeList portals = levelElement.getElementsByTagName("portal");
+
+                    for (int j = 0; j < portals.getLength(); j++) {
+                        Element portal = (Element) portals.item(j);
+
+                        String x = portal.getElementsByTagName("xCoordinate")
+                                .item(0).getTextContent();
+                        String y = portal.getElementsByTagName("yCoordinate")
+                                .item(0).getTextContent();
+                        String destination = portal.getElementsByTagName("destination")
+                                .item(0).getTextContent();
+
+                        Node questNode = portal.getElementsByTagName("unlockingQuestName")
+                                .getLength() > 0
+                                ? portal.getElementsByTagName("unlockingQuestName").item(0)
+                                : null;
+
+                        // Create portal and spawn it on the level
+                        if (questNode != null) {
+                            MonsterUtils.spawnMonster(new Portal(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                                    2, 50, 10, "Portal to " + destination, this, destination,
+                                    "sheet1.png", questNode.getTextContent()), this);
+                            return;
+                        }
+
+                        MonsterUtils.spawnMonster(new Portal(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                                2, 50, 10, "Portal to " + destination, this, destination,
+                                "sheet1.png"), this);
+
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void cacheDialogData(BufferedReader reader) {
         if(reader == null) {
@@ -207,17 +272,17 @@ public class Level {
                         case "8":
                             MonsterUtils.spawnMonster(EnumMonsterKind.GORGON, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
-                        case "@":
-                            MonsterUtils.spawnMonster(EnumMonsterKind.PORTAL_CITY_HUB, TILE_SIZE * j, TILE_SIZE * i, this);
-                            break;
-                        case "A":
-                            MonsterUtils.spawnMonster(EnumMonsterKind.PORTAL_LEVEL1, TILE_SIZE * j, TILE_SIZE * i, this);
-                            break;
                         case "h":
                             MonsterUtils.spawnMonster(EnumMonsterKind.MINI_HEALTH_PICKUP, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
                         case "e":
-                            MonsterUtils.spawnMonster(EnumMonsterKind.ELIXIR_OF_YOUTH, TILE_SIZE * j, TILE_SIZE * i, this);
+                            MonsterUtils.spawnMonster(EnumMonsterKind.VESSEL_OF_MINERALS, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "i":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.SCIENTIFIC_INSTRUMENT, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "s":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.SCROLL_OF_ANTIBIOTICS, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
                         case "T":
                             MonsterUtils.spawnMonster(EnumMonsterKind.TREE, TILE_SIZE * j, TILE_SIZE * i, this);
@@ -269,6 +334,9 @@ public class Level {
                             break;
                         case "←":
                             MonsterUtils.spawnMonster(EnumMonsterKind.LASER_CANNON_LEFT, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "f":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.FEM_SATYR, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
                     }
                     // Get initial enemy list

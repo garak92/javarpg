@@ -1,19 +1,24 @@
 <?xml version="1.0"?>
 <Quests>
     <Quest>
-        <Name>Dammned creatures on my yard!</Name>
+        <Name>Clear the field!</Name>
         <Description>
-            Hello, fellow traveler! My name is Igrenne. Do you see that portal over there?
-            It leads to the realm of the elves. Sadly, it has been overrun by the Evil Lord and his troops.
-            Please, kill six Satyr for me. Find me on the other side of the portal, I'll reward you with 10 experience
-            points.
+           Hello! I was looking for you. Remember the scrolls I've found the other day? They seem to be from the ancient one's era, pre-cataclysm.
+           Well, they seem to point to a medicine called "antibiotic". As I scientist, I can't resist wanting to know all about them. But also,
+           they might help cure the plague. We couldn't save your grandparents, but maybe we can save the rest of the village.
+           I believe there are more scrolls where this came from: Panambi Woods. They might contain information on antibiotics.
+
+           As you know, it is widely believed that the ancient ones had technology beyond our comprehension, and both the Federation
+           and the Sigil want to get their hands on them, and use it to win the war and further their agendas. Luckily, we
+           are neutral, for now. We still might face resistance from the wild Satyr tribes.
+
+           Take this teleporter to Panambi Woods, kill 15 Satyr, and meet with me. You'll receive 10 experience points.
         </Description>
         <DialogInProgress>
-            Have you killed them yet?
+            Have you cleared the woods yet?
         </DialogInProgress>
         <DialogCompleted>
-            Wow! You are a strong one. Thank you for taking care of those bastards!
-            Here, take my 10 exp points and get lost.
+            I knew that wouldn't be a problem for a good mage like you. Now, let's get down to business.
         </DialogCompleted>
         <ExperiencePoints>
             10
@@ -25,37 +30,124 @@
             Satyr
         </EntityFriendlyName>
         <ObjectiveQuantity>
-            6
+           15
         </ObjectiveQuantity>
         <Giver>
             rpg.game.entities.igrenne.Igrenne
         </Giver>
     </Quest>
     <Quest>
-        <Name>Elixir of youth</Name>
+        <Name>Knowledge is power</Name>
         <Description>
-            I am not getting any younger, pal. Please, bring me the elixir of youth. You'll find it deep into the satyr
-            realms,
-            following that portal over there.
+           As I told you, we need to find information on antibiotics: how do they work, and how to make them. I believe
+           we will find what we need deep in the forest, north from here. Find them, and bring them back to me.
+           But beware: you may find more resistance from the Satyrs. You'll get 15 experience points.
         </Description>
         <DialogInProgress>
-            Have you find it yet?
+            Have you find them yet?
         </DialogInProgress>
         <DialogCompleted>
-            Amazing!
-            Here, take my 10 exp points and get lost.
+            Amazing! Let me take a look...
         </DialogCompleted>
         <ExperiencePoints>
-            10
+            15
         </ExperiencePoints>
         <Entity>
-            rpg.game.entities.item.ElixirOfYouth
+            rpg.game.entities.item.ScrollOfAntibiotics
         </Entity>
         <EntityFriendlyName>
-            Exlixir of Youth
+            Scroll of Antibiotics
         </EntityFriendlyName>
         <ObjectiveQuantity>
             1
+        </ObjectiveQuantity>
+        <Giver>
+            rpg.game.entities.igrenne.Igrenne
+        </Giver>
+    </Quest>
+    <Quest>
+        <Name>Get those rocks</Name>
+        <Description>
+           It looks like we are going to need some specific minerals. Luckily, I have them all in my collection.
+           Now, my collection is on a tent on Golden Beach. I had to abandon the tent because it was overrun with werewolves and gorgons.
+           Take this teleporter to Golden Beach, find the tent, and meet me there with the minerals.
+        </Description>
+        <DialogInProgress>
+            Have you find those minerals yet?
+        </DialogInProgress>
+        <DialogCompleted>
+            Good work. And now, for the last step...
+        </DialogCompleted>
+        <ExperiencePoints>
+            15
+        </ExperiencePoints>
+        <Entity>
+            rpg.game.entities.item.VesselOfMinerals
+        </Entity>
+        <EntityFriendlyName>
+            Vessel Of Minerals
+        </EntityFriendlyName>
+        <ObjectiveQuantity>
+            1
+        </ObjectiveQuantity>
+        <Giver>
+            rpg.game.entities.igrenne.Igrenne
+        </Giver>
+    </Quest>
+    <Quest>
+        <Name>Satyr, be gone!</Name>
+        <Description>
+           I need to perform complex chemical operations. For that, I need some instruments.
+           There is a cave in the south, which contains an ancient ruin. You should find some tools we could restore
+           for our use. I'd hate having to make them from scratch. But first, get rid of the Satyrs protecting them.
+        </Description>
+        <DialogInProgress>
+            Have you find those instruments yet on the southern cave?
+        </DialogInProgress>
+        <DialogCompleted>
+            Very good! Now, let me tell you about the instruments...
+        </DialogCompleted>
+        <ExperiencePoints>
+            15
+        </ExperiencePoints>
+        <Entity>
+            rpg.game.entities.enemy.malesatyr.MaleSatyr
+        </Entity>
+        <EntityFriendlyName>
+            Male Satyr
+        </EntityFriendlyName>
+        <ObjectiveQuantity>
+          3
+        </ObjectiveQuantity>
+        <Giver>
+            rpg.game.entities.igrenne.Igrenne
+        </Giver>
+    </Quest>
+    <Quest>
+        <Name>No tools, no goods</Name>
+        <Description>
+           As I told you before, I need some instruments in order to chemically process the minerals.
+           You should find them at the end of the cave you just cleared. You don't know how they look,
+           so just bring everything you find that looks artificially made.
+        </Description>
+        <DialogInProgress>
+            Have you find those instruments yet on the southern cave?
+        </DialogInProgress>
+        <DialogCompleted>
+            Perfect, these will do just fine. Now we can finally make antibiotics and cure the plague that is
+            destroying our village!
+        </DialogCompleted>
+        <ExperiencePoints>
+            15
+        </ExperiencePoints>
+        <Entity>
+            rpg.game.entities.item.ScientificInstrument
+        </Entity>
+        <EntityFriendlyName>
+            Scientific instrument
+        </EntityFriendlyName>
+        <ObjectiveQuantity>
+         4
         </ObjectiveQuantity>
         <Giver>
             rpg.game.entities.igrenne.Igrenne

@@ -17,7 +17,7 @@ public class Quest {
     private int questObjective = 0;
     private int experiencePoints = 0;
     private EnumQuestStatus questStatus = EnumQuestStatus.AVAILABLE;
-    private INotificationService notificationService = new NotificationService();
+    private final INotificationService notificationService = new NotificationService();
 
     public <T extends BaseMonster> Quest(String name, String description, String inProgressDialog, String completedDialog,
                                          int experiencePoints, Class<? extends BaseMonster> questEntityType,
@@ -71,7 +71,7 @@ public class Quest {
         }
         if (entityCounter == questObjective) {
             this.questStatus = EnumQuestStatus.COMPLETED;
-            notificationService.pushNotification("QUEST COMPLETED!", 2000);
+            notificationService.pushNotification("QUEST COMPLETED! FIND " + questGiver.getSimpleName() + "!", 3000);
         }
     }
 

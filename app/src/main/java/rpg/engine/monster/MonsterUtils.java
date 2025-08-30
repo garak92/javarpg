@@ -114,6 +114,18 @@ public class MonsterUtils {
         baseMonster.spawn(level.getPane());
     }
 
+    public static void spawnMonster(BaseMonster baseMonster, Level level) {
+        if (baseMonster instanceof Usable) {
+            level.getUsables().add((Usable) baseMonster);
+        } else if (baseMonster.getAlignment() == EnumMonsterAlignment.PROP) {
+            level.getEnvProps().add(baseMonster);
+        }
+
+        level.getThings().add(baseMonster);
+        level.updateEnemyList();
+        baseMonster.spawn(level.getPane());
+    }
+
     public static Rectangle2D calculateOpaqueBounds(Image image) {
         PixelReader reader = image.getPixelReader();
         if (reader == null) return new Rectangle2D(0, 0, image.getWidth(), image.getHeight());

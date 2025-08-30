@@ -220,7 +220,7 @@ public class Player extends BaseMonster {
 
     @Override
     public void update(List<Usable> usables) {
-        if(experiencePoints >= 20 && playerLevel != 2) {
+        if(experiencePoints >= 70 && playerLevel != 2) {
             this.playerLevel = 2;
             notificationService
                     .pushNotification("YOU ARE NOW LEVEL 2! NEW ABILITY UNLOCKED: TERROR OF ICE.\n PRESS 2 TO TRY IT! USE IT WISELY.",

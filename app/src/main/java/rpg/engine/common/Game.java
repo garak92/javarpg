@@ -74,7 +74,7 @@ public class Game extends Application {
             QuestLoader.loadQuests();
 
             // Initialize first level
-            Level currentLevel = new Level("cityhub", "sheet1.png", levelPane, primaryStage).load();
+            Level currentLevel = new Level("SunVillage", "sheet1.png", levelPane, primaryStage).load();
 
             // Initialize game loop
 
