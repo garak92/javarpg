@@ -74,7 +74,7 @@ public class QuestDialogBox extends BaseDialogBox {
             currentPageIndex++;
             showCurrentPage();
             return;
-        }
+       }
 
         // reached the end of pagination OR not open yet
         setDialogueText();
@@ -98,17 +98,29 @@ public class QuestDialogBox extends BaseDialogBox {
 
     @Override
     public void stopUsing() {
-        close();
-        if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
-            quest.deliverQuest(questGiver.getLevel().getPlayer());
-        }
-        quest.acceptQuest();
-
-        if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
-                && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
-            this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
-            paginate(this.quest.getCurrentText());
+        if (open && currentPageIndex < pages.size() - 1) {
+            // still more pages left
+            currentPageIndex = 0;
             showCurrentPage();
+            close();
+            return;
+        }
+
+        // reached the end of pagination OR not open yet
+        setDialogueText();
+        if (open) {
+            close();
+            if (this.quest.getQuestStatus() != EnumQuestStatus.DELIVERED) {
+                quest.deliverQuest(questGiver.getLevel().getPlayer());
+            }
+            quest.acceptQuest();
+
+            if (this.quest.getQuestStatus() == EnumQuestStatus.DELIVERED
+                    && QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver) != null) {
+                this.quest = QuestLog.INSTANCE.getNextQuestForThisGiver(questGiver);
+                paginate(this.quest.getCurrentText());
+                showCurrentPage();
+            }
         }
     }
 }

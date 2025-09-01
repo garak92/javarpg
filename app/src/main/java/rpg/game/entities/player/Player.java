@@ -160,9 +160,7 @@ public class Player extends BaseMonster {
                     this.imageView.getBoundsInParent().getCenterY(),
                     boundingBoxWidth, boundingBoxHeight)) {
                     b.use(this);
-                    if (b.getBaseMonster().getAlignment() == EnumMonsterAlignment.FRIEND) {
-                        usedEntities.add(b);
-                    }
+                    usedEntities.add(b);
             } else {
                 using = false;
             }
@@ -172,6 +170,7 @@ public class Player extends BaseMonster {
     public void stopInteraction() {
         double boundingBoxHeight = this.imageView.getBoundsInParent().getHeight() * 20 / 100;
         double boundingBoxWidth = this.imageView.getBoundsInParent().getWidth() * 20 / 100;
+        using = false;
         for (Usable b : usedEntities) {
             if (!b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
                     this.imageView.getBoundsInParent().getCenterY(),
