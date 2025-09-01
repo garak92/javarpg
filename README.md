@@ -22,6 +22,8 @@ Features:
 - Clone the repo
 - Run ./gradlew run
 
+Java version: 21
+
 ## Packaging
 
 I personally use packr-all.jar, a tool developed by the libgdx team. Example:
