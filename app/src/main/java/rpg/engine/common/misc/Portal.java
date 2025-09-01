@@ -6,11 +6,10 @@ import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.levels.LevelLoader;
-import rpg.engine.levels.LevelNode;
+import rpg.engine.levels.EntityNode;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.notification.INotificationService;
-import rpg.engine.notification.Notification;
 import rpg.engine.notification.NotificationService;
 import rpg.engine.quest.QuestLog;
 import rpg.game.entities.player.Player;
@@ -99,7 +98,7 @@ public class Portal extends BaseMonster implements Usable {
     }
 
     @Override
-    public LevelNode getLevelNode() {
+    public EntityNode getLevelNode() {
         return this.imageView;
     }
 

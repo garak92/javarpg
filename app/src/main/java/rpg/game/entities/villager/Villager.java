@@ -6,7 +6,7 @@ import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.dialog.CyclicDialogBox;
 import rpg.engine.levels.Level;
-import rpg.engine.levels.LevelNode;
+import rpg.engine.levels.EntityNode;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.game.entities.player.Player;
@@ -123,7 +123,7 @@ public class Villager extends BaseMonster implements Usable {
     }
 
     @Override
-    public LevelNode getLevelNode() {
+    public EntityNode getLevelNode() {
         return this.imageView;
     }
 

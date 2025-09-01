@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Thing;
 import rpg.engine.levels.Level;
+import rpg.engine.levels.EntityNode;
 import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.render.IRenderer;
@@ -34,7 +35,7 @@ public abstract class BaseMonster implements Thing {
     protected double HITBOX_SCALING_FACTOR_Y = 0.3;
     protected double HITBOX_SCALING_FACTOR_X = 0.03;
     protected final DropShadow dropShadow = new DropShadow();
-    protected LevelNode imageView = new LevelNode(NodeTypeEnum.MONSTER);
+    protected EntityNode imageView = new EntityNode(NodeTypeEnum.MONSTER);
     protected Map<String, Image> images = new HashMap<>();
     protected Animation animation;
     protected Map<String, SpriteAnimation> animations;
@@ -79,7 +80,7 @@ public abstract class BaseMonster implements Thing {
 
     public abstract void die();
 
-    public LevelNode getImageView() {
+    public EntityNode getImageView() {
         return imageView;
     }
 
@@ -233,7 +234,7 @@ public abstract class BaseMonster implements Thing {
 
     public boolean detectCollision(BaseMonster monster) {
         updateHitBoxPosition(charPosx, charPosy);
-        LevelNode monsterNode = monster.getImageView();
+        EntityNode monsterNode = monster.getImageView();
         return monsterNode.getBoundsInParent().intersects(hitBox.getBoundsInLocal());
     }
 

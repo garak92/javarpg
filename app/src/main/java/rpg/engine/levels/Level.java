@@ -2,6 +2,7 @@ package rpg.engine.levels;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
@@ -95,14 +96,14 @@ public class Level {
                 // Level textures file
                 InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
 
-                // Level dialogs file
-                Object dialogsFile = this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs");
-                BufferedReader dialogReader = null;
-                if(dialogsFile != null) {
-                    dialogReader = new BufferedReader(
-                            new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs"),
-                                    StandardCharsets.UTF_8));
-                }
+            // Level dialogs file
+            Object dialogsFile = this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs");
+            BufferedReader dialogReader = null;
+            if(dialogsFile != null) {
+                dialogReader = new BufferedReader(
+                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs"),
+                                StandardCharsets.UTF_8));
+            }
 
             // Cleanup
             this.pane.getChildren().clear();
@@ -135,25 +136,97 @@ public class Level {
     }
 
     private void loadTiles() {
+        // To optimize the number of nodes per map, we identify all the sub-rectangles formed by a sub-set of contiguous
+        // tiles of the same type inside the grid, and create only those sub-rectangles as nodes.
+        // Because, usually, the level grid contains many such sub-rectangles, this drastically reduces the number of
+        // nodes to render, and thus to check for collisions
+        // For this purpose, we use a greedy algorithm
+
         if (tileMap.isEmpty()) {
             logger.error("No tile data found for this level");
             return;
         }
+
+        int rows = tileMap.size();
+        int cols = tileMap.get(0).size();
+        boolean[][] visited = new boolean[rows][cols];
+
         try {
-            for (int i = 0; i < tileMap.size(); i++) {
-                for (int j = 0; j < tileMap.get(i).size(); j++) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (visited[i][j]) continue;
+
                     String currentTileValue = tileMap.get(i).get(j);
                     TileData tileData = TileMapper.getTileData(currentTileValue);
+                    if (tileData == null) continue;
 
-                    if (tileData != null) {
-                        tiles.add(createLevelNode(j, i, tileData.getColumn(), tileData.getRow(), tileData.isSolid(), NodeTypeEnum.LEVEL));
+                    // Find max rectangle starting from (i,j)
+                    int maxWidth = 0;
+                    while (j + maxWidth < cols &&
+                            !visited[i][j + maxWidth] &&
+                            tileMap.get(i).get(j + maxWidth).equals(currentTileValue)) {
+                        maxWidth++;
                     }
+
+                    int maxHeight = 1;
+                    boolean expandable = true;
+                    while (i + maxHeight < rows && expandable) {
+                        for (int k = 0; k < maxWidth; k++) {
+                            if (visited[i + maxHeight][j + k] ||
+                                    !tileMap.get(i + maxHeight).get(j + k).equals(currentTileValue)) {
+                                expandable = false;
+                                break;
+                            }
+                        }
+                        if (expandable) maxHeight++;
+                    }
+
+                    // Mark rectangle as visited
+                    for (int y = 0; y < maxHeight; y++) {
+                        for (int x = 0; x < maxWidth; x++) {
+                            visited[i + y][j + x] = true;
+                        }
+                    }
+
+                    // Create ONE node for this rectangle
+                    tiles.add(createLevelNodeRect(j, i, maxWidth, maxHeight,
+                            tileData.getColumn(), tileData.getRow(), tileData.isSolid()));
                 }
             }
+
             pane.getChildren().addAll(getTiles());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private LevelNode createLevelNodeRect(int col, int row, int width, int height,
+                                          int offsetX, int offsetY, boolean solid) {
+        // Extract one tile image from the spritesheet
+        WritableImage tileImage = new WritableImage(
+                tileSheet.getPixelReader(),
+                offsetX * TILE_SIZE,
+                offsetY * TILE_SIZE,
+                TILE_SIZE,
+                TILE_SIZE
+        );
+
+        // Create a region node covering (width x height) tiles
+        LevelNode levelNode = new LevelNode(
+                NodeTypeEnum.LEVEL,
+                solid,
+                tileImage,
+                width * TILE_SIZE,
+                height * TILE_SIZE
+        );
+
+        // Position in world coordinates
+        levelNode.setLayoutX(col * TILE_SIZE);
+        levelNode.setLayoutY(row * TILE_SIZE);
+        levelNode.toBack();
+
+        return levelNode;
     }
 
     private void generatePortals(InputStream portalManifest, String levelName) {
@@ -377,8 +450,8 @@ public class Level {
         return solidNodes;
     }
 
-    private LevelNode createLevelNode(int col, int row, int offsetX, int offsetY, boolean solid, NodeTypeEnum type) {
-        LevelNode levelNode = new LevelNode(type, solid, tileSheet);
+    private EntityNode createLevelNode(int col, int row, int offsetX, int offsetY, boolean solid, NodeTypeEnum type) {
+        EntityNode levelNode = new EntityNode(type, solid, tileSheet);
         levelNode.setViewport(new Rectangle2D(offsetX * TILE_SIZE, offsetY * TILE_SIZE, TILE_SIZE, TILE_SIZE));
         levelNode.setLayoutX(col * TILE_SIZE);
         levelNode.setLayoutY(row * TILE_SIZE);
