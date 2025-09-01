@@ -3,6 +3,7 @@ package rpg.engine.monster;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Bounds;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
@@ -64,6 +65,9 @@ public abstract class BaseMonster implements Thing {
         this.alignment = alignment;
         this.level = level;
         this.name = name;
+
+        imageView.setCache(true);
+        imageView.setCacheHint(CacheHint.SPEED);
         this.renderer = new Renderer(this.imageView);
     }
 
@@ -75,6 +79,9 @@ public abstract class BaseMonster implements Thing {
         this.health = health;
         this.alignment = alignment;
         this.level = level;
+
+        imageView.setCache(true);
+        imageView.setCacheHint(CacheHint.SPEED);
         this.renderer = new Renderer(this.imageView);
     }
 
