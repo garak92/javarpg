@@ -339,22 +339,6 @@ public abstract class BaseMonster implements Thing {
 
     @Override
     public void render() throws Throwable {
-        if (!isOutsideOfScreen()) {
-            this.renderer.updatePosition(charPosx, charPosy);
-        }
+        this.renderer.updatePosition(charPosx, charPosy);
     }
-
-    public boolean isOutsideOfScreen() {
-        Node node = this.imageView;
-        if (node.getScene() == null) return true;
-
-        Bounds bounds = node.localToScene(node.getBoundsInLocal());
-
-        double sceneWidth = node.getScene().getWidth();
-        double sceneHeight = node.getScene().getHeight();
-
-        return bounds.getMaxX() < 0 || bounds.getMinX() > sceneWidth ||
-                bounds.getMaxY() < 0 || bounds.getMinY() > sceneHeight;
-    }
-
 }
