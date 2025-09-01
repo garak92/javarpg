@@ -159,13 +159,10 @@ public class Player extends BaseMonster {
             if (b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
                     this.imageView.getBoundsInParent().getCenterY(),
                     boundingBoxWidth, boundingBoxHeight)) {
-                if (!usedEntities.contains(b)) { // Don't use if already used
                     b.use(this);
                     if (b.getBaseMonster().getAlignment() == EnumMonsterAlignment.FRIEND) {
                         usedEntities.add(b);
                     }
-                }
-
             } else {
                 using = false;
             }
@@ -179,7 +176,7 @@ public class Player extends BaseMonster {
             if (!b.getLevelNode().getBoundsInParent().intersects(this.imageView.getBoundsInParent().getCenterX(),
                     this.imageView.getBoundsInParent().getCenterY(),
                     boundingBoxWidth, boundingBoxHeight)) {
-                b.use(this);
+                b.stopUsing(this);
                 usedEntities.remove(b);
             }
         }

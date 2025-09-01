@@ -123,6 +123,11 @@ public class Villager extends BaseMonster implements Usable {
     }
 
     @Override
+    public void stopUsing(Player player) {
+        dialogBox.stopUsing();
+    }
+
+    @Override
     public EntityNode getLevelNode() {
         return this.imageView;
     }

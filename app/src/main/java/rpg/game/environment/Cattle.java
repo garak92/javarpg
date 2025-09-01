@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class Cattle extends BaseMonster implements Usable {
+public class Cattle extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.FRIEND;
     private final Random random = new Random();
     private final String[] types = {"bull", "calf", "lamb", "piglet", "rooster", "sheep", "turkey"};
@@ -115,19 +115,5 @@ public class Cattle extends BaseMonster implements Usable {
                 animation.play();
             }
         }
-    }
-
-    @Override
-    public void use(Player player) {
-    }
-
-    @Override
-    public EntityNode getLevelNode() {
-        return this.imageView;
-    }
-
-    @Override
-    public BaseMonster getBaseMonster() {
-        return this;
     }
 }

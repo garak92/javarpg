@@ -86,6 +86,11 @@ public class Portal extends BaseMonster implements Usable {
     }
 
     @Override
+    public void stopUsing(Player player) {
+
+    }
+
+    @Override
     public void use(Player player) {
         if(unlockQuestName != null && !QuestLog.INSTANCE.isQuestTaken(unlockQuestName)) {
             notificationService.pushNotification("In order to teleport, you first need to take the quest: " +

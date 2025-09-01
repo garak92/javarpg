@@ -10,4 +10,6 @@ public interface Usable {
     EntityNode getLevelNode();
 
     BaseMonster getBaseMonster();
+
+    void stopUsing(Player player);
 }

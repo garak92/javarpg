@@ -80,6 +80,11 @@ public class Igrenne extends BaseMonster implements Usable {
     }
 
     @Override
+    public void stopUsing(Player player) {
+       questGiver.stopUsing(player);
+    }
+
+    @Override
     public EntityNode getLevelNode() {
         return this.imageView;
     }

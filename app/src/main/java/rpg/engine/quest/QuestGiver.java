@@ -36,6 +36,11 @@ public class QuestGiver {
         showExclamation();
     }
 
+    public void stopUsing(Player player) {
+        dialogBox.stopUsing();
+        showExclamation();
+    }
+
     public void showExclamation() {
         if (this.quest == null || this.dialogBox.isOpen() || QuestLog.INSTANCE.hasQuestsInProgress(monster)) {
             monster.getLevel().getPane().getChildren().remove(exclamation);

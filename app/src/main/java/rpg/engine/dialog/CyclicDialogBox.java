@@ -36,4 +36,9 @@ public class CyclicDialogBox extends BaseDialogBox {
             open();
         }
     }
+
+    @Override
+    public void stopUsing() {
+        close();
+    }
 }

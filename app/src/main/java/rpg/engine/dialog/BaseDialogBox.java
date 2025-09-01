@@ -89,5 +89,6 @@ public abstract class BaseDialogBox {
     }
 
     public abstract void use();
+    public abstract void stopUsing();
 }
 
