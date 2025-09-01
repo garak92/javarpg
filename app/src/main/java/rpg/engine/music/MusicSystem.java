@@ -25,6 +25,7 @@ public enum MusicSystem {
         stop();
         Sequence sequence = MidiSystem.getSequence(midiFile);
         sequencer.setSequence(sequence);
+        sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         sequencer.start();
     }
 
