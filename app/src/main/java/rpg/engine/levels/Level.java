@@ -85,12 +85,12 @@ public class Level {
 
                 // Level tiles file
                 BufferedReader tileReader = new BufferedReader(
-                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".tiles"),
+                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title+ "/" + this.title + ".tiles"),
                                 StandardCharsets.UTF_8));
 
                 // Level monsters file
                 BufferedReader thingReader = new BufferedReader(
-                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".monsters"),
+                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title+ "/" + this.title + ".monsters"),
                                 StandardCharsets.UTF_8));
 
                 // Level textures file
