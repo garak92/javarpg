@@ -20,4 +20,14 @@
             </portal>
         </portals>
     </level>
+
+    <level name="GoldenBeach">
+        <forceFields>
+            <forceField>
+                <yCoordinate>21</yCoordinate>
+                <xCoordinate>12</xCoordinate>
+                <unlockingQuestName>Satyr, be gone!</unlockingQuestName>
+            </forceField>
+        </forceFields>
+    </level>
 </levels>

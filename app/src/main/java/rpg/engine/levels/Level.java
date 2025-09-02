@@ -23,6 +23,7 @@ import rpg.engine.monster.MonsterUtils;
 import rpg.engine.music.MusicSystem;
 import rpg.game.entities.igrenne.Igrenne;
 import rpg.game.entities.player.Player;
+import rpg.game.environment.ForceField;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.xml.parsers.DocumentBuilder;
@@ -81,7 +82,7 @@ public class Level {
                 InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
 
                 // Portal manifest
-                InputStream portalManifest = this.getClass().getResourceAsStream("/levels/Portals.xml");
+                InputStream specialEntitiesManifest = this.getClass().getResourceAsStream("/levels/SpecialEntities.xml");
 
                 // Level tiles file
                 BufferedReader tileReader = new BufferedReader(
@@ -119,7 +120,7 @@ public class Level {
             // Load tiles and monsters
             loadTiles();
             loadMonsters();
-            generatePortals(portalManifest, this.title);
+            generateSpecialEntities(specialEntitiesManifest, this.title);
 
             // Load common background
             Image commonBackgroundImage = new Image(backgroundImageFile);
@@ -229,12 +230,12 @@ public class Level {
         return levelNode;
     }
 
-    private void generatePortals(InputStream portalManifest, String levelName) {
+    private void generateSpecialEntities(InputStream specialEntitiesManifest, String levelName) {
         try {
             // Parse XML
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(portalManifest);
+            Document doc = builder.parse(specialEntitiesManifest);
             doc.getDocumentElement().normalize();
 
             // Get all levels
@@ -247,6 +248,7 @@ public class Level {
                     System.out.println("Level: " + levelName);
 
                     NodeList portals = levelElement.getElementsByTagName("portal");
+                    NodeList forceFields = levelElement.getElementsByTagName("forceField");
 
                     for (int j = 0; j < portals.getLength(); j++) {
                         Element portal = (Element) portals.item(j);
@@ -276,14 +278,29 @@ public class Level {
                                 "sheet1.png"), this);
 
                     }
+
+                    for (int j = 0; j < forceFields.getLength(); j++) {
+                        Element forceField = (Element) forceFields.item(j);
+
+                        String x = forceField.getElementsByTagName("xCoordinate")
+                                .item(0).getTextContent();
+                        String y = forceField.getElementsByTagName("yCoordinate")
+                                .item(0).getTextContent();
+
+                        String unlockingQuestName = forceField.getElementsByTagName("unlockingQuestName")
+                                .item(0).getTextContent();
+
+                        // Create forceField and spawn it on the level
+                        MonsterUtils.spawnMonster(new ForceField(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                                this, unlockingQuestName), this);
+                        return;
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 
     private void cacheDialogData(BufferedReader reader) {
         if(reader == null) {
