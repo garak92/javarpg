@@ -14,10 +14,15 @@
         <portals>
             <portal>
                 <yCoordinate>27</yCoordinate>
-                <xCoordinate>74</xCoordinate>
+                <xCoordinate>77</xCoordinate>
                 <destination>GoldenBeach</destination>
                 <unlockingQuestName>Get those rocks</unlockingQuestName>
             </portal>
+            <forceField>
+                <yCoordinate>24</yCoordinate>
+                <xCoordinate>74</xCoordinate>
+                <unlockingQuestName>Knowledge is power</unlockingQuestName>
+            </forceField>
         </portals>
     </level>
 

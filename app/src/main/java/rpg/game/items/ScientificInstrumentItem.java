@@ -5,7 +5,7 @@ import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
 public class ScientificInstrumentItem extends BaseItem {
-    private final Player target;
+    private Player target;
 
     public ScientificInstrumentItem(BaseMonster monster, Player target) {
         super(0, monster);
@@ -14,6 +14,11 @@ public class ScientificInstrumentItem extends BaseItem {
 
     @Override
     protected void useItem() {
+        if(target == null) {
+            target = Player.getInstance();
+            return;
+        }
+
         if (monster.getMonster().detectCollision(target)) {
             monster.die();
         }

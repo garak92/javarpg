@@ -30,7 +30,7 @@
             Satyr
         </EntityFriendlyName>
         <ObjectiveQuantity>
-           15
+          25
         </ObjectiveQuantity>
         <Giver>
             rpg.game.entities.igrenne.Igrenne

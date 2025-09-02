@@ -55,7 +55,7 @@ class TileMapper {
         tileDataMap.put("µ", new TileData(4, 7, false));
         tileDataMap.put("π", new TileData(4, 8, true));
         tileDataMap.put("Ω", new TileData(5, 0, true));
-        tileDataMap.put("∞", new TileData(5, 1, true));
+        tileDataMap.put("∞", new TileData(5, 1, false));
         tileDataMap.put("≈", new TileData(5, 2, true));
         tileDataMap.put("≠", new TileData(5, 3, true));
         tileDataMap.put("≤", new TileData(5, 4, true));
@@ -81,7 +81,7 @@ class TileMapper {
         tileDataMap.put("F", new TileData(7, 6, true));
         tileDataMap.put("G", new TileData(7, 7, true));
         tileDataMap.put("H", new TileData(7, 8, true));
-        tileDataMap.put("I", new TileData(8, 0, true));
+        tileDataMap.put("I", new TileData(8, 0, false));
         tileDataMap.put("J", new TileData(8, 1, true));
         tileDataMap.put("K", new TileData(8, 2, true));
         tileDataMap.put("L", new TileData(8, 3, true));
