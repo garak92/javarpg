@@ -271,7 +271,7 @@ public class Level {
                                     TILE_SIZE * (Integer.parseInt(y) - 1),
                                     2, 50, 10, "Portal to " + destination, this, destination,
                                     "sheet1.png", questNode.getTextContent()), this);
-                            return;
+                            continue;
                         }
 
                         MonsterUtils.spawnMonster(new Portal(TILE_SIZE * (Integer.parseInt(x) - 1), TILE_SIZE * (Integer.parseInt(y) - 1),
