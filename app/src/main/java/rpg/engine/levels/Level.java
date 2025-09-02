@@ -98,11 +98,11 @@ public class Level {
                 InputStream stream = this.getClass().getResourceAsStream("/sprites/levels/" + this.textureFile)) {
 
             // Level dialogs file
-            Object dialogsFile = this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs");
+            Object dialogsFile = this.getClass().getResourceAsStream("/levels/" + this.title + "/" + this.title + ".dialogs");
             BufferedReader dialogReader = null;
             if(dialogsFile != null) {
                 dialogReader = new BufferedReader(
-                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + ".dialogs"),
+                        new InputStreamReader(this.getClass().getResourceAsStream("/levels/" + this.title + "/" + this.title + ".dialogs"),
                                 StandardCharsets.UTF_8));
             }
 
@@ -267,20 +267,21 @@ public class Level {
 
                         // Create portal and spawn it on the level
                         if (questNode != null) {
-                            MonsterUtils.spawnMonster(new Portal(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                            MonsterUtils.spawnMonster(new Portal(TILE_SIZE * (Integer.parseInt(x) - 1),
+                                    TILE_SIZE * (Integer.parseInt(y) - 1),
                                     2, 50, 10, "Portal to " + destination, this, destination,
                                     "sheet1.png", questNode.getTextContent()), this);
                             return;
                         }
 
-                        MonsterUtils.spawnMonster(new Portal(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                        MonsterUtils.spawnMonster(new Portal(TILE_SIZE * (Integer.parseInt(x) - 1), TILE_SIZE * (Integer.parseInt(y) - 1),
                                 2, 50, 10, "Portal to " + destination, this, destination,
                                 "sheet1.png"), this);
 
                     }
 
-                    for (int j = 0; j < forceFields.getLength(); j++) {
-                        Element forceField = (Element) forceFields.item(j);
+                    for (int k = 0; k < forceFields.getLength(); k++) {
+                        Element forceField = (Element) forceFields.item(k);
 
                         String x = forceField.getElementsByTagName("xCoordinate")
                                 .item(0).getTextContent();
@@ -291,9 +292,8 @@ public class Level {
                                 .item(0).getTextContent();
 
                         // Create forceField and spawn it on the level
-                        MonsterUtils.spawnMonster(new ForceField(TILE_SIZE * Integer.parseInt(x), TILE_SIZE * Integer.parseInt(y),
+                        MonsterUtils.spawnMonster(new ForceField(TILE_SIZE * (Integer.parseInt(x) - 1), TILE_SIZE * (Integer.parseInt(y) - 1),
                                 this, unlockingQuestName), this);
-                        return;
                     }
                 }
             }
@@ -465,17 +465,6 @@ public class Level {
                 .filter(c -> c.isSolid())
                 .collect(Collectors.toList());
         return solidNodes;
-    }
-
-    private EntityNode createLevelNode(int col, int row, int offsetX, int offsetY, boolean solid, NodeTypeEnum type) {
-        EntityNode levelNode = new EntityNode(type, solid, tileSheet);
-        levelNode.setViewport(new Rectangle2D(offsetX * TILE_SIZE, offsetY * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-        levelNode.setLayoutX(col * TILE_SIZE);
-        levelNode.setLayoutY(row * TILE_SIZE);
-        levelNode.toBack();
-
-        return levelNode;
-
     }
 
     public List<Thing> getThings() {

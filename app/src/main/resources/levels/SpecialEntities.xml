@@ -2,8 +2,8 @@
     <level name="SunVillage">
         <portals>
             <portal>
-                <yCoordinate>18</yCoordinate>
-                <xCoordinate>94</xCoordinate>
+                <yCoordinate>19</yCoordinate>
+                <xCoordinate>95</xCoordinate>
                 <destination>PanambiWoods</destination>
                 <unlockingQuestName>Clear the field!</unlockingQuestName>
             </portal>
@@ -13,8 +13,8 @@
     <level name="PanambiWoods">
         <portals>
             <portal>
-                <yCoordinate>26</yCoordinate>
-                <xCoordinate>71</xCoordinate>
+                <yCoordinate>27</yCoordinate>
+                <xCoordinate>74</xCoordinate>
                 <destination>GoldenBeach</destination>
                 <unlockingQuestName>Get those rocks</unlockingQuestName>
             </portal>
@@ -24,9 +24,14 @@
     <level name="GoldenBeach">
         <forceFields>
             <forceField>
-                <yCoordinate>21</yCoordinate>
-                <xCoordinate>12</xCoordinate>
+                <yCoordinate>22</yCoordinate>
+                <xCoordinate>13</xCoordinate>
                 <unlockingQuestName>Satyr, be gone!</unlockingQuestName>
+            </forceField>
+            <forceField>
+                <yCoordinate>16</yCoordinate>
+                <xCoordinate>5</xCoordinate>
+                <unlockingQuestName>No tools, no goods</unlockingQuestName>
             </forceField>
         </forceFields>
     </level>
