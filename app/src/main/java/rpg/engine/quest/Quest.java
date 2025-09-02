@@ -36,9 +36,10 @@ public class Quest {
     public String getCurrentText() {
         switch (questStatus) {
             case AVAILABLE:
-                return description;
             case IN_PROGRESS:
-                return inProgressDialog;
+                return description;
+            //case IN_PROGRESS:
+            //    return inProgressDialog;
             case COMPLETED:
                 return completedDialog;
             default:

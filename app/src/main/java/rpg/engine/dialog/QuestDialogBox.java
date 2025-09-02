@@ -99,7 +99,7 @@ public class QuestDialogBox extends BaseDialogBox {
     @Override
     public void stopUsing() {
         if (open && currentPageIndex < pages.size() - 1) {
-            // still more pages left
+            // If the player hasn't finished reading the quest yet, reset the page to 0
             currentPageIndex = 0;
             showCurrentPage();
             close();
