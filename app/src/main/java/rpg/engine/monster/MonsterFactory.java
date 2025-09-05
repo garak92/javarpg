@@ -16,10 +16,7 @@ import rpg.game.entities.enemy.skeletonarcher.SkeletonArcher;
 import rpg.game.entities.enemy.skeletonspearman.SkeletonSpearman;
 import rpg.game.entities.enemy.werewolf.Werewolf;
 import rpg.game.entities.igrenne.Igrenne;
-import rpg.game.entities.item.ScientificInstrument;
-import rpg.game.entities.item.ScrollOfAntibiotics;
-import rpg.game.entities.item.VesselOfMinerals;
-import rpg.game.entities.item.MiniHealthPickup;
+import rpg.game.entities.item.*;
 import rpg.game.entities.player.Player;
 import rpg.game.entities.villager.Villager;
 import rpg.game.environment.*;
@@ -42,6 +39,8 @@ public class MonsterFactory {
             case KARASU -> new Karasu(x, y, 2, "Karasu", level);
             case FIRE_WIZARD -> new FireWizard(x, y, 2, "Fire Wizard", level);
             case MINI_HEALTH_PICKUP -> new MiniHealthPickup(x, y, level);
+            case MEDKIT -> new Medkit(x, y, level);
+            case MEGA_HEALTH -> new MegaHealth(x, y, level);
 
             // Quest items
             case VESSEL_OF_MINERALS -> new VesselOfMinerals(x, y, level);

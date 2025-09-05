@@ -1,15 +1,14 @@
 package rpg.game.items;
 
-import rpg.engine.common.Game;
 import rpg.engine.common.item.BaseItem;
 import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;
 
-public class MiniHealthPickupItem extends BaseItem {
+public class MegaHeatlhItem extends BaseItem {
     private Player target = null;
 
-    public MiniHealthPickupItem(BaseMonster monster) {
-        super(5, monster);
+    public MegaHeatlhItem(BaseMonster monster) {
+        super(100, monster);
     }
 
     @Override
