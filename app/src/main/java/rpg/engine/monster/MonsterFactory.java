@@ -24,7 +24,7 @@ import rpg.game.environment.*;
 public class MonsterFactory {
     public static BaseMonster getMonster(EnumMonsterKind kind, int x, int y, Level level) {
         return switch (kind) {
-            case PLAYER -> Player.initialize(x, y, 12, 100, 10, "Player 1", level.getStage(), null, level);
+            case PLAYER -> Player.initialize(x, y, 12, 100, 0, "Player 1", level.getStage(), null, level);
             case IGRENNE -> Igrenne.initialize(x, y, 10, 30, 10, "Igrenne", level);
 
             case SATYR -> new MaleSatyr(x, y, 2, "Male Satyr", level);
@@ -41,6 +41,7 @@ public class MonsterFactory {
             case MINI_HEALTH_PICKUP -> new MiniHealthPickup(x, y, level);
             case MEDKIT -> new Medkit(x, y, level);
             case MEGA_HEALTH -> new MegaHealth(x, y, level);
+            case SHIELD -> new Shield(x, y, level);
 
             // Quest items
             case VESSEL_OF_MINERALS -> new VesselOfMinerals(x, y, level);

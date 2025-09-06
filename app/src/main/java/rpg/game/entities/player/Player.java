@@ -1,6 +1,7 @@
 package rpg.game.entities.player;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,7 +26,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Player extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PLAYER;
     private static Player instance;
-    private final int shield;
+    private int shield;
+    private final double SHIELD_PROTECTION_FACTOR = 0.7; // Absorbs 30% of damage
+    private final int MAX_SHIELD_VALUE = 100; // Absorbs 30% of damage
     private final String name;
     private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
     private final PlayerStatusBar statusBar;
@@ -92,6 +95,25 @@ public class Player extends BaseMonster {
             throw new NullPointerException();
         }
         return instance;
+    }
+
+    @Override
+    public void receiveDamage(int damage) {
+        int computedDamage = damage;
+        if(shield > 0) {
+            computedDamage = (int) Math.round(damage * SHIELD_PROTECTION_FACTOR);
+            shield -= Math.max(0, (int) Math.round(damage * (1 - SHIELD_PROTECTION_FACTOR))); // Shield absorbs a % of damage
+        }
+
+        super.receiveDamage(computedDamage);
+    }
+
+    public int getShield() {
+        return shield;
+    }
+
+    public void setShield(int shield) {
+        this.shield = Math.min(MAX_SHIELD_VALUE, shield);
     }
 
     private void setKeyBinds(Stage primaryStage) {

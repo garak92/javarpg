@@ -49,6 +49,7 @@ public class PlayerStatusBar {
         sb.append("Current level: ").append(player.getPlayerLevel()).append("\n");
         sb.append("Experience points: ").append(player.getExperiencePoints()).append("\n");
         sb.append("Health: ").append(player.getMonster().getHealth()).append("\n");
+        sb.append("Shield: ").append(player.getShield()).append("\n");
         sb.append("Quest log:\n");
 
         for (Quest q : questLogActive) {

@@ -331,7 +331,7 @@ public class Level {
                     String currentTileValue = thingMap.get(i).get(j);
                     switch (currentTileValue) {
                         case "1":
-                            Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 12, 100, 10, "Player 1", stage,
+                            Player player = Player.initialize(TILE_SIZE * j, TILE_SIZE * i, 12, 100, 0, "Player 1", stage,
                                     pane, this);
                             things.add(player);
                             player.spawn(pane);
