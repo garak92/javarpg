@@ -8,7 +8,7 @@ public class ShieldItem extends BaseItem {
     private Player target = null;
 
     public ShieldItem(BaseMonster monster) {
-        super(100, monster);
+        super(50, monster);
     }
 
     @Override

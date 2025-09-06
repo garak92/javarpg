@@ -28,7 +28,7 @@ public class Player extends BaseMonster {
     private static Player instance;
     private int shield;
     private final double SHIELD_PROTECTION_FACTOR = 0.7; // Absorbs 30% of damage
-    private final int MAX_SHIELD_VALUE = 100; // Absorbs 30% of damage
+    private final int MAX_SHIELD_VALUE = 50; // Absorbs 30% of damage
     private final String name;
     private final CopyOnWriteArrayList<Usable> usedEntities = new CopyOnWriteArrayList<>();
     private final PlayerStatusBar statusBar;

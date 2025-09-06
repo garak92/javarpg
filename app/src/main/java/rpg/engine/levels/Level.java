@@ -428,6 +428,15 @@ public class Level {
                         case "f":
                             MonsterUtils.spawnMonster(EnumMonsterKind.FEM_SATYR, TILE_SIZE * j, TILE_SIZE * i, this);
                             break;
+                        case "!":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.MEDKIT, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "?":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.MEGA_HEALTH, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
+                        case "*":
+                            MonsterUtils.spawnMonster(EnumMonsterKind.SHIELD, TILE_SIZE * j, TILE_SIZE * i, this);
+                            break;
                     }
                     // Get initial enemy list
                     enemies = things.stream().filter(v -> {

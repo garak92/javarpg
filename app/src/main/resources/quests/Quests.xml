@@ -12,7 +12,7 @@
            and the Sigil want to get their hands on them, and use it to win the war and further their agendas. Luckily, we
            are neutral, for now. We still might face resistance from the wild Satyr tribes.
 
-           Take this teleporter to Panambi Woods, kill 25 Satyr, and meet with me. You'll receive 10 experience points.
+           Take this teleporter to Panambi Woods, kill 27 Satyr, and meet with me. You'll receive 10 experience points.
         </Description>
         <DialogInProgress>
             Have you cleared the woods yet?
@@ -30,7 +30,7 @@
             Satyr
         </EntityFriendlyName>
         <ObjectiveQuantity>
-          25
+          27
         </ObjectiveQuantity>
         <Giver>
             rpg.game.entities.igrenne.Igrenne
