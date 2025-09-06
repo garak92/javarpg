@@ -327,11 +327,13 @@ public class Player extends BaseMonster {
     }
 
     public void heal(int healingValue) {
-        health += healingValue;
+        if(health < MAX_HEALTH) {
+            health = Math.min((health + healingValue), MAX_HEALTH);
+        }
+
     }
 
     private boolean isPlayerMoving() {
         return moveDown || moveRight || moveLeft || moveUp;
     }
-
 }

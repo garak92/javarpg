@@ -36,6 +36,7 @@ public abstract class BaseMonster implements Thing {
     protected double HITBOX_SCALING_FACTOR_Y = 0.3;
     protected double HITBOX_SCALING_FACTOR_X = 0.03;
     protected final DropShadow dropShadow = new DropShadow();
+    protected final int MAX_HEALTH = 200;
     protected EntityNode imageView = new EntityNode(NodeTypeEnum.MONSTER);
     protected Map<String, Image> images = new HashMap<>();
     protected Animation animation;
