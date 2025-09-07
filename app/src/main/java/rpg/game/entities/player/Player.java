@@ -1,7 +1,6 @@
 package rpg.game.entities.player;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -139,6 +138,21 @@ public class Player extends BaseMonster {
                     if (keyCode == KeyCode.C) {
                         try {
                             CommandLine.INSTANCE.activate();
+                        } catch (Throwable e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    if (keyCode == KeyCode.P) {
+                        try {
+                            Game currentGame = Game.getInstance();
+                            if(currentGame.isPaused()) {
+                               currentGame.unpauseGame();
+                               notificationService.removeCurrentNotification();
+                            } else {
+                                currentGame.pauseGame();
+                                notificationService.pushNotificationWithoutDelay("Game paused!");
+                            }
                         } catch (Throwable e) {
                             throw new RuntimeException(e);
                         }
