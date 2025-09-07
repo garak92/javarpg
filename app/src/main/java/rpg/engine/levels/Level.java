@@ -26,6 +26,8 @@ import rpg.game.entities.player.Player;
 import rpg.game.environment.ForceField;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
@@ -79,7 +81,7 @@ public class Level {
                 InputStream backgroundImageFile = this.getClass().getResourceAsStream("/sprites/levels/common-background.jpg");
 
                 // Common level background
-                InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".mid");
+                InputStream music = this.getClass().getResourceAsStream("/music/" + this.title + ".wav");
 
                 // Portal manifest
                 InputStream specialEntitiesManifest = this.getClass().getResourceAsStream("/levels/SpecialEntities.xml");
@@ -130,8 +132,12 @@ public class Level {
             // Load music
             MusicSystem.INSTANCE.playFile(music);
 
-        } catch (IOException | InvalidMidiDataException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
         }
         return this;
     }
