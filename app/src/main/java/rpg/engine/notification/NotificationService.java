@@ -50,6 +50,9 @@ public class NotificationService implements INotificationService {
     public void removeCurrentNotification() {
          // Only affects notifications pushed without delay; notifications with delay are auto-removed after
         // the delay time has elapsed
+        if(currentNotification == null) {
+            return;
+        }
         Pane pane = Player.getInstance().getLevel().getPane();
         pane.getChildren().removeAll(currentNotification.getBox(), currentNotification.getTextFlow());
     }

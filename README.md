@@ -3,6 +3,7 @@
 Warning: WIP in early stages.
 
 The purpose of this project is to build a bullet hell 2d game with some RPG mechanics using pure Java. You'll explore 20+ zones in a post-apocalyptic world, completing quests, gaining new skills, and defeating bosses, in a quest to bring progress to your village using the ancient world's knowledge and technology.
+As of now, there are already three playable levels, a whole questline, and original soundtrack for the levels.
 
 Features:
 
@@ -14,7 +15,7 @@ Features:
 - [ ] Saving system
 - [ ] Main menu
 - [ ] Player skills tied to experience points
-- [ ] Original soundtrack
+- [ ] Original soundtrack (WIP)
 - [ ] Boss battles
 
 ## How to run 
@@ -27,7 +28,7 @@ Java version: 21
 ## Packaging
 
 I personally use packr-all.jar, a tool developed by the libgdx team. Example:
-- java -jar packr-all.jar --platform windows64 --jdk jdk/ --jre jre/ --useZgcIfSupportedOs --executable javarpg --classpath app/build/libs/javarpg.jar --main class rpg.App --output out-win
+java -jar packr-all-4.0.0.jar --platform windows64 --jdk /jdk-21.0.7-full/ --useZgcIfSupportedOs --executable javarpg --classpath app/build/libs/javarpg.jar --mainclass rpg.App --output out-win
 
 Note that I use the Liberica jdk/jre because they already ship JavaFX
 
@@ -38,6 +39,7 @@ Controls are for now statically fixed:
 - "E" to interact with things and NPCs
 - "R" for shooting an ice ball
 - "C" for opening the command console
+- "P" for pausing the game 
 
 ## Assets
 - Player, Igrenne, enemies, items, trees, rocks, and bushes are FREE assets taken from craftpix.net (https://craftpix.net/file-licenses/)
