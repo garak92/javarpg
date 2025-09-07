@@ -1,6 +1,7 @@
 package rpg.engine.music;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -16,7 +17,8 @@ public enum MusicSystem {
     public void playFile(InputStream wavFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         stop();
 
-        AudioInputStream sourceStream = AudioSystem.getAudioInputStream(wavFile);
+        BufferedInputStream bufferedWavFile = new BufferedInputStream(wavFile);
+        AudioInputStream sourceStream = AudioSystem.getAudioInputStream(bufferedWavFile);
 
         // Target format: 16-bit signed PCM, little endian
         AudioFormat baseFormat = sourceStream.getFormat();
@@ -30,7 +32,8 @@ public enum MusicSystem {
                 false // little endian
         );
 
-        AudioInputStream convertedStream = AudioSystem.getAudioInputStream(targetFormat, sourceStream);
+        InputStream bufferedIn = new BufferedInputStream(sourceStream);
+        AudioInputStream convertedStream = new AudioInputStream(bufferedIn, targetFormat, sourceStream.getFrameLength());
 
         clip = AudioSystem.getClip();
         clip.open(convertedStream);

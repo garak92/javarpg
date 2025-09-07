@@ -1,6 +1,7 @@
 package rpg.engine.common;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -114,6 +115,7 @@ public class Game extends Application {
     public void stop() throws Exception {
         super.stop();
         MusicSystem.INSTANCE.close();
+        Platform.exit();
     }
 
     public void pauseGame() {
