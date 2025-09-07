@@ -10,10 +10,6 @@ public enum MusicSystem {
 
     private Clip clip;
 
-    MusicSystem() {
-        // Nothing to initialize at startup
-    }
-
     public void playFile(InputStream wavFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         stop();
 
