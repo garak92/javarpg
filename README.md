@@ -27,7 +27,7 @@ Java version: 21
 
 ## Packaging
 
-I personally use packr-all.jar, a tool developed by the libgdx team. Example:
+I use packr-all.jar, a tool developed by the libgdx team. Example:
 java -jar packr-all-4.0.0.jar --platform windows64 --jdk /jdk-21.0.7-full/ --useZgcIfSupportedOs --executable javarpg --classpath app/build/libs/javarpg.jar --mainclass rpg.App --output out-win
 
 Note that I use the Liberica jdk/jre because they already ship JavaFX
@@ -49,4 +49,4 @@ Controls are for now statically fixed:
 - Scroll UI container used as player status bar by Chad Wolfe (https://opengameart.org/content/scroll-ui-container) CC0 1.0 Universal
 
 ## Gameplay demo video
-[![15 May 2025](https://img.youtube.com/vi/jmEx8VBgCNE/0.jpg)](https://www.youtube.com/watch?v=jmEx8VBgCNE)
+[![15 May 2025](https://img.youtube.com/vi/jmEx8VBgCNE/0.jpg)](https://www.youtube.com/watch?v=m0qfxBIh_z4)
