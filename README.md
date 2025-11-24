@@ -49,4 +49,4 @@ Controls are for now statically fixed:
 - Scroll UI container used as player status bar by Chad Wolfe (https://opengameart.org/content/scroll-ui-container) CC0 1.0 Universal
 
 ## Gameplay demo video
-[![15 May 2025](https://img.youtube.com/vi/jmEx8VBgCNE/0.jpg)](https://www.youtube.com/watch?v=m0qfxBIh_z4)
+[![15 May 2025](https://img.youtube.com/vi/m0qfxBIh_z4/0.jpg)](https://www.youtube.com/watch?v=m0qfxBIh_z4)
