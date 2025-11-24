@@ -1,6 +1,6 @@
 # Java RPG 
 
-Warning: WIP in early stages. Test the first pre-alpha build [here](https://github.com/garak92/javarpg/releases/tag/1.0.0-pre-alpha)
+Warning: WIP in early stages. Download and test the first pre-alpha build [here](https://github.com/garak92/javarpg/releases/tag/1.0.0-pre-alpha)
 
 The purpose of this project is to build a bullet hell 2d game with some RPG mechanics using pure Java. You'll explore 20+ zones in a post-apocalyptic world, completing quests, gaining new skills, and defeating bosses, in a quest to bring progress to your village using the ancient world's knowledge and technology.
 As of now, there are already three playable levels, a whole questline, and original soundtrack for the levels.
