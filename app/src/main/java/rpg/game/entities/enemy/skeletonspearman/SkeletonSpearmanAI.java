@@ -1,8 +1,5 @@
 package rpg.game.entities.enemy.skeletonspearman;
 
-import javafx.animation.PauseTransition;
-import javafx.scene.effect.ColorAdjust;
-import javafx.util.Duration;
 import rpg.engine.ai.BaseEnemyAI;
 import rpg.engine.ai.EnumEnemyStates;
 import rpg.engine.ai.EnumEvents;

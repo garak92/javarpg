@@ -5,8 +5,8 @@ import javafx.util.Duration;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.dialog.CyclicDialogBox;
-import rpg.engine.levels.Level;
 import rpg.engine.levels.EntityNode;
+import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.game.entities.player.Player;
@@ -78,13 +78,13 @@ public class Villager extends BaseMonster implements Usable {
 
     @Override
     public void update(List<Usable> usables) {
-        // 1. If talking, stop movement and show idle
+        // If talking, stop movement and show idle
         if (dialogBox.isOpen()) {
             getImageView().setImage(images.get(this.type + "Idle"));
             return;
         }
 
-        // 2. Occasionally change direction
+        // Occasionally change direction
         if (randomMovementAccumulator >= movementChangeFrequency) {
             shouldMoveRandomly = random.nextDouble() < 0.4;
             moveDirX = random.nextBoolean() ? -1 : 1;
@@ -94,12 +94,12 @@ public class Villager extends BaseMonster implements Usable {
             randomMovementAccumulator++;
         }
 
-        // 3. Only move if shouldMoveRandomly is true
+        // Only move if shouldMoveRandomly is true
         if (shouldMoveRandomly) {
             double newX = charPosx + moveDirX * velocity;
             double newY = charPosy + moveDirY * velocity;
 
-            // 4. Check for collisions before moving
+            // Check for collisions before moving
             if (!detectCollision(getLevel().getSolidTiles(), newX, newY)) {
                 charPosx = newX;
                 charPosy = newY;

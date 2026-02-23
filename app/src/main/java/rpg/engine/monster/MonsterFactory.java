@@ -1,6 +1,5 @@
 package rpg.engine.monster;
 
-import rpg.engine.common.misc.Portal;
 import rpg.engine.levels.Level;
 import rpg.game.entities.enemy.cannon.CannonOrientation;
 import rpg.game.entities.enemy.cannon.LaserCannon;

@@ -3,7 +3,9 @@ package rpg.game.entities.enemy.orcshaman;
 import rpg.engine.ai.BaseEnemyAI;
 import rpg.engine.ai.EnumEnemyStates;
 import rpg.engine.ai.EnumEvents;
-import rpg.engine.monster.*;
+import rpg.engine.monster.BaseMonster;
+import rpg.engine.monster.EnumMonsterKind;
+import rpg.engine.monster.MonsterUtils;
 import rpg.game.entities.player.Player;
 
 import java.util.Random;

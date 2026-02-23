@@ -1,14 +1,11 @@
 package rpg.game.entities.enemy.femalesatyr;
 
-import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
-import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.game.abilities.FemaleSatyrFireballAttack;
-import rpg.game.abilities.MaleSatyrFireballAttack;
 
 import java.util.HashMap;
 import java.util.List;

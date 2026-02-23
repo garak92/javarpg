@@ -6,7 +6,6 @@ import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.game.items.MegaHeatlhItem;
-import rpg.game.items.MiniHealthPickupItem;
 
 import java.util.HashMap;
 import java.util.List;

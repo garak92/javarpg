@@ -1,6 +1,5 @@
 package rpg.game.items;
 
-import rpg.engine.common.Game;
 import rpg.engine.common.item.BaseItem;
 import rpg.engine.monster.BaseMonster;
 import rpg.game.entities.player.Player;

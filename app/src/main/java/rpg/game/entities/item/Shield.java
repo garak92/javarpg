@@ -5,7 +5,6 @@ import rpg.engine.common.Usable;
 import rpg.engine.levels.Level;
 import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
-import rpg.game.items.MedKitItem;
 import rpg.game.items.ShieldItem;
 
 import java.util.HashMap;

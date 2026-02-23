@@ -7,7 +7,6 @@ import rpg.engine.monster.BaseMonster;
 import rpg.engine.monster.EnumMonsterAlignment;
 import rpg.engine.quest.QuestLog;
 import rpg.game.items.ScientificInstrumentItem;
-import rpg.game.items.VesselOfMineralsItem;
 
 import java.util.HashMap;
 import java.util.List;

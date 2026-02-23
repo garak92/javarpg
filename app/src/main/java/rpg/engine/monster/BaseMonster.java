@@ -2,7 +2,6 @@ package rpg.engine.monster;
 
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
-import javafx.geometry.Bounds;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -17,8 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpg.engine.animation.SpriteAnimation;
 import rpg.engine.common.Thing;
-import rpg.engine.levels.Level;
 import rpg.engine.levels.EntityNode;
+import rpg.engine.levels.Level;
 import rpg.engine.levels.LevelNode;
 import rpg.engine.levels.NodeTypeEnum;
 import rpg.engine.render.IRenderer;

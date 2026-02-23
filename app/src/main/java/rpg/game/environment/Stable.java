@@ -8,7 +8,6 @@ import rpg.engine.monster.EnumMonsterAlignment;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.SplittableRandom;
 
 public class Stable extends BaseMonster {
     private static final EnumMonsterAlignment alignment = EnumMonsterAlignment.PROP;

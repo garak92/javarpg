@@ -1,6 +1,5 @@
 package rpg.engine.levels;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
@@ -25,7 +24,6 @@ import rpg.game.entities.igrenne.Igrenne;
 import rpg.game.entities.player.Player;
 import rpg.game.environment.ForceField;
 
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.xml.parsers.DocumentBuilder;
@@ -35,7 +33,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Level {
